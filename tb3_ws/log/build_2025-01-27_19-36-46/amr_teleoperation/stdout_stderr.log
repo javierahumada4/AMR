@@ -1,0 +1,22 @@
+running develop
+running egg_info
+creating amr_teleoperation.egg-info
+writing amr_teleoperation.egg-info/PKG-INFO
+writing dependency_links to amr_teleoperation.egg-info/dependency_links.txt
+writing entry points to amr_teleoperation.egg-info/entry_points.txt
+writing requirements to amr_teleoperation.egg-info/requires.txt
+writing top-level names to amr_teleoperation.egg-info/top_level.txt
+writing manifest file 'amr_teleoperation.egg-info/SOURCES.txt'
+reading manifest file 'amr_teleoperation.egg-info/SOURCES.txt'
+writing manifest file 'amr_teleoperation.egg-info/SOURCES.txt'
+running build_ext
+Creating /home/turtlebot/tb3_ws/install/amr_teleoperation/lib/python3.10/site-packages/amr-teleoperation.egg-link (link to .)
+Installing teleoperation_node.py script to /home/turtlebot/tb3_ws/install/amr_teleoperation/lib/amr_teleoperation
+
+Installed /home/turtlebot/tb3_ws/build/amr_teleoperation
+running install_data
+creating /home/turtlebot/tb3_ws/install/amr_teleoperation/share/ament_index
+creating /home/turtlebot/tb3_ws/install/amr_teleoperation/share/ament_index/resource_index
+creating /home/turtlebot/tb3_ws/install/amr_teleoperation/share/ament_index/resource_index/packages
+copying resource/amr_teleoperation -> /home/turtlebot/tb3_ws/install/amr_teleoperation/share/ament_index/resource_index/packages
+copying package.xml -> /home/turtlebot/tb3_ws/install/amr_teleoperation/share/amr_teleoperation

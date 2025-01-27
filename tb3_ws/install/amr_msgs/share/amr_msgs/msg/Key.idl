@@ -1,0 +1,12 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from amr_msgs/msg/Key.msg
+// generated code does not contain a copyright notice
+
+
+module amr_msgs {
+  module msg {
+    struct Key {
+      string key;
+    };
+  };
+};

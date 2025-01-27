@@ -1,0 +1,331 @@
+[0.000000] (-) TimerEvent: {}
+[0.001302] (-) JobUnselected: {'identifier': 'amr_teleoperation'}
+[0.002988] (amr_msgs) JobQueued: {'identifier': 'amr_msgs', 'dependencies': OrderedDict()}
+[0.003186] (amr_msgs) JobStarted: {'identifier': 'amr_msgs'}
+[0.098524] (-) TimerEvent: {}
+[0.199461] (-) TimerEvent: {}
+[0.301379] (-) TimerEvent: {}
+[0.408903] (-) TimerEvent: {}
+[0.511642] (-) TimerEvent: {}
+[0.614739] (-) TimerEvent: {}
+[0.717708] (-) TimerEvent: {}
+[0.786157] (amr_msgs) JobProgress: {'identifier': 'amr_msgs', 'progress': 'cmake'}
+[0.791165] (amr_msgs) Command: {'cmd': ['/usr/bin/cmake', '/home/turtlebot/tb3_ws/src/amr_msgs', '-DCMAKE_INSTALL_PREFIX=/home/turtlebot/tb3_ws/install/amr_msgs'], 'cwd': '/home/turtlebot/tb3_ws/build/amr_msgs', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('USER', 'turtlebot'), ('SSH_CLIENT', '10.120.133.177 50344 22'), ('LC_TIME', 'es_ES.UTF-8'), ('XDG_SESSION_TYPE', 'tty'), ('GIT_ASKPASS', '/home/turtlebot/.vscode-server/cli/servers/Stable-cd4ee3b1c348a13bafd8f9ad8060705f6d4b9cba/server/extensions/git/dist/askpass.sh'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/home/turtlebot/tb3_ws/install/amr_msgs/lib:/home/turtlebot/install/amr_msgs/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/aarch64-linux-gnu:/opt/ros/humble/lib'), ('BROWSER', '/home/turtlebot/.vscode-server/cli/servers/Stable-cd4ee3b1c348a13bafd8f9ad8060705f6d4b9cba/server/bin/helpers/browser.sh'), ('MOTD_SHOWN', 'pam'), ('HOME', '/home/turtlebot'), ('OLDPWD', '/home/turtlebot'), ('TERM_PROGRAM_VERSION', '1.96.4'), ('VSCODE_IPC_HOOK_CLI', '/run/user/1000/vscode-ipc-dcf4be26-e998-42f8-bc4c-cc367791e6e8.sock'), ('ROS_PYTHON_VERSION', '3'), ('VSCODE_GIT_ASKPASS_MAIN', '/home/turtlebot/.vscode-server/cli/servers/Stable-cd4ee3b1c348a13bafd8f9ad8060705f6d4b9cba/server/extensions/git/dist/askpass-main.js'), ('LC_MONETARY', 'es_ES.UTF-8'), ('VSCODE_GIT_ASKPASS_NODE', '/home/turtlebot/.vscode-server/cli/servers/Stable-cd4ee3b1c348a13bafd8f9ad8060705f6d4b9cba/server/node'), ('SSL_CERT_FILE', '/usr/lib/ssl/certs/ca-certificates.crt'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', 'truecolor'), ('COLCON_PREFIX_PATH', '/home/turtlebot/tb3_ws/install:/home/turtlebot/turtlebot3_ws/install:/home/turtlebot/install'), ('ROS_DISTRO', 'humble'), ('LOGNAME', 'turtlebot'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('XDG_SESSION_CLASS', 'user'), ('TERM', 'xterm-256color'), ('XDG_SESSION_ID', '6'), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/opt/ros/humble/bin:/home/turtlebot/.vscode-server/cli/servers/Stable-cd4ee3b1c348a13bafd8f9ad8060705f6d4b9cba/server/bin/remote-cli:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin'), ('LC_ADDRESS', 'es_ES.UTF-8'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('SSL_CERT_DIR', '/usr/lib/ssl/certs'), ('LANG', 'en_US.UTF-8'), ('LC_TELEPHONE', 'es_ES.UTF-8'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('VSCODE_GIT_IPC_HANDLE', '/run/user/1000/vscode-git-6632793c13.sock'), ('TERM_PROGRAM', 'vscode'), ('ROS_DOMAIN_ID', '23'), ('AMENT_PREFIX_PATH', '/home/turtlebot/tb3_ws/install/amr_teleoperation:/home/turtlebot/tb3_ws/install/amr_msgs:/home/turtlebot/install/amr_teleoperation:/home/turtlebot/install/amr_msgs:/home/turtlebot/turtlebot3_ws/install/turtlebot3:/home/turtlebot/turtlebot3_ws/install/turtlebot3_teleop:/home/turtlebot/turtlebot3_ws/install/turtlebot3_bringup:/home/turtlebot/turtlebot3_ws/install/turtlebot3_node:/home/turtlebot/turtlebot3_ws/install/turtlebot3_fake_node:/home/turtlebot/turtlebot3_ws/install/turtlebot3_example:/home/turtlebot/turtlebot3_ws/install/turtlebot3_description:/home/turtlebot/turtlebot3_ws/install/ld08_driver:/opt/ros/humble'), ('SHELL', '/bin/bash'), ('LC_NAME', 'es_ES.UTF-8'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('LC_MEASUREMENT', 'es_ES.UTF-8'), ('LC_IDENTIFICATION', 'es_ES.UTF-8'), ('VSCODE_GIT_ASKPASS_EXTRA_ARGS', ''), ('PWD', '/home/turtlebot/tb3_ws/build/amr_msgs'), ('OPENCR_PORT', '/dev/ttyACM0'), ('TURTLEBOT3_MODEL', 'burger'), ('SSH_CONNECTION', '10.120.133.177 50344 10.120.107.123 22'), ('LDS_MODEL', 'LDS-02'), ('PYTHONPATH', '/home/turtlebot/tb3_ws/build/amr_teleoperation:/home/turtlebot/tb3_ws/install/amr_teleoperation/lib/python3.10/site-packages:/home/turtlebot/tb3_ws/install/amr_msgs/local/lib/python3.10/dist-packages:/home/turtlebot/install/amr_teleoperation/lib/python3.10/site-packages:/home/turtlebot/install/amr_msgs/local/lib/python3.10/dist-packages:/home/turtlebot/turtlebot3_ws/build/turtlebot3_teleop:/home/turtlebot/turtlebot3_ws/install/turtlebot3_teleop/lib/python3.10/site-packages:/home/turtlebot/turtlebot3_ws/build/turtlebot3_example:/home/turtlebot/turtlebot3_ws/install/turtlebot3_example/lib/python3.10/site-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('LC_NUMERIC', 'es_ES.UTF-8'), ('LC_PAPER', 'es_ES.UTF-8'), ('COLCON', '1'), ('CMAKE_PREFIX_PATH', '/home/turtlebot/tb3_ws/install/amr_msgs:/home/turtlebot/install/amr_msgs:/home/turtlebot/turtlebot3_ws/install/turtlebot3:/home/turtlebot/turtlebot3_ws/install/turtlebot3_bringup:/home/turtlebot/turtlebot3_ws/install/turtlebot3_node:/home/turtlebot/turtlebot3_ws/install/turtlebot3_fake_node:/home/turtlebot/turtlebot3_ws/install/turtlebot3_description:/home/turtlebot/turtlebot3_ws/install/ld08_driver:/home/turtlebot/tb3_ws/install/amr_teleoperation:/home/turtlebot/install/amr_teleoperation:/home/turtlebot/turtlebot3_ws/install/turtlebot3_teleop:/home/turtlebot/turtlebot3_ws/install/turtlebot3_example:/opt/ros/humble'), ('OPENCR_MODEL', 'burger')]), 'shell': False}
+[0.817988] (-) TimerEvent: {}
+[0.888708] (amr_msgs) StdoutLine: {'line': b'-- Found ament_cmake: 1.3.6 (/opt/ros/humble/share/ament_cmake/cmake)\n'}
+[0.920164] (-) TimerEvent: {}
+[1.020938] (-) TimerEvent: {}
+[1.121750] (-) TimerEvent: {}
+[1.222517] (-) TimerEvent: {}
+[1.323352] (-) TimerEvent: {}
+[1.424259] (-) TimerEvent: {}
+[1.524980] (-) TimerEvent: {}
+[1.625758] (-) TimerEvent: {}
+[1.726644] (-) TimerEvent: {}
+[1.827712] (-) TimerEvent: {}
+[1.931735] (amr_msgs) StdoutLine: {'line': b'-- Override CMake install command with custom implementation using symlinks instead of copying resources\n'}
+[1.932406] (-) TimerEvent: {}
+[1.969307] (amr_msgs) StdoutLine: {'line': b'-- Found rosidl_default_generators: 1.2.0 (/opt/ros/humble/share/rosidl_default_generators/cmake)\n'}
+[1.983272] (amr_msgs) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c\n'}
+[1.996719] (amr_msgs) StdoutLine: {'line': b'-- Found rosidl_adapter: 3.1.5 (/opt/ros/humble/share/rosidl_adapter/cmake)\n'}
+[2.032664] (-) TimerEvent: {}
+[2.133536] (-) TimerEvent: {}
+[2.230902] (amr_msgs) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp\n'}
+[2.237867] (-) TimerEvent: {}
+[2.339044] (-) TimerEvent: {}
+[2.421903] (amr_msgs) StdoutLine: {'line': b'-- Found ament_lint_auto: 0.12.9 (/opt/ros/humble/share/ament_lint_auto/cmake)\n'}
+[2.439202] (-) TimerEvent: {}
+[2.540895] (-) TimerEvent: {}
+[2.641807] (-) TimerEvent: {}
+[2.744163] (-) TimerEvent: {}
+[2.845788] (-) TimerEvent: {}
+[2.948640] (-) TimerEvent: {}
+[3.050492] (-) TimerEvent: {}
+[3.152396] (-) TimerEvent: {}
+[3.254976] (-) TimerEvent: {}
+[3.357038] (-) TimerEvent: {}
+[3.458916] (-) TimerEvent: {}
+[3.560728] (-) TimerEvent: {}
+[3.662958] (-) TimerEvent: {}
+[3.764306] (-) TimerEvent: {}
+[3.866412] (-) TimerEvent: {}
+[3.968149] (-) TimerEvent: {}
+[4.069740] (-) TimerEvent: {}
+[4.172294] (-) TimerEvent: {}
+[4.273295] (-) TimerEvent: {}
+[4.327489] (amr_msgs) StdoutLine: {'line': b'-- Found ament_cmake_ros: 0.10.0 (/opt/ros/humble/share/ament_cmake_ros/cmake)\n'}
+[4.373543] (-) TimerEvent: {}
+[4.474481] (-) TimerEvent: {}
+[4.575911] (-) TimerEvent: {}
+[4.676818] (-) TimerEvent: {}
+[4.777624] (-) TimerEvent: {}
+[4.878715] (-) TimerEvent: {}
+[4.979452] (-) TimerEvent: {}
+[5.080582] (-) TimerEvent: {}
+[5.182168] (-) TimerEvent: {}
+[5.283202] (-) TimerEvent: {}
+[5.383920] (-) TimerEvent: {}
+[5.484842] (-) TimerEvent: {}
+[5.586255] (-) TimerEvent: {}
+[5.644995] (amr_msgs) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c\n'}
+[5.686272] (-) TimerEvent: {}
+[5.787166] (-) TimerEvent: {}
+[5.888437] (-) TimerEvent: {}
+[5.989387] (-) TimerEvent: {}
+[6.090491] (-) TimerEvent: {}
+[6.202376] (-) TimerEvent: {}
+[6.303392] (-) TimerEvent: {}
+[6.404963] (-) TimerEvent: {}
+[6.505987] (-) TimerEvent: {}
+[6.606835] (-) TimerEvent: {}
+[6.707607] (-) TimerEvent: {}
+[6.809084] (-) TimerEvent: {}
+[6.910215] (-) TimerEvent: {}
+[7.011129] (-) TimerEvent: {}
+[7.111950] (-) TimerEvent: {}
+[7.212885] (-) TimerEvent: {}
+[7.314195] (-) TimerEvent: {}
+[7.380801] (amr_msgs) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp\n'}
+[7.414408] (-) TimerEvent: {}
+[7.515330] (-) TimerEvent: {}
+[7.547697] (amr_msgs) StdoutLine: {'line': b'-- Found python_cmake_module: 0.10.0 (/opt/ros/humble/share/python_cmake_module/cmake)\n'}
+[7.615516] (-) TimerEvent: {}
+[7.706629] (amr_msgs) StdoutLine: {'line': b'-- Using PYTHON_EXECUTABLE: /usr/bin/python3\n'}
+[7.709104] (amr_msgs) StdoutLine: {'line': b'-- Using PYTHON_INCLUDE_DIRS: /usr/include/python3.10\n'}
+[7.711256] (amr_msgs) StdoutLine: {'line': b'-- Using PYTHON_LIBRARIES: /usr/lib/aarch64-linux-gnu/libpython3.10.so\n'}
+[7.715728] (-) TimerEvent: {}
+[7.818198] (-) TimerEvent: {}
+[7.921440] (-) TimerEvent: {}
+[7.953766] (amr_msgs) StdoutLine: {'line': b"-- Added test 'lint_cmake' to check CMake code style\n"}
+[7.976341] (amr_msgs) StdoutLine: {'line': b"-- Added test 'xmllint' to check XML markup files\n"}
+[8.022107] (-) TimerEvent: {}
+[8.026674] (amr_msgs) StdoutLine: {'line': b'-- Configuring done\n'}
+[8.122293] (-) TimerEvent: {}
+[8.222988] (-) TimerEvent: {}
+[8.264517] (amr_msgs) StdoutLine: {'line': b'-- Generating done\n'}
+[8.289061] (amr_msgs) StdoutLine: {'line': b'-- Build files have been written to: /home/turtlebot/tb3_ws/build/amr_msgs\n'}
+[8.323276] (-) TimerEvent: {}
+[8.346425] (amr_msgs) CommandEnded: {'returncode': 0}
+[8.354956] (amr_msgs) JobProgress: {'identifier': 'amr_msgs', 'progress': 'build'}
+[8.355135] (amr_msgs) Command: {'cmd': ['/usr/bin/cmake', '--build', '/home/turtlebot/tb3_ws/build/amr_msgs', '--', '-j4', '-l4'], 'cwd': '/home/turtlebot/tb3_ws/build/amr_msgs', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('USER', 'turtlebot'), ('SSH_CLIENT', '10.120.133.177 50344 22'), ('LC_TIME', 'es_ES.UTF-8'), ('XDG_SESSION_TYPE', 'tty'), ('GIT_ASKPASS', '/home/turtlebot/.vscode-server/cli/servers/Stable-cd4ee3b1c348a13bafd8f9ad8060705f6d4b9cba/server/extensions/git/dist/askpass.sh'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/home/turtlebot/tb3_ws/install/amr_msgs/lib:/home/turtlebot/install/amr_msgs/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/aarch64-linux-gnu:/opt/ros/humble/lib'), ('BROWSER', '/home/turtlebot/.vscode-server/cli/servers/Stable-cd4ee3b1c348a13bafd8f9ad8060705f6d4b9cba/server/bin/helpers/browser.sh'), ('MOTD_SHOWN', 'pam'), ('HOME', '/home/turtlebot'), ('OLDPWD', '/home/turtlebot'), ('TERM_PROGRAM_VERSION', '1.96.4'), ('VSCODE_IPC_HOOK_CLI', '/run/user/1000/vscode-ipc-dcf4be26-e998-42f8-bc4c-cc367791e6e8.sock'), ('ROS_PYTHON_VERSION', '3'), ('VSCODE_GIT_ASKPASS_MAIN', '/home/turtlebot/.vscode-server/cli/servers/Stable-cd4ee3b1c348a13bafd8f9ad8060705f6d4b9cba/server/extensions/git/dist/askpass-main.js'), ('LC_MONETARY', 'es_ES.UTF-8'), ('VSCODE_GIT_ASKPASS_NODE', '/home/turtlebot/.vscode-server/cli/servers/Stable-cd4ee3b1c348a13bafd8f9ad8060705f6d4b9cba/server/node'), ('SSL_CERT_FILE', '/usr/lib/ssl/certs/ca-certificates.crt'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', 'truecolor'), ('COLCON_PREFIX_PATH', '/home/turtlebot/tb3_ws/install:/home/turtlebot/turtlebot3_ws/install:/home/turtlebot/install'), ('ROS_DISTRO', 'humble'), ('LOGNAME', 'turtlebot'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('XDG_SESSION_CLASS', 'user'), ('TERM', 'xterm-256color'), ('XDG_SESSION_ID', '6'), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/opt/ros/humble/bin:/home/turtlebot/.vscode-server/cli/servers/Stable-cd4ee3b1c348a13bafd8f9ad8060705f6d4b9cba/server/bin/remote-cli:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin'), ('LC_ADDRESS', 'es_ES.UTF-8'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('SSL_CERT_DIR', '/usr/lib/ssl/certs'), ('LANG', 'en_US.UTF-8'), ('LC_TELEPHONE', 'es_ES.UTF-8'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('VSCODE_GIT_IPC_HANDLE', '/run/user/1000/vscode-git-6632793c13.sock'), ('TERM_PROGRAM', 'vscode'), ('ROS_DOMAIN_ID', '23'), ('AMENT_PREFIX_PATH', '/home/turtlebot/tb3_ws/install/amr_teleoperation:/home/turtlebot/tb3_ws/install/amr_msgs:/home/turtlebot/install/amr_teleoperation:/home/turtlebot/install/amr_msgs:/home/turtlebot/turtlebot3_ws/install/turtlebot3:/home/turtlebot/turtlebot3_ws/install/turtlebot3_teleop:/home/turtlebot/turtlebot3_ws/install/turtlebot3_bringup:/home/turtlebot/turtlebot3_ws/install/turtlebot3_node:/home/turtlebot/turtlebot3_ws/install/turtlebot3_fake_node:/home/turtlebot/turtlebot3_ws/install/turtlebot3_example:/home/turtlebot/turtlebot3_ws/install/turtlebot3_description:/home/turtlebot/turtlebot3_ws/install/ld08_driver:/opt/ros/humble'), ('SHELL', '/bin/bash'), ('LC_NAME', 'es_ES.UTF-8'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('LC_MEASUREMENT', 'es_ES.UTF-8'), ('LC_IDENTIFICATION', 'es_ES.UTF-8'), ('VSCODE_GIT_ASKPASS_EXTRA_ARGS', ''), ('PWD', '/home/turtlebot/tb3_ws/build/amr_msgs'), ('OPENCR_PORT', '/dev/ttyACM0'), ('TURTLEBOT3_MODEL', 'burger'), ('SSH_CONNECTION', '10.120.133.177 50344 10.120.107.123 22'), ('LDS_MODEL', 'LDS-02'), ('PYTHONPATH', '/home/turtlebot/tb3_ws/build/amr_teleoperation:/home/turtlebot/tb3_ws/install/amr_teleoperation/lib/python3.10/site-packages:/home/turtlebot/tb3_ws/install/amr_msgs/local/lib/python3.10/dist-packages:/home/turtlebot/install/amr_teleoperation/lib/python3.10/site-packages:/home/turtlebot/install/amr_msgs/local/lib/python3.10/dist-packages:/home/turtlebot/turtlebot3_ws/build/turtlebot3_teleop:/home/turtlebot/turtlebot3_ws/install/turtlebot3_teleop/lib/python3.10/site-packages:/home/turtlebot/turtlebot3_ws/build/turtlebot3_example:/home/turtlebot/turtlebot3_ws/install/turtlebot3_example/lib/python3.10/site-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('LC_NUMERIC', 'es_ES.UTF-8'), ('LC_PAPER', 'es_ES.UTF-8'), ('COLCON', '1'), ('CMAKE_PREFIX_PATH', '/home/turtlebot/tb3_ws/install/amr_msgs:/home/turtlebot/install/amr_msgs:/home/turtlebot/turtlebot3_ws/install/turtlebot3:/home/turtlebot/turtlebot3_ws/install/turtlebot3_bringup:/home/turtlebot/turtlebot3_ws/install/turtlebot3_node:/home/turtlebot/turtlebot3_ws/install/turtlebot3_fake_node:/home/turtlebot/turtlebot3_ws/install/turtlebot3_description:/home/turtlebot/turtlebot3_ws/install/ld08_driver:/home/turtlebot/tb3_ws/install/amr_teleoperation:/home/turtlebot/install/amr_teleoperation:/home/turtlebot/turtlebot3_ws/install/turtlebot3_teleop:/home/turtlebot/turtlebot3_ws/install/turtlebot3_example:/opt/ros/humble'), ('OPENCR_MODEL', 'burger')]), 'shell': False}
+[8.423593] (-) TimerEvent: {}
+[8.525249] (-) TimerEvent: {}
+[8.591796] (amr_msgs) StdoutLine: {'line': b'\x1b[35m\x1b[1mConsolidate compiler generated dependencies of target amr_msgs__rosidl_generator_c\x1b[0m\n'}
+[8.625530] (-) TimerEvent: {}
+[8.712436] (amr_msgs) StdoutLine: {'line': b'[  9%] Built target amr_msgs__rosidl_generator_c\n'}
+[8.725700] (-) TimerEvent: {}
+[8.826569] (-) TimerEvent: {}
+[8.856281] (amr_msgs) StdoutLine: {'line': b'[  9%] Built target ament_cmake_python_symlink_amr_msgs\n'}
+[8.910145] (amr_msgs) StdoutLine: {'line': b'\x1b[35m\x1b[1mConsolidate compiler generated dependencies of target amr_msgs__rosidl_typesupport_introspection_c\x1b[0m\n'}
+[8.926773] (-) TimerEvent: {}
+[8.973030] (amr_msgs) StdoutLine: {'line': b'[ 19%] Built target amr_msgs__rosidl_typesupport_introspection_c\n'}
+[9.027004] (-) TimerEvent: {}
+[9.036958] (amr_msgs) StdoutLine: {'line': b'\x1b[35m\x1b[1mConsolidate compiler generated dependencies of target amr_msgs__rosidl_typesupport_c\x1b[0m\n'}
+[9.127233] (-) TimerEvent: {}
+[9.138807] (amr_msgs) StdoutLine: {'line': b'[ 29%] Built target amr_msgs__rosidl_typesupport_c\n'}
+[9.229030] (-) TimerEvent: {}
+[9.329816] (-) TimerEvent: {}
+[9.430505] (-) TimerEvent: {}
+[9.531242] (-) TimerEvent: {}
+[9.632301] (-) TimerEvent: {}
+[9.736389] (-) TimerEvent: {}
+[9.837378] (-) TimerEvent: {}
+[9.938287] (-) TimerEvent: {}
+[10.038971] (-) TimerEvent: {}
+[10.139839] (-) TimerEvent: {}
+[10.240872] (-) TimerEvent: {}
+[10.341697] (-) TimerEvent: {}
+[10.442548] (-) TimerEvent: {}
+[10.543395] (-) TimerEvent: {}
+[10.644250] (-) TimerEvent: {}
+[10.745190] (-) TimerEvent: {}
+[10.846320] (-) TimerEvent: {}
+[10.947629] (-) TimerEvent: {}
+[11.048365] (-) TimerEvent: {}
+[11.082524] (amr_msgs) StdoutLine: {'line': b'running egg_info\n'}
+[11.088670] (amr_msgs) StdoutLine: {'line': b'writing amr_msgs.egg-info/PKG-INFO\n'}
+[11.090087] (amr_msgs) StdoutLine: {'line': b'writing dependency_links to amr_msgs.egg-info/dependency_links.txt\n'}
+[11.091289] (amr_msgs) StdoutLine: {'line': b'writing top-level names to amr_msgs.egg-info/top_level.txt\n'}
+[11.109653] (amr_msgs) StdoutLine: {'line': b"reading manifest file 'amr_msgs.egg-info/SOURCES.txt'\n"}
+[11.113547] (amr_msgs) StdoutLine: {'line': b"writing manifest file 'amr_msgs.egg-info/SOURCES.txt'\n"}
+[11.148618] (-) TimerEvent: {}
+[11.249584] (-) TimerEvent: {}
+[11.350862] (-) TimerEvent: {}
+[11.367680] (amr_msgs) StdoutLine: {'line': b'[ 29%] Built target ament_cmake_python_build_amr_msgs_egg\n'}
+[11.419464] (amr_msgs) StdoutLine: {'line': b'\x1b[35m\x1b[1mConsolidate compiler generated dependencies of target amr_msgs__rosidl_typesupport_fastrtps_c\x1b[0m\n'}
+[11.450989] (-) TimerEvent: {}
+[11.532147] (amr_msgs) StdoutLine: {'line': b'[ 38%] Built target amr_msgs__rosidl_typesupport_fastrtps_c\n'}
+[11.551328] (-) TimerEvent: {}
+[11.652143] (-) TimerEvent: {}
+[11.671755] (amr_msgs) StdoutLine: {'line': b'[ 41%] Built target amr_msgs__cpp\n'}
+[11.744130] (amr_msgs) StdoutLine: {'line': b'\x1b[35m\x1b[1mConsolidate compiler generated dependencies of target amr_msgs__rosidl_typesupport_cpp\x1b[0m\n'}
+[11.756525] (-) TimerEvent: {}
+[11.847842] (amr_msgs) StdoutLine: {'line': b'[ 51%] Built target amr_msgs__rosidl_typesupport_cpp\n'}
+[11.856730] (-) TimerEvent: {}
+[11.945679] (amr_msgs) StdoutLine: {'line': b'\x1b[35m\x1b[1mConsolidate compiler generated dependencies of target amr_msgs__rosidl_typesupport_introspection_cpp\x1b[0m\n'}
+[12.040887] (-) TimerEvent: {}
+[12.106574] (amr_msgs) StdoutLine: {'line': b'[ 61%] Built target amr_msgs__rosidl_typesupport_introspection_cpp\n'}
+[12.152254] (-) TimerEvent: {}
+[12.161608] (amr_msgs) StdoutLine: {'line': b'\x1b[35m\x1b[1mConsolidate compiler generated dependencies of target amr_msgs__rosidl_typesupport_fastrtps_cpp\x1b[0m\n'}
+[12.252508] (-) TimerEvent: {}
+[12.264598] (amr_msgs) StdoutLine: {'line': b'[ 70%] Built target amr_msgs__rosidl_typesupport_fastrtps_cpp\n'}
+[12.352700] (-) TimerEvent: {}
+[12.440144] (amr_msgs) StdoutLine: {'line': b'[ 70%] Built target amr_msgs\n'}
+[12.454266] (-) TimerEvent: {}
+[12.546899] (amr_msgs) StdoutLine: {'line': b'[ 74%] Built target amr_msgs__py\n'}
+[12.554448] (-) TimerEvent: {}
+[12.598412] (amr_msgs) StdoutLine: {'line': b'\x1b[35m\x1b[1mConsolidate compiler generated dependencies of target amr_msgs__rosidl_generator_py\x1b[0m\n'}
+[12.654751] (-) TimerEvent: {}
+[12.669772] (amr_msgs) StdoutLine: {'line': b'[ 80%] Built target amr_msgs__rosidl_generator_py\n'}
+[12.722672] (amr_msgs) StdoutLine: {'line': b'\x1b[35m\x1b[1mConsolidate compiler generated dependencies of target amr_msgs__rosidl_typesupport_fastrtps_c__pyext\x1b[0m\n'}
+[12.754894] (-) TimerEvent: {}
+[12.805276] (amr_msgs) StdoutLine: {'line': b'[ 87%] Built target amr_msgs__rosidl_typesupport_fastrtps_c__pyext\n'}
+[12.855391] (-) TimerEvent: {}
+[12.866190] (amr_msgs) StdoutLine: {'line': b'\x1b[35m\x1b[1mConsolidate compiler generated dependencies of target amr_msgs__rosidl_typesupport_c__pyext\x1b[0m\n'}
+[12.955405] (-) TimerEvent: {}
+[12.966279] (amr_msgs) StdoutLine: {'line': b'[ 93%] Built target amr_msgs__rosidl_typesupport_c__pyext\n'}
+[13.048537] (amr_msgs) StdoutLine: {'line': b'\x1b[35m\x1b[1mConsolidate compiler generated dependencies of target amr_msgs__rosidl_typesupport_introspection_c__pyext\x1b[0m\n'}
+[13.055692] (-) TimerEvent: {}
+[13.158150] (-) TimerEvent: {}
+[13.178444] (amr_msgs) StdoutLine: {'line': b'[100%] Built target amr_msgs__rosidl_typesupport_introspection_c__pyext\n'}
+[13.236854] (amr_msgs) CommandEnded: {'returncode': 0}
+[13.258432] (-) TimerEvent: {}
+[13.361186] (-) TimerEvent: {}
+[13.463212] (-) TimerEvent: {}
+[13.563976] (-) TimerEvent: {}
+[13.664789] (-) TimerEvent: {}
+[13.759620] (amr_msgs) JobProgress: {'identifier': 'amr_msgs', 'progress': 'install'}
+[13.765057] (-) TimerEvent: {}
+[13.821445] (amr_msgs) Command: {'cmd': ['/usr/bin/cmake', '--install', '/home/turtlebot/tb3_ws/build/amr_msgs'], 'cwd': '/home/turtlebot/tb3_ws/build/amr_msgs', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('USER', 'turtlebot'), ('SSH_CLIENT', '10.120.133.177 50344 22'), ('LC_TIME', 'es_ES.UTF-8'), ('XDG_SESSION_TYPE', 'tty'), ('GIT_ASKPASS', '/home/turtlebot/.vscode-server/cli/servers/Stable-cd4ee3b1c348a13bafd8f9ad8060705f6d4b9cba/server/extensions/git/dist/askpass.sh'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/home/turtlebot/tb3_ws/install/amr_msgs/lib:/home/turtlebot/install/amr_msgs/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/aarch64-linux-gnu:/opt/ros/humble/lib'), ('BROWSER', '/home/turtlebot/.vscode-server/cli/servers/Stable-cd4ee3b1c348a13bafd8f9ad8060705f6d4b9cba/server/bin/helpers/browser.sh'), ('MOTD_SHOWN', 'pam'), ('HOME', '/home/turtlebot'), ('OLDPWD', '/home/turtlebot'), ('TERM_PROGRAM_VERSION', '1.96.4'), ('VSCODE_IPC_HOOK_CLI', '/run/user/1000/vscode-ipc-dcf4be26-e998-42f8-bc4c-cc367791e6e8.sock'), ('ROS_PYTHON_VERSION', '3'), ('VSCODE_GIT_ASKPASS_MAIN', '/home/turtlebot/.vscode-server/cli/servers/Stable-cd4ee3b1c348a13bafd8f9ad8060705f6d4b9cba/server/extensions/git/dist/askpass-main.js'), ('LC_MONETARY', 'es_ES.UTF-8'), ('VSCODE_GIT_ASKPASS_NODE', '/home/turtlebot/.vscode-server/cli/servers/Stable-cd4ee3b1c348a13bafd8f9ad8060705f6d4b9cba/server/node'), ('SSL_CERT_FILE', '/usr/lib/ssl/certs/ca-certificates.crt'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', 'truecolor'), ('COLCON_PREFIX_PATH', '/home/turtlebot/tb3_ws/install:/home/turtlebot/turtlebot3_ws/install:/home/turtlebot/install'), ('ROS_DISTRO', 'humble'), ('LOGNAME', 'turtlebot'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('XDG_SESSION_CLASS', 'user'), ('TERM', 'xterm-256color'), ('XDG_SESSION_ID', '6'), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/opt/ros/humble/bin:/home/turtlebot/.vscode-server/cli/servers/Stable-cd4ee3b1c348a13bafd8f9ad8060705f6d4b9cba/server/bin/remote-cli:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin'), ('LC_ADDRESS', 'es_ES.UTF-8'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('SSL_CERT_DIR', '/usr/lib/ssl/certs'), ('LANG', 'en_US.UTF-8'), ('LC_TELEPHONE', 'es_ES.UTF-8'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('VSCODE_GIT_IPC_HANDLE', '/run/user/1000/vscode-git-6632793c13.sock'), ('TERM_PROGRAM', 'vscode'), ('ROS_DOMAIN_ID', '23'), ('AMENT_PREFIX_PATH', '/home/turtlebot/tb3_ws/install/amr_teleoperation:/home/turtlebot/tb3_ws/install/amr_msgs:/home/turtlebot/install/amr_teleoperation:/home/turtlebot/install/amr_msgs:/home/turtlebot/turtlebot3_ws/install/turtlebot3:/home/turtlebot/turtlebot3_ws/install/turtlebot3_teleop:/home/turtlebot/turtlebot3_ws/install/turtlebot3_bringup:/home/turtlebot/turtlebot3_ws/install/turtlebot3_node:/home/turtlebot/turtlebot3_ws/install/turtlebot3_fake_node:/home/turtlebot/turtlebot3_ws/install/turtlebot3_example:/home/turtlebot/turtlebot3_ws/install/turtlebot3_description:/home/turtlebot/turtlebot3_ws/install/ld08_driver:/opt/ros/humble'), ('SHELL', '/bin/bash'), ('LC_NAME', 'es_ES.UTF-8'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('LC_MEASUREMENT', 'es_ES.UTF-8'), ('LC_IDENTIFICATION', 'es_ES.UTF-8'), ('VSCODE_GIT_ASKPASS_EXTRA_ARGS', ''), ('PWD', '/home/turtlebot/tb3_ws/build/amr_msgs'), ('OPENCR_PORT', '/dev/ttyACM0'), ('TURTLEBOT3_MODEL', 'burger'), ('SSH_CONNECTION', '10.120.133.177 50344 10.120.107.123 22'), ('LDS_MODEL', 'LDS-02'), ('PYTHONPATH', '/home/turtlebot/tb3_ws/build/amr_teleoperation:/home/turtlebot/tb3_ws/install/amr_teleoperation/lib/python3.10/site-packages:/home/turtlebot/tb3_ws/install/amr_msgs/local/lib/python3.10/dist-packages:/home/turtlebot/install/amr_teleoperation/lib/python3.10/site-packages:/home/turtlebot/install/amr_msgs/local/lib/python3.10/dist-packages:/home/turtlebot/turtlebot3_ws/build/turtlebot3_teleop:/home/turtlebot/turtlebot3_ws/install/turtlebot3_teleop/lib/python3.10/site-packages:/home/turtlebot/turtlebot3_ws/build/turtlebot3_example:/home/turtlebot/turtlebot3_ws/install/turtlebot3_example/lib/python3.10/site-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('LC_NUMERIC', 'es_ES.UTF-8'), ('LC_PAPER', 'es_ES.UTF-8'), ('COLCON', '1'), ('CMAKE_PREFIX_PATH', '/home/turtlebot/tb3_ws/install/amr_msgs:/home/turtlebot/install/amr_msgs:/home/turtlebot/turtlebot3_ws/install/turtlebot3:/home/turtlebot/turtlebot3_ws/install/turtlebot3_bringup:/home/turtlebot/turtlebot3_ws/install/turtlebot3_node:/home/turtlebot/turtlebot3_ws/install/turtlebot3_fake_node:/home/turtlebot/turtlebot3_ws/install/turtlebot3_description:/home/turtlebot/turtlebot3_ws/install/ld08_driver:/home/turtlebot/tb3_ws/install/amr_teleoperation:/home/turtlebot/install/amr_teleoperation:/home/turtlebot/turtlebot3_ws/install/turtlebot3_teleop:/home/turtlebot/turtlebot3_ws/install/turtlebot3_example:/opt/ros/humble'), ('OPENCR_MODEL', 'burger')]), 'shell': False}
+[13.865248] (-) TimerEvent: {}
+[13.868859] (amr_msgs) StdoutLine: {'line': b'-- Install configuration: ""\n'}
+[13.876285] (amr_msgs) StdoutLine: {'line': b'-- Execute custom install script\n'}
+[13.881851] (amr_msgs) StdoutLine: {'line': b'-- Up-to-date symlink: /home/turtlebot/tb3_ws/install/amr_msgs/share/ament_index/resource_index/rosidl_interfaces/amr_msgs\n'}
+[13.888519] (amr_msgs) StdoutLine: {'line': b'-- Up-to-date symlink: /home/turtlebot/tb3_ws/install/amr_msgs/include/amr_msgs/amr_msgs/msg/detail/key__functions.h\n'}
+[13.895361] (amr_msgs) StdoutLine: {'line': b'-- Up-to-date symlink: /home/turtlebot/tb3_ws/install/amr_msgs/include/amr_msgs/amr_msgs/msg/detail/key__struct.h\n'}
+[13.899767] (amr_msgs) StdoutLine: {'line': b'-- Up-to-date symlink: /home/turtlebot/tb3_ws/install/amr_msgs/include/amr_msgs/amr_msgs/msg/detail/key__type_support.h\n'}
+[13.904587] (amr_msgs) StdoutLine: {'line': b'-- Up-to-date symlink: /home/turtlebot/tb3_ws/install/amr_msgs/include/amr_msgs/amr_msgs/msg/key.h\n'}
+[13.909567] (amr_msgs) StdoutLine: {'line': b'-- Up-to-date symlink: /home/turtlebot/tb3_ws/install/amr_msgs/include/amr_msgs/amr_msgs/msg/rosidl_generator_c__visibility_control.h\n'}
+[13.913897] (amr_msgs) StdoutLine: {'line': b'-- Up-to-date symlink: /home/turtlebot/tb3_ws/install/amr_msgs/share/amr_msgs/environment/library_path.sh\n'}
+[13.918417] (amr_msgs) StdoutLine: {'line': b'-- Up-to-date symlink: /home/turtlebot/tb3_ws/install/amr_msgs/share/amr_msgs/environment/library_path.dsv\n'}
+[13.925860] (amr_msgs) StdoutLine: {'line': b'-- Up-to-date symlink: /home/turtlebot/tb3_ws/install/amr_msgs/include/amr_msgs/amr_msgs/msg/detail/key__rosidl_typesupport_fastrtps_c.h\n'}
+[13.930011] (amr_msgs) StdoutLine: {'line': b'-- Up-to-date symlink: /home/turtlebot/tb3_ws/install/amr_msgs/include/amr_msgs/amr_msgs/msg/rosidl_typesupport_fastrtps_c__visibility_control.h\n'}
+[13.937130] (amr_msgs) StdoutLine: {'line': b'-- Up-to-date symlink: /home/turtlebot/tb3_ws/install/amr_msgs/include/amr_msgs/amr_msgs/msg/detail/key__rosidl_typesupport_introspection_c.h\n'}
+[13.944831] (amr_msgs) StdoutLine: {'line': b'-- Up-to-date symlink: /home/turtlebot/tb3_ws/install/amr_msgs/include/amr_msgs/amr_msgs/msg/rosidl_typesupport_introspection_c__visibility_control.h\n'}
+[13.952544] (amr_msgs) StdoutLine: {'line': b'-- Up-to-date symlink: /home/turtlebot/tb3_ws/install/amr_msgs/include/amr_msgs/amr_msgs/msg/detail/key__builder.hpp\n'}
+[13.956414] (amr_msgs) StdoutLine: {'line': b'-- Up-to-date symlink: /home/turtlebot/tb3_ws/install/amr_msgs/include/amr_msgs/amr_msgs/msg/detail/key__struct.hpp\n'}
+[13.960692] (amr_msgs) StdoutLine: {'line': b'-- Up-to-date symlink: /home/turtlebot/tb3_ws/install/amr_msgs/include/amr_msgs/amr_msgs/msg/detail/key__traits.hpp\n'}
+[13.964344] (amr_msgs) StdoutLine: {'line': b'-- Up-to-date symlink: /home/turtlebot/tb3_ws/install/amr_msgs/include/amr_msgs/amr_msgs/msg/key.hpp\n'}
+[13.966506] (-) TimerEvent: {}
+[13.972328] (amr_msgs) StdoutLine: {'line': b'-- Up-to-date symlink: /home/turtlebot/tb3_ws/install/amr_msgs/include/amr_msgs/amr_msgs/msg/detail/key__rosidl_typesupport_fastrtps_cpp.hpp\n'}
+[13.978335] (amr_msgs) StdoutLine: {'line': b'-- Up-to-date symlink: /home/turtlebot/tb3_ws/install/amr_msgs/include/amr_msgs/amr_msgs/msg/rosidl_typesupport_fastrtps_cpp__visibility_control.h\n'}
+[13.983555] (amr_msgs) StdoutLine: {'line': b'-- Up-to-date symlink: /home/turtlebot/tb3_ws/install/amr_msgs/include/amr_msgs/amr_msgs/msg/detail/key__rosidl_typesupport_introspection_cpp.hpp\n'}
+[13.987674] (amr_msgs) StdoutLine: {'line': b'-- Up-to-date symlink: /home/turtlebot/tb3_ws/install/amr_msgs/share/amr_msgs/environment/pythonpath.sh\n'}
+[13.995448] (amr_msgs) StdoutLine: {'line': b'-- Up-to-date symlink: /home/turtlebot/tb3_ws/install/amr_msgs/share/amr_msgs/environment/pythonpath.dsv\n'}
+[14.001641] (amr_msgs) StdoutLine: {'line': b'-- Up-to-date symlink: /home/turtlebot/tb3_ws/install/amr_msgs/local/lib/python3.10/dist-packages/amr_msgs-0.0.0-py3.10.egg-info/PKG-INFO\n'}
+[14.005174] (amr_msgs) StdoutLine: {'line': b'-- Up-to-date symlink: /home/turtlebot/tb3_ws/install/amr_msgs/local/lib/python3.10/dist-packages/amr_msgs-0.0.0-py3.10.egg-info/SOURCES.txt\n'}
+[14.009065] (amr_msgs) StdoutLine: {'line': b'-- Up-to-date symlink: /home/turtlebot/tb3_ws/install/amr_msgs/local/lib/python3.10/dist-packages/amr_msgs-0.0.0-py3.10.egg-info/dependency_links.txt\n'}
+[14.012478] (amr_msgs) StdoutLine: {'line': b'-- Up-to-date symlink: /home/turtlebot/tb3_ws/install/amr_msgs/local/lib/python3.10/dist-packages/amr_msgs-0.0.0-py3.10.egg-info/top_level.txt\n'}
+[14.019651] (amr_msgs) StdoutLine: {'line': b'-- Up-to-date symlink: /home/turtlebot/tb3_ws/install/amr_msgs/local/lib/python3.10/dist-packages/amr_msgs/__init__.py\n'}
+[14.023471] (amr_msgs) StdoutLine: {'line': b'-- Up-to-date symlink: /home/turtlebot/tb3_ws/install/amr_msgs/local/lib/python3.10/dist-packages/amr_msgs/_amr_msgs_s.ep.rosidl_typesupport_c.c\n'}
+[14.027187] (amr_msgs) StdoutLine: {'line': b'-- Up-to-date symlink: /home/turtlebot/tb3_ws/install/amr_msgs/local/lib/python3.10/dist-packages/amr_msgs/_amr_msgs_s.ep.rosidl_typesupport_fastrtps_c.c\n'}
+[14.031779] (amr_msgs) StdoutLine: {'line': b'-- Up-to-date symlink: /home/turtlebot/tb3_ws/install/amr_msgs/local/lib/python3.10/dist-packages/amr_msgs/_amr_msgs_s.ep.rosidl_typesupport_introspection_c.c\n'}
+[14.035043] (amr_msgs) StdoutLine: {'line': b'-- Up-to-date symlink: /home/turtlebot/tb3_ws/install/amr_msgs/local/lib/python3.10/dist-packages/amr_msgs/amr_msgs_s__rosidl_typesupport_c.cpython-310-aarch64-linux-gnu.so\n'}
+[14.038361] (amr_msgs) StdoutLine: {'line': b'-- Up-to-date symlink: /home/turtlebot/tb3_ws/install/amr_msgs/local/lib/python3.10/dist-packages/amr_msgs/amr_msgs_s__rosidl_typesupport_fastrtps_c.cpython-310-aarch64-linux-gnu.so\n'}
+[14.043783] (amr_msgs) StdoutLine: {'line': b'-- Up-to-date symlink: /home/turtlebot/tb3_ws/install/amr_msgs/local/lib/python3.10/dist-packages/amr_msgs/amr_msgs_s__rosidl_typesupport_introspection_c.cpython-310-aarch64-linux-gnu.so\n'}
+[14.046955] (amr_msgs) StdoutLine: {'line': b'-- Up-to-date symlink: /home/turtlebot/tb3_ws/install/amr_msgs/local/lib/python3.10/dist-packages/amr_msgs/libamr_msgs__rosidl_generator_py.so\n'}
+[14.049482] (amr_msgs) StdoutLine: {'line': b'-- Up-to-date symlink: /home/turtlebot/tb3_ws/install/amr_msgs/local/lib/python3.10/dist-packages/amr_msgs/msg/__init__.py\n'}
+[14.052218] (amr_msgs) StdoutLine: {'line': b'-- Up-to-date symlink: /home/turtlebot/tb3_ws/install/amr_msgs/local/lib/python3.10/dist-packages/amr_msgs/msg/_key.py\n'}
+[14.054747] (amr_msgs) StdoutLine: {'line': b'-- Up-to-date symlink: /home/turtlebot/tb3_ws/install/amr_msgs/local/lib/python3.10/dist-packages/amr_msgs/msg/_key_s.c\n'}
+[14.058457] (amr_msgs) StdoutLine: {'line': b'-- Up-to-date symlink: /home/turtlebot/tb3_ws/install/amr_msgs/local/lib/python3.10/dist-packages/amr_msgs/amr_msgs_s__rosidl_typesupport_fastrtps_c.cpython-310-aarch64-linux-gnu.so\n'}
+[14.062193] (amr_msgs) StdoutLine: {'line': b'-- Up-to-date symlink: /home/turtlebot/tb3_ws/install/amr_msgs/local/lib/python3.10/dist-packages/amr_msgs/amr_msgs_s__rosidl_typesupport_introspection_c.cpython-310-aarch64-linux-gnu.so\n'}
+[14.064684] (amr_msgs) StdoutLine: {'line': b'-- Up-to-date symlink: /home/turtlebot/tb3_ws/install/amr_msgs/local/lib/python3.10/dist-packages/amr_msgs/amr_msgs_s__rosidl_typesupport_c.cpython-310-aarch64-linux-gnu.so\n'}
+[14.067113] (-) TimerEvent: {}
+[14.068617] (amr_msgs) StdoutLine: {'line': b'-- Up-to-date symlink: /home/turtlebot/tb3_ws/install/amr_msgs/share/amr_msgs/msg/Key.idl\n'}
+[14.070808] (amr_msgs) StdoutLine: {'line': b'-- Up-to-date symlink: /home/turtlebot/tb3_ws/install/amr_msgs/share/amr_msgs/msg/Key.msg\n'}
+[14.075425] (amr_msgs) StdoutLine: {'line': b'-- Up-to-date symlink: /home/turtlebot/tb3_ws/install/amr_msgs/share/ament_index/resource_index/package_run_dependencies/amr_msgs\n'}
+[14.078301] (amr_msgs) StdoutLine: {'line': b'-- Up-to-date symlink: /home/turtlebot/tb3_ws/install/amr_msgs/share/ament_index/resource_index/parent_prefix_path/amr_msgs\n'}
+[14.080616] (amr_msgs) StdoutLine: {'line': b'-- Up-to-date symlink: /home/turtlebot/tb3_ws/install/amr_msgs/share/amr_msgs/environment/ament_prefix_path.sh\n'}
+[14.083308] (amr_msgs) StdoutLine: {'line': b'-- Up-to-date symlink: /home/turtlebot/tb3_ws/install/amr_msgs/share/amr_msgs/environment/ament_prefix_path.dsv\n'}
+[14.085622] (amr_msgs) StdoutLine: {'line': b'-- Up-to-date symlink: /home/turtlebot/tb3_ws/install/amr_msgs/share/amr_msgs/environment/path.sh\n'}
+[14.089973] (amr_msgs) StdoutLine: {'line': b'-- Up-to-date symlink: /home/turtlebot/tb3_ws/install/amr_msgs/share/amr_msgs/environment/path.dsv\n'}
+[14.095029] (amr_msgs) StdoutLine: {'line': b'-- Up-to-date symlink: /home/turtlebot/tb3_ws/install/amr_msgs/share/amr_msgs/local_setup.bash\n'}
+[14.100766] (amr_msgs) StdoutLine: {'line': b'-- Up-to-date symlink: /home/turtlebot/tb3_ws/install/amr_msgs/share/amr_msgs/local_setup.sh\n'}
+[14.103322] (amr_msgs) StdoutLine: {'line': b'-- Up-to-date symlink: /home/turtlebot/tb3_ws/install/amr_msgs/share/amr_msgs/local_setup.zsh\n'}
+[14.105859] (amr_msgs) StdoutLine: {'line': b'-- Up-to-date symlink: /home/turtlebot/tb3_ws/install/amr_msgs/share/amr_msgs/local_setup.dsv\n'}
+[14.108390] (amr_msgs) StdoutLine: {'line': b'-- Symlinking: /home/turtlebot/tb3_ws/install/amr_msgs/share/amr_msgs/package.dsv\n'}
+[14.109345] (amr_msgs) StdoutLine: {'line': b'-- Up-to-date symlink: /home/turtlebot/tb3_ws/install/amr_msgs/share/ament_index/resource_index/packages/amr_msgs\n'}
+[14.112350] (amr_msgs) StdoutLine: {'line': b'-- Up-to-date symlink: /home/turtlebot/tb3_ws/install/amr_msgs/share/amr_msgs/cmake/rosidl_cmake-extras.cmake\n'}
+[14.113561] (amr_msgs) StdoutLine: {'line': b'-- Up-to-date symlink: /home/turtlebot/tb3_ws/install/amr_msgs/share/amr_msgs/cmake/ament_cmake_export_include_directories-extras.cmake\n'}
+[14.114417] (amr_msgs) StdoutLine: {'line': b'-- Up-to-date symlink: /home/turtlebot/tb3_ws/install/amr_msgs/share/amr_msgs/cmake/ament_cmake_export_libraries-extras.cmake\n'}
+[14.138041] (amr_msgs) StdoutLine: {'line': b'-- Up-to-date symlink: /home/turtlebot/tb3_ws/install/amr_msgs/share/amr_msgs/cmake/ament_cmake_export_targets-extras.cmake\n'}
+[14.141960] (amr_msgs) StdoutLine: {'line': b'-- Up-to-date symlink: /home/turtlebot/tb3_ws/install/amr_msgs/share/amr_msgs/cmake/rosidl_cmake_export_typesupport_targets-extras.cmake\n'}
+[14.142707] (amr_msgs) StdoutLine: {'line': b'-- Up-to-date symlink: /home/turtlebot/tb3_ws/install/amr_msgs/share/amr_msgs/cmake/ament_cmake_export_dependencies-extras.cmake\n'}
+[14.143277] (amr_msgs) StdoutLine: {'line': b'-- Up-to-date symlink: /home/turtlebot/tb3_ws/install/amr_msgs/share/amr_msgs/cmake/rosidl_cmake_export_typesupport_libraries-extras.cmake\n'}
+[14.143825] (amr_msgs) StdoutLine: {'line': b'-- Up-to-date symlink: /home/turtlebot/tb3_ws/install/amr_msgs/share/amr_msgs/cmake/amr_msgsConfig.cmake\n'}
+[14.144412] (amr_msgs) StdoutLine: {'line': b'-- Up-to-date symlink: /home/turtlebot/tb3_ws/install/amr_msgs/share/amr_msgs/cmake/amr_msgsConfig-version.cmake\n'}
+[14.157866] (amr_msgs) StdoutLine: {'line': b'-- Up-to-date symlink: /home/turtlebot/tb3_ws/install/amr_msgs/share/amr_msgs/package.xml\n'}
+[14.158987] (amr_msgs) StdoutLine: {'line': b'-- Up-to-date: /home/turtlebot/tb3_ws/install/amr_msgs/lib/libamr_msgs__rosidl_generator_c.so\n'}
+[14.174298] (amr_msgs) StdoutLine: {'line': b'-- Up-to-date: /home/turtlebot/tb3_ws/install/amr_msgs/lib/libamr_msgs__rosidl_typesupport_fastrtps_c.so\n'}
+[14.175180] (-) TimerEvent: {}
+[14.179923] (amr_msgs) StdoutLine: {'line': b'-- Up-to-date: /home/turtlebot/tb3_ws/install/amr_msgs/lib/libamr_msgs__rosidl_typesupport_introspection_c.so\n'}
+[14.187485] (amr_msgs) StdoutLine: {'line': b'-- Up-to-date: /home/turtlebot/tb3_ws/install/amr_msgs/lib/libamr_msgs__rosidl_typesupport_c.so\n'}
+[14.197149] (amr_msgs) StdoutLine: {'line': b'-- Up-to-date: /home/turtlebot/tb3_ws/install/amr_msgs/lib/libamr_msgs__rosidl_typesupport_fastrtps_cpp.so\n'}
+[14.201674] (amr_msgs) StdoutLine: {'line': b'-- Up-to-date: /home/turtlebot/tb3_ws/install/amr_msgs/lib/libamr_msgs__rosidl_typesupport_introspection_cpp.so\n'}
+[14.207154] (amr_msgs) StdoutLine: {'line': b'-- Up-to-date: /home/turtlebot/tb3_ws/install/amr_msgs/lib/libamr_msgs__rosidl_typesupport_cpp.so\n'}
+[14.275417] (-) TimerEvent: {}
+[14.376990] (-) TimerEvent: {}
+[14.476900] (amr_msgs) StdoutLine: {'line': b"Listing '/home/turtlebot/tb3_ws/install/amr_msgs/local/lib/python3.10/dist-packages/amr_msgs'...\n"}
+[14.477814] (-) TimerEvent: {}
+[14.478516] (amr_msgs) StdoutLine: {'line': b"Compiling '/home/turtlebot/tb3_ws/install/amr_msgs/local/lib/python3.10/dist-packages/amr_msgs/__init__.py'...\n"}
+[14.479422] (amr_msgs) StdoutLine: {'line': b"Listing '/home/turtlebot/tb3_ws/install/amr_msgs/local/lib/python3.10/dist-packages/amr_msgs/msg'...\n"}
+[14.534473] (amr_msgs) StdoutLine: {'line': b'-- Up-to-date: /home/turtlebot/tb3_ws/install/amr_msgs/lib/libamr_msgs__rosidl_generator_py.so\n'}
+[14.537596] (amr_msgs) StdoutLine: {'line': b'-- Up-to-date: /home/turtlebot/tb3_ws/install/amr_msgs/share/amr_msgs/cmake/export_amr_msgs__rosidl_generator_cExport.cmake\n'}
+[14.538880] (amr_msgs) StdoutLine: {'line': b'-- Up-to-date: /home/turtlebot/tb3_ws/install/amr_msgs/share/amr_msgs/cmake/export_amr_msgs__rosidl_generator_cExport-noconfig.cmake\n'}
+[14.539368] (amr_msgs) StdoutLine: {'line': b'-- Up-to-date: /home/turtlebot/tb3_ws/install/amr_msgs/share/amr_msgs/cmake/export_amr_msgs__rosidl_typesupport_fastrtps_cExport.cmake\n'}
+[14.543209] (amr_msgs) StdoutLine: {'line': b'-- Up-to-date: /home/turtlebot/tb3_ws/install/amr_msgs/share/amr_msgs/cmake/export_amr_msgs__rosidl_typesupport_fastrtps_cExport-noconfig.cmake\n'}
+[14.551887] (amr_msgs) StdoutLine: {'line': b'-- Up-to-date: /home/turtlebot/tb3_ws/install/amr_msgs/share/amr_msgs/cmake/amr_msgs__rosidl_typesupport_introspection_cExport.cmake\n'}
+[14.557450] (amr_msgs) StdoutLine: {'line': b'-- Up-to-date: /home/turtlebot/tb3_ws/install/amr_msgs/share/amr_msgs/cmake/amr_msgs__rosidl_typesupport_introspection_cExport-noconfig.cmake\n'}
+[14.560379] (amr_msgs) StdoutLine: {'line': b'-- Up-to-date: /home/turtlebot/tb3_ws/install/amr_msgs/share/amr_msgs/cmake/amr_msgs__rosidl_typesupport_cExport.cmake\n'}
+[14.563393] (amr_msgs) StdoutLine: {'line': b'-- Up-to-date: /home/turtlebot/tb3_ws/install/amr_msgs/share/amr_msgs/cmake/amr_msgs__rosidl_typesupport_cExport-noconfig.cmake\n'}
+[14.565977] (amr_msgs) StdoutLine: {'line': b'-- Up-to-date: /home/turtlebot/tb3_ws/install/amr_msgs/share/amr_msgs/cmake/export_amr_msgs__rosidl_generator_cppExport.cmake\n'}
+[14.569065] (amr_msgs) StdoutLine: {'line': b'-- Up-to-date: /home/turtlebot/tb3_ws/install/amr_msgs/share/amr_msgs/cmake/export_amr_msgs__rosidl_typesupport_fastrtps_cppExport.cmake\n'}
+[14.588665] (-) TimerEvent: {}
+[14.590427] (amr_msgs) StdoutLine: {'line': b'-- Up-to-date: /home/turtlebot/tb3_ws/install/amr_msgs/share/amr_msgs/cmake/export_amr_msgs__rosidl_typesupport_fastrtps_cppExport-noconfig.cmake\n'}
+[14.597618] (amr_msgs) StdoutLine: {'line': b'-- Up-to-date: /home/turtlebot/tb3_ws/install/amr_msgs/share/amr_msgs/cmake/amr_msgs__rosidl_typesupport_introspection_cppExport.cmake\n'}
+[14.600114] (amr_msgs) StdoutLine: {'line': b'-- Up-to-date: /home/turtlebot/tb3_ws/install/amr_msgs/share/amr_msgs/cmake/amr_msgs__rosidl_typesupport_introspection_cppExport-noconfig.cmake\n'}
+[14.602310] (amr_msgs) StdoutLine: {'line': b'-- Up-to-date: /home/turtlebot/tb3_ws/install/amr_msgs/share/amr_msgs/cmake/amr_msgs__rosidl_typesupport_cppExport.cmake\n'}
+[14.603753] (amr_msgs) StdoutLine: {'line': b'-- Up-to-date: /home/turtlebot/tb3_ws/install/amr_msgs/share/amr_msgs/cmake/amr_msgs__rosidl_typesupport_cppExport-noconfig.cmake\n'}
+[14.604202] (amr_msgs) StdoutLine: {'line': b'-- Up-to-date: /home/turtlebot/tb3_ws/install/amr_msgs/share/amr_msgs/cmake/export_amr_msgs__rosidl_generator_pyExport.cmake\n'}
+[14.606688] (amr_msgs) StdoutLine: {'line': b'-- Up-to-date: /home/turtlebot/tb3_ws/install/amr_msgs/share/amr_msgs/cmake/export_amr_msgs__rosidl_generator_pyExport-noconfig.cmake\n'}
+[14.607151] (amr_msgs) CommandEnded: {'returncode': 0}
+[14.688806] (-) TimerEvent: {}
+[14.794234] (-) TimerEvent: {}
+[14.895898] (-) TimerEvent: {}
+[14.999544] (-) TimerEvent: {}
+[15.100872] (-) TimerEvent: {}
+[15.202747] (-) TimerEvent: {}
+[15.303945] (-) TimerEvent: {}
+[15.405003] (-) TimerEvent: {}
+[15.505840] (-) TimerEvent: {}
+[15.606598] (-) TimerEvent: {}
+[15.707328] (-) TimerEvent: {}
+[15.808152] (-) TimerEvent: {}
+[15.909149] (-) TimerEvent: {}
+[16.013998] (-) TimerEvent: {}
+[16.115334] (-) TimerEvent: {}
+[16.216100] (-) TimerEvent: {}
+[16.317436] (-) TimerEvent: {}
+[16.420127] (-) TimerEvent: {}
+[16.523727] (-) TimerEvent: {}
+[16.625549] (-) TimerEvent: {}
+[16.728556] (-) TimerEvent: {}
+[16.830253] (-) TimerEvent: {}
+[16.931278] (-) TimerEvent: {}
+[17.032418] (-) TimerEvent: {}
+[17.134137] (-) TimerEvent: {}
+[17.238765] (-) TimerEvent: {}
+[17.351495] (-) TimerEvent: {}
+[17.452771] (-) TimerEvent: {}
+[17.493590] (amr_msgs) JobEnded: {'identifier': 'amr_msgs', 'rc': 0}
+[17.500732] (-) EventReactorShutdown: {}

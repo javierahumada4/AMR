@@ -1,0 +1,199 @@
+[1.373s] Invoking command in '/home/turtlebot/tb3_ws/build/amr_msgs': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/turtlebot/turtlebot3_ws/install/turtlebot3_teleop:/home/turtlebot/turtlebot3_ws/install/turtlebot3_example:/opt/ros/humble /usr/bin/cmake /home/turtlebot/tb3_ws/src/amr_msgs -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/home/turtlebot/tb3_ws/install/amr_msgs
+[2.841s] -- The C compiler identification is GNU 11.4.0
+[3.885s] -- The CXX compiler identification is GNU 11.4.0
+[3.969s] -- Detecting C compiler ABI info
+[4.917s] -- Detecting C compiler ABI info - done
+[4.956s] -- Check for working C compiler: /usr/bin/cc - skipped
+[4.960s] -- Detecting C compile features
+[4.970s] -- Detecting C compile features - done
+[4.999s] -- Detecting CXX compiler ABI info
+[5.758s] -- Detecting CXX compiler ABI info - done
+[5.838s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[5.847s] -- Detecting CXX compile features
+[5.849s] -- Detecting CXX compile features - done
+[5.989s] -- Found ament_cmake: 1.3.6 (/opt/ros/humble/share/ament_cmake/cmake)
+[8.434s] -- Found Python3: /usr/bin/python3.10 (found version "3.10.12") found components: Interpreter 
+[9.478s] -- Override CMake install command with custom implementation using symlinks instead of copying resources
+[11.096s] -- Found rosidl_default_generators: 1.2.0 (/opt/ros/humble/share/rosidl_default_generators/cmake)
+[11.221s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[11.524s] -- Found rosidl_adapter: 3.1.5 (/opt/ros/humble/share/rosidl_adapter/cmake)
+[12.594s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[13.722s] -- Found ament_lint_auto: 0.12.9 (/opt/ros/humble/share/ament_lint_auto/cmake)
+[18.252s] -- Found ament_cmake_ros: 0.10.0 (/opt/ros/humble/share/ament_cmake_ros/cmake)
+[20.241s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[22.536s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[22.783s] -- Found PythonInterp: /usr/bin/python3 (found suitable version "3.10.12", minimum required is "3.6") 
+[22.855s] -- Found python_cmake_module: 0.10.0 (/opt/ros/humble/share/python_cmake_module/cmake)
+[23.179s] -- Found PythonLibs: /usr/lib/aarch64-linux-gnu/libpython3.10.so (found suitable version "3.10.12", minimum required is "3.5") 
+[23.180s] -- Using PYTHON_EXECUTABLE: /usr/bin/python3
+[23.180s] -- Using PYTHON_INCLUDE_DIRS: /usr/include/python3.10
+[23.181s] -- Using PYTHON_LIBRARIES: /usr/lib/aarch64-linux-gnu/libpython3.10.so
+[23.373s] -- Found PythonExtra: .so  
+[23.869s] -- Added test 'lint_cmake' to check CMake code style
+[23.897s] -- Added test 'xmllint' to check XML markup files
+[23.992s] -- Configuring done
+[24.263s] -- Generating done
+[24.283s] -- Build files have been written to: /home/turtlebot/tb3_ws/build/amr_msgs
+[24.332s] Invoked command in '/home/turtlebot/tb3_ws/build/amr_msgs' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/turtlebot/turtlebot3_ws/install/turtlebot3_teleop:/home/turtlebot/turtlebot3_ws/install/turtlebot3_example:/opt/ros/humble /usr/bin/cmake /home/turtlebot/tb3_ws/src/amr_msgs -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/home/turtlebot/tb3_ws/install/amr_msgs
+[24.334s] Invoking command in '/home/turtlebot/tb3_ws/build/amr_msgs': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/turtlebot/turtlebot3_ws/install/turtlebot3_teleop:/home/turtlebot/turtlebot3_ws/install/turtlebot3_example:/opt/ros/humble /usr/bin/cmake --build /home/turtlebot/tb3_ws/build/amr_msgs -- -j4 -l4
+[24.609s] [  3%] [34m[1mGenerating C++ code for ROS interfaces[0m
+[26.254s] [  3%] Built target amr_msgs__cpp
+[26.561s] [  3%] Built target ament_cmake_python_symlink_amr_msgs
+[26.629s] [  6%] [34m[1mGenerating C++ introspection for ROS interfaces[0m
+[27.996s] [  9%] [32mBuilding CXX object CMakeFiles/amr_msgs__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/amr_msgs/msg/detail/key__type_support.cpp.o[0m
+[32.703s] [ 12%] [32m[1mLinking CXX shared library libamr_msgs__rosidl_typesupport_introspection_cpp.so[0m
+[33.059s] [ 12%] Built target amr_msgs__rosidl_typesupport_introspection_cpp
+[33.111s] [ 16%] [34m[1mGenerating C++ type support dispatch for ROS interfaces[0m
+[34.447s] [ 19%] [32mBuilding CXX object CMakeFiles/amr_msgs__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/amr_msgs/msg/key__type_support.cpp.o[0m
+[36.289s] [ 22%] [32m[1mLinking CXX shared library libamr_msgs__rosidl_typesupport_cpp.so[0m
+[36.548s] [ 22%] Built target amr_msgs__rosidl_typesupport_cpp
+[38.514s] running egg_info
+[38.520s] creating amr_msgs.egg-info
+[38.523s] writing amr_msgs.egg-info/PKG-INFO
+[38.526s] writing dependency_links to amr_msgs.egg-info/dependency_links.txt
+[38.527s] writing top-level names to amr_msgs.egg-info/top_level.txt
+[38.530s] writing manifest file 'amr_msgs.egg-info/SOURCES.txt'
+[38.537s] reading manifest file 'amr_msgs.egg-info/SOURCES.txt'
+[38.539s] writing manifest file 'amr_msgs.egg-info/SOURCES.txt'
+[38.696s] [ 22%] Built target ament_cmake_python_build_amr_msgs_egg
+[38.764s] [ 25%] [34m[1mGenerating C++ type support for eProsima Fast-RTPS[0m
+[40.233s] [ 29%] [32mBuilding CXX object CMakeFiles/amr_msgs__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/amr_msgs/msg/detail/dds_fastrtps/key__type_support.cpp.o[0m
+[43.096s] [ 32%] [32m[1mLinking CXX shared library libamr_msgs__rosidl_typesupport_fastrtps_cpp.so[0m
+[43.460s] [ 32%] Built target amr_msgs__rosidl_typesupport_fastrtps_cpp
+[43.536s] [ 35%] [34m[1mGenerating C code for ROS interfaces[0m
+[45.207s] [ 38%] [32mBuilding C object CMakeFiles/amr_msgs__rosidl_generator_c.dir/rosidl_generator_c/amr_msgs/msg/detail/key__functions.c.o[0m
+[45.553s] [ 41%] [32m[1mLinking C shared library libamr_msgs__rosidl_generator_c.so[0m
+[45.745s] [ 41%] Built target amr_msgs__rosidl_generator_c
+[45.798s] [ 45%] [34m[1mGenerating C type support for eProsima Fast-RTPS[0m
+[47.394s] [ 48%] [32mBuilding CXX object CMakeFiles/amr_msgs__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/amr_msgs/msg/detail/key__type_support_c.cpp.o[0m
+[49.630s] [ 51%] [32m[1mLinking CXX shared library libamr_msgs__rosidl_typesupport_fastrtps_c.so[0m
+[49.981s] [ 51%] Built target amr_msgs__rosidl_typesupport_fastrtps_c
+[50.031s] [ 54%] [34m[1mGenerating C type support dispatch for ROS interfaces[0m
+[51.384s] [ 58%] [32mBuilding CXX object CMakeFiles/amr_msgs__rosidl_typesupport_c.dir/rosidl_typesupport_c/amr_msgs/msg/key__type_support.cpp.o[0m
+[51.572s] [ 61%] [32m[1mLinking CXX shared library libamr_msgs__rosidl_typesupport_c.so[0m
+[51.810s] [ 61%] Built target amr_msgs__rosidl_typesupport_c
+[51.886s] [ 64%] [34m[1mGenerating C introspection for ROS interfaces[0m
+[53.229s] [ 67%] [32mBuilding C object CMakeFiles/amr_msgs__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/amr_msgs/msg/detail/key__type_support.c.o[0m
+[53.430s] [ 70%] [32m[1mLinking C shared library libamr_msgs__rosidl_typesupport_introspection_c.so[0m
+[53.648s] [ 70%] Built target amr_msgs__rosidl_typesupport_introspection_c
+[53.745s] [ 70%] Built target amr_msgs
+[53.845s] [ 74%] [34m[1mGenerating Python code for ROS interfaces[0m
+[55.664s] [ 74%] Built target amr_msgs__py
+[55.758s] [ 77%] [32mBuilding C object CMakeFiles/amr_msgs__rosidl_generator_py.dir/rosidl_generator_py/amr_msgs/msg/_key_s.c.o[0m
+[56.694s] [ 80%] [32m[1mLinking C shared library rosidl_generator_py/amr_msgs/libamr_msgs__rosidl_generator_py.so[0m
+[56.899s] [ 80%] Built target amr_msgs__rosidl_generator_py
+[57.038s] [ 83%] [32mBuilding C object CMakeFiles/amr_msgs__rosidl_typesupport_fastrtps_c__pyext.dir/rosidl_generator_py/amr_msgs/_amr_msgs_s.ep.rosidl_typesupport_fastrtps_c.c.o[0m
+[57.729s] [ 87%] [32m[1mLinking C shared library rosidl_generator_py/amr_msgs/amr_msgs_s__rosidl_typesupport_fastrtps_c.cpython-310-aarch64-linux-gnu.so[0m
+[57.921s] [ 87%] Built target amr_msgs__rosidl_typesupport_fastrtps_c__pyext
+[58.035s] [ 90%] [32mBuilding C object CMakeFiles/amr_msgs__rosidl_typesupport_c__pyext.dir/rosidl_generator_py/amr_msgs/_amr_msgs_s.ep.rosidl_typesupport_c.c.o[0m
+[58.586s] [ 93%] [32m[1mLinking C shared library rosidl_generator_py/amr_msgs/amr_msgs_s__rosidl_typesupport_c.cpython-310-aarch64-linux-gnu.so[0m
+[58.793s] [ 93%] Built target amr_msgs__rosidl_typesupport_c__pyext
+[58.898s] [ 96%] [32mBuilding C object CMakeFiles/amr_msgs__rosidl_typesupport_introspection_c__pyext.dir/rosidl_generator_py/amr_msgs/_amr_msgs_s.ep.rosidl_typesupport_introspection_c.c.o[0m
+[62.130s] [100%] [32m[1mLinking C shared library rosidl_generator_py/amr_msgs/amr_msgs_s__rosidl_typesupport_introspection_c.cpython-310-aarch64-linux-gnu.so[0m
+[62.398s] [100%] Built target amr_msgs__rosidl_typesupport_introspection_c__pyext
+[65.392s] Invoked command in '/home/turtlebot/tb3_ws/build/amr_msgs' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/turtlebot/turtlebot3_ws/install/turtlebot3_teleop:/home/turtlebot/turtlebot3_ws/install/turtlebot3_example:/opt/ros/humble /usr/bin/cmake --build /home/turtlebot/tb3_ws/build/amr_msgs -- -j4 -l4
+[65.910s] Invoking command in '/home/turtlebot/tb3_ws/build/amr_msgs': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/turtlebot/turtlebot3_ws/install/turtlebot3_teleop:/home/turtlebot/turtlebot3_ws/install/turtlebot3_example:/opt/ros/humble /usr/bin/cmake --install /home/turtlebot/tb3_ws/build/amr_msgs
+[65.982s] -- Install configuration: ""
+[65.985s] -- Execute custom install script
+[65.988s] -- Symlinking: /home/turtlebot/tb3_ws/install/amr_msgs/share/ament_index/resource_index/rosidl_interfaces/amr_msgs
+[66.054s] -- Symlinking: /home/turtlebot/tb3_ws/install/amr_msgs/include/amr_msgs/amr_msgs/msg/detail/key__functions.h
+[66.263s] -- Symlinking: /home/turtlebot/tb3_ws/install/amr_msgs/include/amr_msgs/amr_msgs/msg/detail/key__struct.h
+[66.306s] -- Symlinking: /home/turtlebot/tb3_ws/install/amr_msgs/include/amr_msgs/amr_msgs/msg/detail/key__type_support.h
+[66.349s] -- Symlinking: /home/turtlebot/tb3_ws/install/amr_msgs/include/amr_msgs/amr_msgs/msg/key.h
+[66.392s] -- Symlinking: /home/turtlebot/tb3_ws/install/amr_msgs/include/amr_msgs/amr_msgs/msg/rosidl_generator_c__visibility_control.h
+[66.438s] -- Symlinking: /home/turtlebot/tb3_ws/install/amr_msgs/share/amr_msgs/environment/library_path.sh
+[66.496s] -- Symlinking: /home/turtlebot/tb3_ws/install/amr_msgs/share/amr_msgs/environment/library_path.dsv
+[66.581s] -- Symlinking: /home/turtlebot/tb3_ws/install/amr_msgs/include/amr_msgs/amr_msgs/msg/detail/key__rosidl_typesupport_fastrtps_c.h
+[66.634s] -- Symlinking: /home/turtlebot/tb3_ws/install/amr_msgs/include/amr_msgs/amr_msgs/msg/rosidl_typesupport_fastrtps_c__visibility_control.h
+[66.676s] -- Symlinking: /home/turtlebot/tb3_ws/install/amr_msgs/include/amr_msgs/amr_msgs/msg/detail/key__rosidl_typesupport_introspection_c.h
+[66.714s] -- Symlinking: /home/turtlebot/tb3_ws/install/amr_msgs/include/amr_msgs/amr_msgs/msg/rosidl_typesupport_introspection_c__visibility_control.h
+[66.754s] -- Symlinking: /home/turtlebot/tb3_ws/install/amr_msgs/include/amr_msgs/amr_msgs/msg/detail/key__builder.hpp
+[66.792s] -- Symlinking: /home/turtlebot/tb3_ws/install/amr_msgs/include/amr_msgs/amr_msgs/msg/detail/key__struct.hpp
+[66.839s] -- Symlinking: /home/turtlebot/tb3_ws/install/amr_msgs/include/amr_msgs/amr_msgs/msg/detail/key__traits.hpp
+[66.877s] -- Symlinking: /home/turtlebot/tb3_ws/install/amr_msgs/include/amr_msgs/amr_msgs/msg/key.hpp
+[66.917s] -- Symlinking: /home/turtlebot/tb3_ws/install/amr_msgs/include/amr_msgs/amr_msgs/msg/detail/key__rosidl_typesupport_fastrtps_cpp.hpp
+[66.961s] -- Symlinking: /home/turtlebot/tb3_ws/install/amr_msgs/include/amr_msgs/amr_msgs/msg/rosidl_typesupport_fastrtps_cpp__visibility_control.h
+[67.008s] -- Symlinking: /home/turtlebot/tb3_ws/install/amr_msgs/include/amr_msgs/amr_msgs/msg/detail/key__rosidl_typesupport_introspection_cpp.hpp
+[67.058s] -- Symlinking: /home/turtlebot/tb3_ws/install/amr_msgs/share/amr_msgs/environment/pythonpath.sh
+[67.173s] -- Symlinking: /home/turtlebot/tb3_ws/install/amr_msgs/share/amr_msgs/environment/pythonpath.dsv
+[67.221s] -- Symlinking: /home/turtlebot/tb3_ws/install/amr_msgs/local/lib/python3.10/dist-packages/amr_msgs-0.0.0-py3.10.egg-info/PKG-INFO
+[67.275s] -- Symlinking: /home/turtlebot/tb3_ws/install/amr_msgs/local/lib/python3.10/dist-packages/amr_msgs-0.0.0-py3.10.egg-info/SOURCES.txt
+[67.326s] -- Symlinking: /home/turtlebot/tb3_ws/install/amr_msgs/local/lib/python3.10/dist-packages/amr_msgs-0.0.0-py3.10.egg-info/dependency_links.txt
+[67.372s] -- Symlinking: /home/turtlebot/tb3_ws/install/amr_msgs/local/lib/python3.10/dist-packages/amr_msgs-0.0.0-py3.10.egg-info/top_level.txt
+[67.420s] -- Symlinking: /home/turtlebot/tb3_ws/install/amr_msgs/local/lib/python3.10/dist-packages/amr_msgs/__init__.py
+[67.462s] -- Symlinking: /home/turtlebot/tb3_ws/install/amr_msgs/local/lib/python3.10/dist-packages/amr_msgs/_amr_msgs_s.ep.rosidl_typesupport_c.c
+[67.506s] -- Symlinking: /home/turtlebot/tb3_ws/install/amr_msgs/local/lib/python3.10/dist-packages/amr_msgs/_amr_msgs_s.ep.rosidl_typesupport_fastrtps_c.c
+[67.557s] -- Symlinking: /home/turtlebot/tb3_ws/install/amr_msgs/local/lib/python3.10/dist-packages/amr_msgs/_amr_msgs_s.ep.rosidl_typesupport_introspection_c.c
+[67.592s] -- Symlinking: /home/turtlebot/tb3_ws/install/amr_msgs/local/lib/python3.10/dist-packages/amr_msgs/amr_msgs_s__rosidl_typesupport_c.cpython-310-aarch64-linux-gnu.so
+[67.647s] -- Symlinking: /home/turtlebot/tb3_ws/install/amr_msgs/local/lib/python3.10/dist-packages/amr_msgs/amr_msgs_s__rosidl_typesupport_fastrtps_c.cpython-310-aarch64-linux-gnu.so
+[67.698s] -- Symlinking: /home/turtlebot/tb3_ws/install/amr_msgs/local/lib/python3.10/dist-packages/amr_msgs/amr_msgs_s__rosidl_typesupport_introspection_c.cpython-310-aarch64-linux-gnu.so
+[67.753s] -- Symlinking: /home/turtlebot/tb3_ws/install/amr_msgs/local/lib/python3.10/dist-packages/amr_msgs/libamr_msgs__rosidl_generator_py.so
+[67.811s] -- Symlinking: /home/turtlebot/tb3_ws/install/amr_msgs/local/lib/python3.10/dist-packages/amr_msgs/msg/__init__.py
+[67.848s] -- Symlinking: /home/turtlebot/tb3_ws/install/amr_msgs/local/lib/python3.10/dist-packages/amr_msgs/msg/_key.py
+[67.883s] -- Symlinking: /home/turtlebot/tb3_ws/install/amr_msgs/local/lib/python3.10/dist-packages/amr_msgs/msg/_key_s.c
+[67.918s] -- Up-to-date symlink: /home/turtlebot/tb3_ws/install/amr_msgs/local/lib/python3.10/dist-packages/amr_msgs/amr_msgs_s__rosidl_typesupport_fastrtps_c.cpython-310-aarch64-linux-gnu.so
+[67.920s] -- Up-to-date symlink: /home/turtlebot/tb3_ws/install/amr_msgs/local/lib/python3.10/dist-packages/amr_msgs/amr_msgs_s__rosidl_typesupport_introspection_c.cpython-310-aarch64-linux-gnu.so
+[67.923s] -- Up-to-date symlink: /home/turtlebot/tb3_ws/install/amr_msgs/local/lib/python3.10/dist-packages/amr_msgs/amr_msgs_s__rosidl_typesupport_c.cpython-310-aarch64-linux-gnu.so
+[67.926s] -- Symlinking: /home/turtlebot/tb3_ws/install/amr_msgs/share/amr_msgs/msg/Key.idl
+[67.970s] -- Symlinking: /home/turtlebot/tb3_ws/install/amr_msgs/share/amr_msgs/msg/Key.msg
+[68.011s] -- Symlinking: /home/turtlebot/tb3_ws/install/amr_msgs/share/ament_index/resource_index/package_run_dependencies/amr_msgs
+[68.059s] -- Symlinking: /home/turtlebot/tb3_ws/install/amr_msgs/share/ament_index/resource_index/parent_prefix_path/amr_msgs
+[68.107s] -- Symlinking: /home/turtlebot/tb3_ws/install/amr_msgs/share/amr_msgs/environment/ament_prefix_path.sh
+[68.182s] -- Symlinking: /home/turtlebot/tb3_ws/install/amr_msgs/share/amr_msgs/environment/ament_prefix_path.dsv
+[68.224s] -- Symlinking: /home/turtlebot/tb3_ws/install/amr_msgs/share/amr_msgs/environment/path.sh
+[68.266s] -- Symlinking: /home/turtlebot/tb3_ws/install/amr_msgs/share/amr_msgs/environment/path.dsv
+[68.307s] -- Symlinking: /home/turtlebot/tb3_ws/install/amr_msgs/share/amr_msgs/local_setup.bash
+[68.344s] -- Symlinking: /home/turtlebot/tb3_ws/install/amr_msgs/share/amr_msgs/local_setup.sh
+[68.387s] -- Symlinking: /home/turtlebot/tb3_ws/install/amr_msgs/share/amr_msgs/local_setup.zsh
+[68.441s] -- Symlinking: /home/turtlebot/tb3_ws/install/amr_msgs/share/amr_msgs/local_setup.dsv
+[68.490s] -- Symlinking: /home/turtlebot/tb3_ws/install/amr_msgs/share/amr_msgs/package.dsv
+[68.547s] -- Symlinking: /home/turtlebot/tb3_ws/install/amr_msgs/share/ament_index/resource_index/packages/amr_msgs
+[68.606s] -- Symlinking: /home/turtlebot/tb3_ws/install/amr_msgs/share/amr_msgs/cmake/rosidl_cmake-extras.cmake
+[68.654s] -- Symlinking: /home/turtlebot/tb3_ws/install/amr_msgs/share/amr_msgs/cmake/ament_cmake_export_include_directories-extras.cmake
+[68.696s] -- Symlinking: /home/turtlebot/tb3_ws/install/amr_msgs/share/amr_msgs/cmake/ament_cmake_export_libraries-extras.cmake
+[68.737s] -- Symlinking: /home/turtlebot/tb3_ws/install/amr_msgs/share/amr_msgs/cmake/ament_cmake_export_targets-extras.cmake
+[68.781s] -- Symlinking: /home/turtlebot/tb3_ws/install/amr_msgs/share/amr_msgs/cmake/rosidl_cmake_export_typesupport_targets-extras.cmake
+[68.839s] -- Symlinking: /home/turtlebot/tb3_ws/install/amr_msgs/share/amr_msgs/cmake/ament_cmake_export_dependencies-extras.cmake
+[68.926s] -- Symlinking: /home/turtlebot/tb3_ws/install/amr_msgs/share/amr_msgs/cmake/rosidl_cmake_export_typesupport_libraries-extras.cmake
+[68.983s] -- Symlinking: /home/turtlebot/tb3_ws/install/amr_msgs/share/amr_msgs/cmake/amr_msgsConfig.cmake
+[69.028s] -- Symlinking: /home/turtlebot/tb3_ws/install/amr_msgs/share/amr_msgs/cmake/amr_msgsConfig-version.cmake
+[69.076s] -- Symlinking: /home/turtlebot/tb3_ws/install/amr_msgs/share/amr_msgs/package.xml
+[69.138s] -- Installing: /home/turtlebot/tb3_ws/install/amr_msgs/lib/libamr_msgs__rosidl_generator_c.so
+[69.150s] -- Set runtime path of "/home/turtlebot/tb3_ws/install/amr_msgs/lib/libamr_msgs__rosidl_generator_c.so" to ""
+[69.153s] -- Installing: /home/turtlebot/tb3_ws/install/amr_msgs/lib/libamr_msgs__rosidl_typesupport_fastrtps_c.so
+[69.170s] -- Set runtime path of "/home/turtlebot/tb3_ws/install/amr_msgs/lib/libamr_msgs__rosidl_typesupport_fastrtps_c.so" to ""
+[69.174s] -- Installing: /home/turtlebot/tb3_ws/install/amr_msgs/lib/libamr_msgs__rosidl_typesupport_introspection_c.so
+[69.183s] -- Set runtime path of "/home/turtlebot/tb3_ws/install/amr_msgs/lib/libamr_msgs__rosidl_typesupport_introspection_c.so" to ""
+[69.187s] -- Installing: /home/turtlebot/tb3_ws/install/amr_msgs/lib/libamr_msgs__rosidl_typesupport_c.so
+[69.199s] -- Set runtime path of "/home/turtlebot/tb3_ws/install/amr_msgs/lib/libamr_msgs__rosidl_typesupport_c.so" to ""
+[69.204s] -- Installing: /home/turtlebot/tb3_ws/install/amr_msgs/lib/libamr_msgs__rosidl_typesupport_fastrtps_cpp.so
+[69.212s] -- Set runtime path of "/home/turtlebot/tb3_ws/install/amr_msgs/lib/libamr_msgs__rosidl_typesupport_fastrtps_cpp.so" to ""
+[69.219s] -- Installing: /home/turtlebot/tb3_ws/install/amr_msgs/lib/libamr_msgs__rosidl_typesupport_introspection_cpp.so
+[69.222s] -- Set runtime path of "/home/turtlebot/tb3_ws/install/amr_msgs/lib/libamr_msgs__rosidl_typesupport_introspection_cpp.so" to ""
+[69.223s] -- Installing: /home/turtlebot/tb3_ws/install/amr_msgs/lib/libamr_msgs__rosidl_typesupport_cpp.so
+[69.227s] -- Set runtime path of "/home/turtlebot/tb3_ws/install/amr_msgs/lib/libamr_msgs__rosidl_typesupport_cpp.so" to ""
+[69.482s] Listing '/home/turtlebot/tb3_ws/install/amr_msgs/local/lib/python3.10/dist-packages/amr_msgs'...
+[69.487s] Compiling '/home/turtlebot/tb3_ws/install/amr_msgs/local/lib/python3.10/dist-packages/amr_msgs/__init__.py'...
+[69.501s] Listing '/home/turtlebot/tb3_ws/install/amr_msgs/local/lib/python3.10/dist-packages/amr_msgs/msg'...
+[69.502s] Compiling '/home/turtlebot/tb3_ws/install/amr_msgs/local/lib/python3.10/dist-packages/amr_msgs/msg/__init__.py'...
+[69.516s] Compiling '/home/turtlebot/tb3_ws/install/amr_msgs/local/lib/python3.10/dist-packages/amr_msgs/msg/_key.py'...
+[69.516s] -- Installing: /home/turtlebot/tb3_ws/install/amr_msgs/lib/libamr_msgs__rosidl_generator_py.so
+[69.529s] -- Set runtime path of "/home/turtlebot/tb3_ws/install/amr_msgs/lib/libamr_msgs__rosidl_generator_py.so" to ""
+[69.531s] -- Installing: /home/turtlebot/tb3_ws/install/amr_msgs/share/amr_msgs/cmake/export_amr_msgs__rosidl_generator_cExport.cmake
+[69.534s] -- Installing: /home/turtlebot/tb3_ws/install/amr_msgs/share/amr_msgs/cmake/export_amr_msgs__rosidl_generator_cExport-noconfig.cmake
+[69.537s] -- Installing: /home/turtlebot/tb3_ws/install/amr_msgs/share/amr_msgs/cmake/export_amr_msgs__rosidl_typesupport_fastrtps_cExport.cmake
+[69.540s] -- Installing: /home/turtlebot/tb3_ws/install/amr_msgs/share/amr_msgs/cmake/export_amr_msgs__rosidl_typesupport_fastrtps_cExport-noconfig.cmake
+[69.544s] -- Installing: /home/turtlebot/tb3_ws/install/amr_msgs/share/amr_msgs/cmake/amr_msgs__rosidl_typesupport_introspection_cExport.cmake
+[69.547s] -- Installing: /home/turtlebot/tb3_ws/install/amr_msgs/share/amr_msgs/cmake/amr_msgs__rosidl_typesupport_introspection_cExport-noconfig.cmake
+[69.552s] -- Installing: /home/turtlebot/tb3_ws/install/amr_msgs/share/amr_msgs/cmake/amr_msgs__rosidl_typesupport_cExport.cmake
+[69.564s] -- Installing: /home/turtlebot/tb3_ws/install/amr_msgs/share/amr_msgs/cmake/amr_msgs__rosidl_typesupport_cExport-noconfig.cmake
+[69.573s] -- Installing: /home/turtlebot/tb3_ws/install/amr_msgs/share/amr_msgs/cmake/export_amr_msgs__rosidl_generator_cppExport.cmake
+[69.576s] -- Installing: /home/turtlebot/tb3_ws/install/amr_msgs/share/amr_msgs/cmake/export_amr_msgs__rosidl_typesupport_fastrtps_cppExport.cmake
+[69.581s] -- Installing: /home/turtlebot/tb3_ws/install/amr_msgs/share/amr_msgs/cmake/export_amr_msgs__rosidl_typesupport_fastrtps_cppExport-noconfig.cmake
+[69.584s] -- Installing: /home/turtlebot/tb3_ws/install/amr_msgs/share/amr_msgs/cmake/amr_msgs__rosidl_typesupport_introspection_cppExport.cmake
+[69.587s] -- Installing: /home/turtlebot/tb3_ws/install/amr_msgs/share/amr_msgs/cmake/amr_msgs__rosidl_typesupport_introspection_cppExport-noconfig.cmake
+[69.592s] -- Installing: /home/turtlebot/tb3_ws/install/amr_msgs/share/amr_msgs/cmake/amr_msgs__rosidl_typesupport_cppExport.cmake
+[69.601s] -- Installing: /home/turtlebot/tb3_ws/install/amr_msgs/share/amr_msgs/cmake/amr_msgs__rosidl_typesupport_cppExport-noconfig.cmake
+[69.604s] -- Installing: /home/turtlebot/tb3_ws/install/amr_msgs/share/amr_msgs/cmake/export_amr_msgs__rosidl_generator_pyExport.cmake
+[69.607s] -- Installing: /home/turtlebot/tb3_ws/install/amr_msgs/share/amr_msgs/cmake/export_amr_msgs__rosidl_generator_pyExport-noconfig.cmake
+[69.644s] Invoked command in '/home/turtlebot/tb3_ws/build/amr_msgs' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/turtlebot/turtlebot3_ws/install/turtlebot3_teleop:/home/turtlebot/turtlebot3_ws/install/turtlebot3_example:/opt/ros/humble /usr/bin/cmake --install /home/turtlebot/tb3_ws/build/amr_msgs
