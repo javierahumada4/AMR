@@ -37,20 +37,19 @@ class TurtleBot3Burger(Robot):
 
         """
         # TODO: 2.1. Complete the function body with your code (i.e., replace the pass statement).
-        left_speed = (v - self.TRACK*w/2)/self.WHEEL_RADIUS
-        right_speed = (v + self.TRACK*w/2)/self.WHEEL_RADIUS
+        left_speed = (v - self.TRACK * w / 2) / self.WHEEL_RADIUS
+        right_speed = (v + self.TRACK * w / 2) / self.WHEEL_RADIUS
 
         if right_speed > left_speed and right_speed > self.WHEEL_SPEED_MAX:
-            left_speed *= self.WHEEL_SPEED_MAX/right_speed
+            left_speed *= self.WHEEL_SPEED_MAX / right_speed
             right_speed = self.WHEEL_SPEED_MAX
         elif left_speed > right_speed and left_speed > self.WHEEL_SPEED_MAX:
-            right_speed *= self.WHEEL_SPEED_MAX/left_speed
+            right_speed *= self.WHEEL_SPEED_MAX / left_speed
             left_speed = self.WHEEL_SPEED_MAX
 
-        self._sim.setJointTargetVelocity(self._motors["left"] ,left_speed)
-        self._sim.setJointTargetVelocity(self._motors["right"] ,right_speed)
+        self._sim.setJointTargetVelocity(self._motors["left"], left_speed)
+        self._sim.setJointTargetVelocity(self._motors["right"], right_speed)
 
-        
     def sense(self) -> tuple[list[float], float, float]:
         """Read the LiDAR and the encoders.
 
@@ -107,6 +106,6 @@ class TurtleBot3Burger(Robot):
 
         # TODO: 2.3. Solve forward differential kinematics (i.e., calculate z_v and z_w).
         z_v = self.WHEEL_RADIUS * (left_wheel_velocity + right_wheel_velocity) / 2
-        z_w = self.WHEEL_RADIUS * (right_wheel_velocity - left_wheel_velocity) / (self.TRACK/2)
-        
+        z_w = self.WHEEL_RADIUS * (right_wheel_velocity - left_wheel_velocity) / (self.TRACK)
+
         return z_v, z_w

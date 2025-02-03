@@ -53,12 +53,19 @@ class CoppeliaSimNode(LifecycleNode):
 
             # Subscribers
             # TODO: 2.12. Subscribe to /cmd_vel. Connect it with with _next_step_callback.
-            
+
             # TODO: 3.3. Sync the /pose and /cmd_vel subscribers if enable_localization is True.
-            
+
             # Publishers
             # TODO: 2.4. Create the /odometry (Odometry message) and /scan (LaserScan) publishers.
-            
+            qos_profile = QoSProfile(
+                reliability=QoSReliabilityPolicy.BEST_EFFORT,
+                durability=QoSDurabilityPolicy.VOLATILE,
+                depth=10,
+                history=QoSHistoryPolicy.KEEP_LAST,
+            )
+            self.publisher_odometry = self.create_publisher(Odometry, "/odometry", 10)
+            self.publisher_scan = self.create_publisher(LaserScan, "/scan", qos_profile)
             # Attribute and object initializations
             self._coppeliasim = CoppeliaSim(dt, start, goal_tolerance)
             self._robot = TurtleBot3Burger(self._coppeliasim.sim, dt)
@@ -110,7 +117,7 @@ class CoppeliaSimNode(LifecycleNode):
         # TODO: 2.13. Parse the velocities from the TwistStamped message (i.e., read v and w).
         v: float = 0.0
         w: float = 0.0
-        
+
         # Execute simulation step
         self._robot.move(v, w)
         self._coppeliasim.next_step()
@@ -216,8 +223,13 @@ class CoppeliaSimNode(LifecycleNode):
 
         """
         # TODO: 2.5. Complete the function body with your code (i.e., replace the pass statement).
-        pass
-        
+        odometry = Odometry()
+        odometry.header.stamp = self.get_clock().now().to_msg()
+        odometry.twist.twist.linear.x = z_v
+        odometry.twist.twist.angular.z = z_w
+
+        self.publisher_odometry.publish(odometry)
+
     def _publish_scan(self, z_scan: list[float]) -> None:
         """Publishes LiDAR measurements in a sensor_msgs.msg.LaserScan message.
 
@@ -226,8 +238,12 @@ class CoppeliaSimNode(LifecycleNode):
 
         """
         # TODO: 2.6. Complete the function body with your code (i.e., replace the pass statement).
-        pass
-        
+        laser_scan = LaserScan()
+        laser_scan.header.stamp = self.get_clock().now().to_msg()
+        laser_scan.ranges = z_scan
+
+        self.publisher_scan.publish(laser_scan)
+
 
 def main(args=None):
     rclpy.init(args=args)
