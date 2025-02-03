@@ -1,0 +1,23 @@
+running egg_info
+writing ../../build/amr_teleoperation/amr_teleoperation.egg-info/PKG-INFO
+writing dependency_links to ../../build/amr_teleoperation/amr_teleoperation.egg-info/dependency_links.txt
+writing entry points to ../../build/amr_teleoperation/amr_teleoperation.egg-info/entry_points.txt
+writing requirements to ../../build/amr_teleoperation/amr_teleoperation.egg-info/requires.txt
+writing top-level names to ../../build/amr_teleoperation/amr_teleoperation.egg-info/top_level.txt
+reading manifest file '../../build/amr_teleoperation/amr_teleoperation.egg-info/SOURCES.txt'
+writing manifest file '../../build/amr_teleoperation/amr_teleoperation.egg-info/SOURCES.txt'
+running build
+running build_py
+copying amr_teleoperation/teleoperation_node.py -> /home/turtlebot/tb3_ws/build/amr_teleoperation/build/lib/amr_teleoperation
+running install
+running install_lib
+copying /home/turtlebot/tb3_ws/build/amr_teleoperation/build/lib/amr_teleoperation/teleoperation_node.py -> /home/turtlebot/tb3_ws/install/amr_teleoperation/lib/python3.10/site-packages/amr_teleoperation
+byte-compiling /home/turtlebot/tb3_ws/install/amr_teleoperation/lib/python3.10/site-packages/amr_teleoperation/teleoperation_node.py to teleoperation_node.cpython-310.pyc
+running install_data
+running install_egg_info
+removing '/home/turtlebot/tb3_ws/install/amr_teleoperation/lib/python3.10/site-packages/amr_teleoperation-0.0.0-py3.10.egg-info' (and everything under it)
+Copying ../../build/amr_teleoperation/amr_teleoperation.egg-info to /home/turtlebot/tb3_ws/install/amr_teleoperation/lib/python3.10/site-packages/amr_teleoperation-0.0.0-py3.10.egg-info
+running install_scripts
+Installing keyboard_node script to /home/turtlebot/tb3_ws/install/amr_teleoperation/lib/amr_teleoperation
+Installing teleoperation_node script to /home/turtlebot/tb3_ws/install/amr_teleoperation/lib/amr_teleoperation
+writing list of installed files to '/home/turtlebot/tb3_ws/build/amr_teleoperation/install.log'

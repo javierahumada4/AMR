@@ -1,0 +1,38 @@
+[6.156s] Invoking command in '/home/turtlebot/tb3_ws/build/amr_teleoperation': PYTHONPATH=/home/turtlebot/tb3_ws/build/amr_teleoperation/prefix_override:/home/turtlebot/tb3_ws/install/amr_teleoperation/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py develop --uninstall --editable --build-directory /home/turtlebot/tb3_ws/build/amr_teleoperation/build
+[8.188s] running develop
+[9.658s] Removing /home/turtlebot/tb3_ws/install/amr_teleoperation/lib/python3.10/site-packages/amr-teleoperation.egg-link (link to .)
+[9.902s] Invoked command in '/home/turtlebot/tb3_ws/build/amr_teleoperation' returned '0': PYTHONPATH=/home/turtlebot/tb3_ws/build/amr_teleoperation/prefix_override:/home/turtlebot/tb3_ws/install/amr_teleoperation/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py develop --uninstall --editable --build-directory /home/turtlebot/tb3_ws/build/amr_teleoperation/build
+[9.904s] Invoking command in '/home/turtlebot/tb3_ws/src/amr_teleoperation': PYTHONPATH=/home/turtlebot/tb3_ws/build/amr_teleoperation/prefix_override:/home/turtlebot/tb3_ws/install/amr_teleoperation/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../build/amr_teleoperation build --build-base /home/turtlebot/tb3_ws/build/amr_teleoperation/build install --record /home/turtlebot/tb3_ws/build/amr_teleoperation/install.log --single-version-externally-managed
+[11.942s] running egg_info
+[11.949s] writing ../../build/amr_teleoperation/amr_teleoperation.egg-info/PKG-INFO
+[11.956s] writing dependency_links to ../../build/amr_teleoperation/amr_teleoperation.egg-info/dependency_links.txt
+[11.962s] writing entry points to ../../build/amr_teleoperation/amr_teleoperation.egg-info/entry_points.txt
+[11.967s] writing requirements to ../../build/amr_teleoperation/amr_teleoperation.egg-info/requires.txt
+[11.971s] writing top-level names to ../../build/amr_teleoperation/amr_teleoperation.egg-info/top_level.txt
+[11.989s] reading manifest file '../../build/amr_teleoperation/amr_teleoperation.egg-info/SOURCES.txt'
+[11.999s] writing manifest file '../../build/amr_teleoperation/amr_teleoperation.egg-info/SOURCES.txt'
+[12.005s] running build
+[12.008s] running build_py
+[12.012s] creating /home/turtlebot/tb3_ws/build/amr_teleoperation/build
+[12.016s] creating /home/turtlebot/tb3_ws/build/amr_teleoperation/build/lib
+[12.020s] creating /home/turtlebot/tb3_ws/build/amr_teleoperation/build/lib/amr_teleoperation
+[12.023s] copying amr_teleoperation/teleoperation_node.py -> /home/turtlebot/tb3_ws/build/amr_teleoperation/build/lib/amr_teleoperation
+[12.030s] copying amr_teleoperation/keyboard_node.py -> /home/turtlebot/tb3_ws/build/amr_teleoperation/build/lib/amr_teleoperation
+[12.035s] copying amr_teleoperation/__init__.py -> /home/turtlebot/tb3_ws/build/amr_teleoperation/build/lib/amr_teleoperation
+[12.040s] running install
+[12.044s] running install_lib
+[12.050s] creating /home/turtlebot/tb3_ws/install/amr_teleoperation/lib/python3.10/site-packages/amr_teleoperation
+[12.054s] copying /home/turtlebot/tb3_ws/build/amr_teleoperation/build/lib/amr_teleoperation/teleoperation_node.py -> /home/turtlebot/tb3_ws/install/amr_teleoperation/lib/python3.10/site-packages/amr_teleoperation
+[12.057s] copying /home/turtlebot/tb3_ws/build/amr_teleoperation/build/lib/amr_teleoperation/keyboard_node.py -> /home/turtlebot/tb3_ws/install/amr_teleoperation/lib/python3.10/site-packages/amr_teleoperation
+[12.061s] copying /home/turtlebot/tb3_ws/build/amr_teleoperation/build/lib/amr_teleoperation/__init__.py -> /home/turtlebot/tb3_ws/install/amr_teleoperation/lib/python3.10/site-packages/amr_teleoperation
+[12.067s] byte-compiling /home/turtlebot/tb3_ws/install/amr_teleoperation/lib/python3.10/site-packages/amr_teleoperation/teleoperation_node.py to teleoperation_node.cpython-310.pyc
+[12.072s] byte-compiling /home/turtlebot/tb3_ws/install/amr_teleoperation/lib/python3.10/site-packages/amr_teleoperation/keyboard_node.py to keyboard_node.cpython-310.pyc
+[12.078s] byte-compiling /home/turtlebot/tb3_ws/install/amr_teleoperation/lib/python3.10/site-packages/amr_teleoperation/__init__.py to __init__.cpython-310.pyc
+[12.083s] running install_data
+[12.088s] copying package.xml -> /home/turtlebot/tb3_ws/install/amr_teleoperation/share/amr_teleoperation
+[12.092s] running install_egg_info
+[12.104s] Copying ../../build/amr_teleoperation/amr_teleoperation.egg-info to /home/turtlebot/tb3_ws/install/amr_teleoperation/lib/python3.10/site-packages/amr_teleoperation-0.0.0-py3.10.egg-info
+[12.114s] running install_scripts
+[12.218s] Installing keyboard_node script to /home/turtlebot/tb3_ws/install/amr_teleoperation/lib/amr_teleoperation
+[12.224s] writing list of installed files to '/home/turtlebot/tb3_ws/build/amr_teleoperation/install.log'
+[12.435s] Invoked command in '/home/turtlebot/tb3_ws/src/amr_teleoperation' returned '0': PYTHONPATH=/home/turtlebot/tb3_ws/build/amr_teleoperation/prefix_override:/home/turtlebot/tb3_ws/install/amr_teleoperation/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../build/amr_teleoperation build --build-base /home/turtlebot/tb3_ws/build/amr_teleoperation/build install --record /home/turtlebot/tb3_ws/build/amr_teleoperation/install.log --single-version-externally-managed

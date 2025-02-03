@@ -1,0 +1,89 @@
+[0.000000] (-) TimerEvent: {}
+[0.001954] (-) JobUnselected: {'identifier': 'amr_msgs'}
+[0.002650] (amr_teleoperation) JobQueued: {'identifier': 'amr_teleoperation', 'dependencies': OrderedDict()}
+[0.002900] (amr_teleoperation) JobStarted: {'identifier': 'amr_teleoperation'}
+[0.098512] (-) TimerEvent: {}
+[0.199277] (-) TimerEvent: {}
+[0.303091] (-) TimerEvent: {}
+[0.404061] (-) TimerEvent: {}
+[0.505078] (-) TimerEvent: {}
+[0.605723] (-) TimerEvent: {}
+[0.706499] (-) TimerEvent: {}
+[0.807263] (-) TimerEvent: {}
+[0.907918] (-) TimerEvent: {}
+[1.008582] (-) TimerEvent: {}
+[1.109222] (-) TimerEvent: {}
+[1.209848] (-) TimerEvent: {}
+[1.310543] (-) TimerEvent: {}
+[1.411260] (-) TimerEvent: {}
+[1.511942] (-) TimerEvent: {}
+[1.612778] (-) TimerEvent: {}
+[1.714595] (-) TimerEvent: {}
+[1.815453] (-) TimerEvent: {}
+[1.916226] (-) TimerEvent: {}
+[2.016857] (-) TimerEvent: {}
+[2.117923] (-) TimerEvent: {}
+[2.219144] (-) TimerEvent: {}
+[2.319858] (-) TimerEvent: {}
+[2.420574] (-) TimerEvent: {}
+[2.521239] (-) TimerEvent: {}
+[2.621881] (-) TimerEvent: {}
+[2.722612] (-) TimerEvent: {}
+[2.823244] (-) TimerEvent: {}
+[2.923880] (-) TimerEvent: {}
+[3.024577] (-) TimerEvent: {}
+[3.125251] (-) TimerEvent: {}
+[3.225935] (-) TimerEvent: {}
+[3.326670] (-) TimerEvent: {}
+[3.427487] (-) TimerEvent: {}
+[3.528565] (-) TimerEvent: {}
+[3.623799] (amr_teleoperation) Command: {'cmd': ['/usr/bin/python3', 'setup.py', 'egg_info', '--egg-base', '../../build/amr_teleoperation', 'build', '--build-base', '/home/turtlebot/tb3_ws/build/amr_teleoperation/build', 'install', '--record', '/home/turtlebot/tb3_ws/build/amr_teleoperation/install.log', '--single-version-externally-managed'], 'cwd': '/home/turtlebot/tb3_ws/src/amr_teleoperation', 'env': {'LESSOPEN': '| /usr/bin/lesspipe %s', 'USER': 'turtlebot', 'SSH_CLIENT': '10.120.135.29 51064 22', 'LC_TIME': 'es_ES.UTF-8', 'XDG_SESSION_TYPE': 'tty', 'GIT_ASKPASS': '/home/turtlebot/.vscode-server/cli/servers/Stable-cd4ee3b1c348a13bafd8f9ad8060705f6d4b9cba/server/extensions/git/dist/askpass.sh', 'SHLVL': '1', 'LD_LIBRARY_PATH': '/home/turtlebot/tb3_ws/install/amr_msgs/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/aarch64-linux-gnu:/opt/ros/humble/lib', 'BROWSER': '/home/turtlebot/.vscode-server/cli/servers/Stable-cd4ee3b1c348a13bafd8f9ad8060705f6d4b9cba/server/bin/helpers/browser.sh', 'MOTD_SHOWN': 'pam', 'HOME': '/home/turtlebot', 'TERM_PROGRAM_VERSION': '1.96.4', 'VSCODE_IPC_HOOK_CLI': '/run/user/1000/vscode-ipc-0cfa6f0d-550f-41d2-836b-62c4c8aa1037.sock', 'ROS_PYTHON_VERSION': '3', 'VSCODE_GIT_ASKPASS_MAIN': '/home/turtlebot/.vscode-server/cli/servers/Stable-cd4ee3b1c348a13bafd8f9ad8060705f6d4b9cba/server/extensions/git/dist/askpass-main.js', 'LC_MONETARY': 'es_ES.UTF-8', 'VSCODE_GIT_ASKPASS_NODE': '/home/turtlebot/.vscode-server/cli/servers/Stable-cd4ee3b1c348a13bafd8f9ad8060705f6d4b9cba/server/node', 'SSL_CERT_FILE': '/usr/lib/ssl/certs/ca-certificates.crt', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1000/bus', 'COLORTERM': 'truecolor', 'COLCON_PREFIX_PATH': '/home/turtlebot/tb3_ws/install:/home/turtlebot/turtlebot3_ws/install', 'ROS_DISTRO': 'humble', 'LOGNAME': 'turtlebot', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'XDG_SESSION_CLASS': 'user', 'TERM': 'xterm-256color', 'XDG_SESSION_ID': '6', 'ROS_LOCALHOST_ONLY': '0', 'PATH': '/opt/ros/humble/bin:/home/turtlebot/.vscode-server/cli/servers/Stable-cd4ee3b1c348a13bafd8f9ad8060705f6d4b9cba/server/bin/remote-cli:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin', 'LC_ADDRESS': 'es_ES.UTF-8', 'XDG_RUNTIME_DIR': '/run/user/1000', 'SSL_CERT_DIR': '/usr/lib/ssl/certs', 'LANG': 'en_US.UTF-8', 'LC_TELEPHONE': 'es_ES.UTF-8', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:', 'VSCODE_GIT_IPC_HANDLE': '/run/user/1000/vscode-git-b2b245a4ba.sock', 'TERM_PROGRAM': 'vscode', 'ROS_DOMAIN_ID': '23', 'AMENT_PREFIX_PATH': '/home/turtlebot/tb3_ws/install/amr_teleoperation:/home/turtlebot/tb3_ws/install/amr_msgs:/home/turtlebot/turtlebot3_ws/install/turtlebot3:/home/turtlebot/turtlebot3_ws/install/turtlebot3_teleop:/home/turtlebot/turtlebot3_ws/install/turtlebot3_bringup:/home/turtlebot/turtlebot3_ws/install/turtlebot3_node:/home/turtlebot/turtlebot3_ws/install/turtlebot3_fake_node:/home/turtlebot/turtlebot3_ws/install/turtlebot3_example:/home/turtlebot/turtlebot3_ws/install/turtlebot3_description:/home/turtlebot/turtlebot3_ws/install/ld08_driver:/opt/ros/humble', 'SHELL': '/bin/bash', 'LC_NAME': 'es_ES.UTF-8', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'LC_MEASUREMENT': 'es_ES.UTF-8', 'LC_IDENTIFICATION': 'es_ES.UTF-8', 'VSCODE_GIT_ASKPASS_EXTRA_ARGS': '', 'PWD': '/home/turtlebot/tb3_ws/build/amr_teleoperation', 'OPENCR_PORT': '/dev/ttyACM0', 'TURTLEBOT3_MODEL': 'burger', 'SSH_CONNECTION': '10.120.135.29 51064 10.120.107.123 22', 'LDS_MODEL': 'LDS-02', 'PYTHONPATH': '/home/turtlebot/tb3_ws/build/amr_teleoperation/prefix_override:/home/turtlebot/tb3_ws/install/amr_teleoperation/lib/python3.10/site-packages:/home/turtlebot/tb3_ws/install/amr_teleoperation/lib/python3.10/site-packages:/home/turtlebot/tb3_ws/install/amr_msgs/local/lib/python3.10/dist-packages:/home/turtlebot/turtlebot3_ws/build/turtlebot3_teleop:/home/turtlebot/turtlebot3_ws/install/turtlebot3_teleop/lib/python3.10/site-packages:/home/turtlebot/turtlebot3_ws/build/turtlebot3_example:/home/turtlebot/turtlebot3_ws/install/turtlebot3_example/lib/python3.10/site-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages', 'LC_NUMERIC': 'es_ES.UTF-8', 'LC_PAPER': 'es_ES.UTF-8', 'COLCON': '1', 'CMAKE_PREFIX_PATH': '/home/turtlebot/tb3_ws/install/amr_msgs:/home/turtlebot/turtlebot3_ws/install/turtlebot3:/home/turtlebot/turtlebot3_ws/install/turtlebot3_bringup:/home/turtlebot/turtlebot3_ws/install/turtlebot3_node:/home/turtlebot/turtlebot3_ws/install/turtlebot3_fake_node:/home/turtlebot/turtlebot3_ws/install/turtlebot3_description:/home/turtlebot/turtlebot3_ws/install/ld08_driver', 'OPENCR_MODEL': 'burger'}, 'shell': False}
+[3.629966] (-) TimerEvent: {}
+[3.730593] (-) TimerEvent: {}
+[3.831987] (-) TimerEvent: {}
+[3.933385] (-) TimerEvent: {}
+[4.034082] (-) TimerEvent: {}
+[4.134725] (-) TimerEvent: {}
+[4.235365] (-) TimerEvent: {}
+[4.336016] (-) TimerEvent: {}
+[4.436717] (-) TimerEvent: {}
+[4.537332] (-) TimerEvent: {}
+[4.637976] (-) TimerEvent: {}
+[4.738685] (-) TimerEvent: {}
+[4.809368] (amr_teleoperation) StdoutLine: {'line': b'running egg_info\n'}
+[4.811983] (amr_teleoperation) StdoutLine: {'line': b'writing ../../build/amr_teleoperation/amr_teleoperation.egg-info/PKG-INFO\n'}
+[4.812997] (amr_teleoperation) StdoutLine: {'line': b'writing dependency_links to ../../build/amr_teleoperation/amr_teleoperation.egg-info/dependency_links.txt\n'}
+[4.813890] (amr_teleoperation) StdoutLine: {'line': b'writing entry points to ../../build/amr_teleoperation/amr_teleoperation.egg-info/entry_points.txt\n'}
+[4.814656] (amr_teleoperation) StdoutLine: {'line': b'writing requirements to ../../build/amr_teleoperation/amr_teleoperation.egg-info/requires.txt\n'}
+[4.815459] (amr_teleoperation) StdoutLine: {'line': b'writing top-level names to ../../build/amr_teleoperation/amr_teleoperation.egg-info/top_level.txt\n'}
+[4.823293] (amr_teleoperation) StdoutLine: {'line': b"reading manifest file '../../build/amr_teleoperation/amr_teleoperation.egg-info/SOURCES.txt'\n"}
+[4.827286] (amr_teleoperation) StdoutLine: {'line': b"writing manifest file '../../build/amr_teleoperation/amr_teleoperation.egg-info/SOURCES.txt'\n"}
+[4.828083] (amr_teleoperation) StdoutLine: {'line': b'running build\n'}
+[4.828711] (amr_teleoperation) StdoutLine: {'line': b'running build_py\n'}
+[4.829793] (amr_teleoperation) StdoutLine: {'line': b'copying amr_teleoperation/teleoperation_node.py -> /home/turtlebot/tb3_ws/build/amr_teleoperation/build/lib/amr_teleoperation\n'}
+[4.831299] (amr_teleoperation) StdoutLine: {'line': b'running install\n'}
+[4.832442] (amr_teleoperation) StdoutLine: {'line': b'running install_lib\n'}
+[4.835616] (amr_teleoperation) StdoutLine: {'line': b'copying /home/turtlebot/tb3_ws/build/amr_teleoperation/build/lib/amr_teleoperation/teleoperation_node.py -> /home/turtlebot/tb3_ws/install/amr_teleoperation/lib/python3.10/site-packages/amr_teleoperation\n'}
+[4.838943] (amr_teleoperation) StdoutLine: {'line': b'byte-compiling /home/turtlebot/tb3_ws/install/amr_teleoperation/lib/python3.10/site-packages/amr_teleoperation/teleoperation_node.py to teleoperation_node.cpython-310.pyc\n'}
+[4.839719] (-) TimerEvent: {}
+[4.842574] (amr_teleoperation) StderrLine: {'line': b'  File "/home/turtlebot/tb3_ws/install/amr_teleoperation/lib/python3.10/site-packages/amr_teleoperation/teleoperation_node.py", line 86\n'}
+[4.843262] (amr_teleoperation) StderrLine: {'line': b'    stop_twist.linear.x *= \n'}
+[4.843620] (amr_teleoperation) StderrLine: {'line': b'                           ^\n'}
+[4.844003] (amr_teleoperation) StderrLine: {'line': b'SyntaxError: invalid syntax\n'}
+[4.844326] (amr_teleoperation) StderrLine: {'line': b'\n'}
+[4.844658] (amr_teleoperation) StdoutLine: {'line': b'running install_data\n'}
+[4.845329] (amr_teleoperation) StdoutLine: {'line': b'running install_egg_info\n'}
+[4.852807] (amr_teleoperation) StdoutLine: {'line': b"removing '/home/turtlebot/tb3_ws/install/amr_teleoperation/lib/python3.10/site-packages/amr_teleoperation-0.0.0-py3.10.egg-info' (and everything under it)\n"}
+[4.860550] (amr_teleoperation) StdoutLine: {'line': b'Copying ../../build/amr_teleoperation/amr_teleoperation.egg-info to /home/turtlebot/tb3_ws/install/amr_teleoperation/lib/python3.10/site-packages/amr_teleoperation-0.0.0-py3.10.egg-info\n'}
+[4.861126] (amr_teleoperation) StdoutLine: {'line': b'running install_scripts\n'}
+[4.938046] (amr_teleoperation) StdoutLine: {'line': b'Installing keyboard_node script to /home/turtlebot/tb3_ws/install/amr_teleoperation/lib/amr_teleoperation\n'}
+[4.938992] (amr_teleoperation) StdoutLine: {'line': b'Installing teleoperation_node script to /home/turtlebot/tb3_ws/install/amr_teleoperation/lib/amr_teleoperation\n'}
+[4.939842] (-) TimerEvent: {}
+[4.941010] (amr_teleoperation) StdoutLine: {'line': b"writing list of installed files to '/home/turtlebot/tb3_ws/build/amr_teleoperation/install.log'\n"}
+[5.040126] (-) TimerEvent: {}
+[5.061093] (amr_teleoperation) CommandEnded: {'returncode': 0}
+[5.140327] (-) TimerEvent: {}
+[5.242052] (-) TimerEvent: {}
+[5.342148] (amr_teleoperation) JobEnded: {'identifier': 'amr_teleoperation', 'rc': 0}
+[5.345176] (-) TimerEvent: {}
+[5.345507] (-) EventReactorShutdown: {}

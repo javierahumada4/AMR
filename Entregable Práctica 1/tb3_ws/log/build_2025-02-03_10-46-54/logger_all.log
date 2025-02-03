@@ -1,0 +1,200 @@
+[5.221s] DEBUG:colcon:Command line arguments: ['/usr/bin/colcon', 'build']
+[5.221s] DEBUG:colcon:Parsed command line arguments: Namespace(log_base=None, log_level=None, verb_name='build', build_base='build', install_base='install', merge_install=False, symlink_install=False, test_result_base=None, continue_on_error=False, executor='parallel', parallel_workers=4, event_handlers=None, ignore_user_meta=False, metas=['./colcon.meta'], base_paths=['.'], packages_ignore=None, packages_ignore_regex=None, paths=None, packages_up_to=None, packages_up_to_regex=None, packages_above=None, packages_above_and_dependencies=None, packages_above_depth=None, packages_select_by_dep=None, packages_skip_by_dep=None, packages_skip_up_to=None, packages_select_build_failed=False, packages_skip_build_finished=False, packages_select_test_failures=False, packages_skip_test_passed=False, packages_select=None, packages_skip=None, packages_select_regex=None, packages_skip_regex=None, packages_start=None, packages_end=None, allow_overriding=[], cmake_args=None, cmake_target=None, cmake_target_skip_unavailable=False, cmake_clean_cache=False, cmake_clean_first=False, cmake_force_configure=False, ament_cmake_args=None, catkin_cmake_args=None, catkin_skip_building_tests=False, verb_parser=<colcon_defaults.argument_parser.defaults.DefaultArgumentsDecorator object at 0xffffb26f5c30>, verb_extension=<colcon_core.verb.build.BuildVerb object at 0xffffb2995a50>, main=<bound method BuildVerb.main of <colcon_core.verb.build.BuildVerb object at 0xffffb2995a50>>)
+[5.628s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) check parameters
+[5.629s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) check parameters
+[5.629s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) check parameters
+[5.629s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) check parameters
+[5.629s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) discover
+[5.629s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) discover
+[5.630s] INFO:colcon.colcon_core.package_discovery:Crawling recursively for packages in '/home/turtlebot/tb3_ws'
+[5.630s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ignore', 'ignore_ament_install']
+[5.630s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore'
+[5.631s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore_ament_install'
+[5.631s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_pkg']
+[5.631s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_pkg'
+[5.632s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_meta']
+[5.632s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_meta'
+[5.632s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ros']
+[5.632s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ros'
+[5.681s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['cmake', 'python']
+[5.682s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'cmake'
+[5.682s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'python'
+[5.682s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['python_setup_py']
+[5.682s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'python_setup_py'
+[5.683s] Level 1:colcon.colcon_core.package_identification:_identify(build) by extensions ['ignore', 'ignore_ament_install']
+[5.683s] Level 1:colcon.colcon_core.package_identification:_identify(build) by extension 'ignore'
+[5.684s] Level 1:colcon.colcon_core.package_identification:_identify(build) ignored
+[5.684s] Level 1:colcon.colcon_core.package_identification:_identify(install) by extensions ['ignore', 'ignore_ament_install']
+[5.685s] Level 1:colcon.colcon_core.package_identification:_identify(install) by extension 'ignore'
+[5.685s] Level 1:colcon.colcon_core.package_identification:_identify(install) ignored
+[5.686s] Level 1:colcon.colcon_core.package_identification:_identify(log) by extensions ['ignore', 'ignore_ament_install']
+[5.686s] Level 1:colcon.colcon_core.package_identification:_identify(log) by extension 'ignore'
+[5.686s] Level 1:colcon.colcon_core.package_identification:_identify(log) ignored
+[5.687s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['ignore', 'ignore_ament_install']
+[5.687s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'ignore'
+[5.687s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'ignore_ament_install'
+[5.688s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['colcon_pkg']
+[5.688s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'colcon_pkg'
+[5.688s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['colcon_meta']
+[5.688s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'colcon_meta'
+[5.688s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['ros']
+[5.688s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'ros'
+[5.689s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['cmake', 'python']
+[5.689s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'cmake'
+[5.689s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'python'
+[5.689s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['python_setup_py']
+[5.689s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'python_setup_py'
+[5.690s] Level 1:colcon.colcon_core.package_identification:_identify(src/amr_msgs) by extensions ['ignore', 'ignore_ament_install']
+[5.690s] Level 1:colcon.colcon_core.package_identification:_identify(src/amr_msgs) by extension 'ignore'
+[5.690s] Level 1:colcon.colcon_core.package_identification:_identify(src/amr_msgs) by extension 'ignore_ament_install'
+[5.691s] Level 1:colcon.colcon_core.package_identification:_identify(src/amr_msgs) by extensions ['colcon_pkg']
+[5.691s] Level 1:colcon.colcon_core.package_identification:_identify(src/amr_msgs) by extension 'colcon_pkg'
+[5.691s] Level 1:colcon.colcon_core.package_identification:_identify(src/amr_msgs) by extensions ['colcon_meta']
+[5.691s] Level 1:colcon.colcon_core.package_identification:_identify(src/amr_msgs) by extension 'colcon_meta'
+[5.692s] Level 1:colcon.colcon_core.package_identification:_identify(src/amr_msgs) by extensions ['ros']
+[5.692s] Level 1:colcon.colcon_core.package_identification:_identify(src/amr_msgs) by extension 'ros'
+[5.707s] DEBUG:colcon.colcon_core.package_identification:Package 'src/amr_msgs' with type 'ros.ament_cmake' and name 'amr_msgs'
+[5.708s] Level 1:colcon.colcon_core.package_identification:_identify(src/amr_teleoperation) by extensions ['ignore', 'ignore_ament_install']
+[5.708s] Level 1:colcon.colcon_core.package_identification:_identify(src/amr_teleoperation) by extension 'ignore'
+[5.709s] Level 1:colcon.colcon_core.package_identification:_identify(src/amr_teleoperation) by extension 'ignore_ament_install'
+[5.709s] Level 1:colcon.colcon_core.package_identification:_identify(src/amr_teleoperation) by extensions ['colcon_pkg']
+[5.709s] Level 1:colcon.colcon_core.package_identification:_identify(src/amr_teleoperation) by extension 'colcon_pkg'
+[5.709s] Level 1:colcon.colcon_core.package_identification:_identify(src/amr_teleoperation) by extensions ['colcon_meta']
+[5.710s] Level 1:colcon.colcon_core.package_identification:_identify(src/amr_teleoperation) by extension 'colcon_meta'
+[5.710s] Level 1:colcon.colcon_core.package_identification:_identify(src/amr_teleoperation) by extensions ['ros']
+[5.710s] Level 1:colcon.colcon_core.package_identification:_identify(src/amr_teleoperation) by extension 'ros'
+[5.714s] DEBUG:colcon.colcon_core.package_identification:Package 'src/amr_teleoperation' with type 'ros.ament_python' and name 'amr_teleoperation'
+[5.714s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) using defaults
+[5.714s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) discover
+[5.715s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) using defaults
+[5.715s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) discover
+[5.715s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) using defaults
+[6.146s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) check parameters
+[6.146s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) discover
+[6.292s] DEBUG:colcon.colcon_installed_package_information.package_discovery:Found 2 installed packages in /home/turtlebot/tb3_ws/install
+[6.357s] DEBUG:colcon.colcon_installed_package_information.package_discovery:Found 9 installed packages in /home/turtlebot/turtlebot3_ws/install
+[6.427s] DEBUG:colcon.colcon_installed_package_information.package_discovery:Found 336 installed packages in /opt/ros/humble
+[6.436s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) using defaults
+[6.938s] Level 5:colcon.colcon_core.verb:set package 'amr_msgs' build argument 'cmake_args' from command line to 'None'
+[6.938s] Level 5:colcon.colcon_core.verb:set package 'amr_msgs' build argument 'cmake_target' from command line to 'None'
+[6.938s] Level 5:colcon.colcon_core.verb:set package 'amr_msgs' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[6.938s] Level 5:colcon.colcon_core.verb:set package 'amr_msgs' build argument 'cmake_clean_cache' from command line to 'False'
+[6.939s] Level 5:colcon.colcon_core.verb:set package 'amr_msgs' build argument 'cmake_clean_first' from command line to 'False'
+[6.939s] Level 5:colcon.colcon_core.verb:set package 'amr_msgs' build argument 'cmake_force_configure' from command line to 'False'
+[6.939s] Level 5:colcon.colcon_core.verb:set package 'amr_msgs' build argument 'ament_cmake_args' from command line to 'None'
+[6.939s] Level 5:colcon.colcon_core.verb:set package 'amr_msgs' build argument 'catkin_cmake_args' from command line to 'None'
+[6.939s] Level 5:colcon.colcon_core.verb:set package 'amr_msgs' build argument 'catkin_skip_building_tests' from command line to 'False'
+[6.939s] DEBUG:colcon.colcon_core.verb:Building package 'amr_msgs' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/turtlebot/tb3_ws/build/amr_msgs', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/turtlebot/tb3_ws/install/amr_msgs', 'merge_install': False, 'path': '/home/turtlebot/tb3_ws/src/amr_msgs', 'symlink_install': False, 'test_result_base': None}
+[7.001s] Level 5:colcon.colcon_core.verb:set package 'amr_teleoperation' build argument 'cmake_args' from command line to 'None'
+[7.002s] Level 5:colcon.colcon_core.verb:set package 'amr_teleoperation' build argument 'cmake_target' from command line to 'None'
+[7.002s] Level 5:colcon.colcon_core.verb:set package 'amr_teleoperation' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[7.002s] Level 5:colcon.colcon_core.verb:set package 'amr_teleoperation' build argument 'cmake_clean_cache' from command line to 'False'
+[7.002s] Level 5:colcon.colcon_core.verb:set package 'amr_teleoperation' build argument 'cmake_clean_first' from command line to 'False'
+[7.002s] Level 5:colcon.colcon_core.verb:set package 'amr_teleoperation' build argument 'cmake_force_configure' from command line to 'False'
+[7.002s] Level 5:colcon.colcon_core.verb:set package 'amr_teleoperation' build argument 'ament_cmake_args' from command line to 'None'
+[7.002s] Level 5:colcon.colcon_core.verb:set package 'amr_teleoperation' build argument 'catkin_cmake_args' from command line to 'None'
+[7.002s] Level 5:colcon.colcon_core.verb:set package 'amr_teleoperation' build argument 'catkin_skip_building_tests' from command line to 'False'
+[7.003s] DEBUG:colcon.colcon_core.verb:Building package 'amr_teleoperation' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/turtlebot/tb3_ws/build/amr_teleoperation', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/turtlebot/tb3_ws/install/amr_teleoperation', 'merge_install': False, 'path': '/home/turtlebot/tb3_ws/src/amr_teleoperation', 'symlink_install': False, 'test_result_base': None}
+[7.063s] INFO:colcon.colcon_core.executor:Executing jobs using 'parallel' executor
+[7.129s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete
+[7.130s] INFO:colcon.colcon_ros.task.ament_cmake.build:Building ROS package in '/home/turtlebot/tb3_ws/src/amr_msgs' with build type 'ament_cmake'
+[7.131s] INFO:colcon.colcon_cmake.task.cmake.build:Building CMake package in '/home/turtlebot/tb3_ws/src/amr_msgs'
+[7.218s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_core.shell.bat': Not used on non-Windows systems
+[7.219s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[7.220s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[7.507s] INFO:colcon.colcon_ros.task.ament_python.build:Building ROS package in '/home/turtlebot/tb3_ws/src/amr_teleoperation' with build type 'ament_python'
+[7.508s] Level 1:colcon.colcon_core.shell:create_environment_hook('amr_teleoperation', 'ament_prefix_path')
+[7.580s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/turtlebot/tb3_ws/install/amr_teleoperation/share/amr_teleoperation/hook/ament_prefix_path.ps1'
+[7.585s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/turtlebot/tb3_ws/install/amr_teleoperation/share/amr_teleoperation/hook/ament_prefix_path.dsv'
+[7.591s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/turtlebot/tb3_ws/install/amr_teleoperation/share/amr_teleoperation/hook/ament_prefix_path.sh'
+[7.666s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[7.666s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[8.002s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/turtlebot/tb3_ws/build/amr_msgs': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/turtlebot/tb3_ws/install/amr_teleoperation:/home/turtlebot/turtlebot3_ws/install/turtlebot3_teleop:/home/turtlebot/turtlebot3_ws/install/turtlebot3_example:/opt/ros/humble /usr/bin/cmake --build /home/turtlebot/tb3_ws/build/amr_msgs -- -j4 -l4
+[9.845s] INFO:colcon.colcon_core.task.python.build:Building Python package in '/home/turtlebot/tb3_ws/src/amr_teleoperation'
+[9.923s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[9.923s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[10.722s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/turtlebot/tb3_ws/build/amr_msgs' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/turtlebot/tb3_ws/install/amr_teleoperation:/home/turtlebot/turtlebot3_ws/install/turtlebot3_teleop:/home/turtlebot/turtlebot3_ws/install/turtlebot3_example:/opt/ros/humble /usr/bin/cmake --build /home/turtlebot/tb3_ws/build/amr_msgs -- -j4 -l4
+[11.144s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/turtlebot/tb3_ws/build/amr_msgs': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/turtlebot/tb3_ws/install/amr_teleoperation:/home/turtlebot/turtlebot3_ws/install/turtlebot3_teleop:/home/turtlebot/turtlebot3_ws/install/turtlebot3_example:/opt/ros/humble /usr/bin/cmake --install /home/turtlebot/tb3_ws/build/amr_msgs
+[11.577s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(amr_msgs)
+[11.579s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/turtlebot/tb3_ws/build/amr_msgs' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/turtlebot/tb3_ws/install/amr_teleoperation:/home/turtlebot/turtlebot3_ws/install/turtlebot3_teleop:/home/turtlebot/turtlebot3_ws/install/turtlebot3_example:/opt/ros/humble /usr/bin/cmake --install /home/turtlebot/tb3_ws/build/amr_msgs
+[11.683s] Level 1:colcon.colcon_core.environment:checking '/home/turtlebot/tb3_ws/install/amr_msgs' for CMake module files
+[11.687s] Level 1:colcon.colcon_core.environment:checking '/home/turtlebot/tb3_ws/install/amr_msgs' for CMake config files
+[11.694s] Level 1:colcon.colcon_core.shell:create_environment_hook('amr_msgs', 'cmake_prefix_path')
+[11.781s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/turtlebot/tb3_ws/install/amr_msgs/share/amr_msgs/hook/cmake_prefix_path.ps1'
+[11.783s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/turtlebot/tb3_ws/install/amr_msgs/share/amr_msgs/hook/cmake_prefix_path.dsv'
+[11.786s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/turtlebot/tb3_ws/install/amr_msgs/share/amr_msgs/hook/cmake_prefix_path.sh'
+[11.789s] Level 1:colcon.colcon_core.environment:checking '/home/turtlebot/tb3_ws/install/amr_msgs/lib'
+[11.790s] Level 1:colcon.colcon_core.shell:create_environment_hook('amr_msgs', 'ld_library_path_lib')
+[11.874s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/turtlebot/tb3_ws/install/amr_msgs/share/amr_msgs/hook/ld_library_path_lib.ps1'
+[11.876s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/turtlebot/tb3_ws/install/amr_msgs/share/amr_msgs/hook/ld_library_path_lib.dsv'
+[11.878s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/turtlebot/tb3_ws/install/amr_msgs/share/amr_msgs/hook/ld_library_path_lib.sh'
+[11.881s] Level 1:colcon.colcon_core.environment:checking '/home/turtlebot/tb3_ws/install/amr_msgs/bin'
+[11.881s] Level 1:colcon.colcon_core.environment:checking '/home/turtlebot/tb3_ws/install/amr_msgs/lib/pkgconfig/amr_msgs.pc'
+[11.882s] Level 1:colcon.colcon_core.environment:checking '/home/turtlebot/tb3_ws/install/amr_msgs/lib/python3.10/site-packages'
+[11.884s] Level 1:colcon.colcon_core.environment:checking '/home/turtlebot/tb3_ws/install/amr_msgs/bin'
+[11.969s] INFO:colcon.colcon_core.shell:Creating package script '/home/turtlebot/tb3_ws/install/amr_msgs/share/amr_msgs/package.ps1'
+[11.975s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/turtlebot/tb3_ws/install/amr_msgs/share/amr_msgs/package.dsv'
+[11.981s] INFO:colcon.colcon_core.shell:Creating package script '/home/turtlebot/tb3_ws/install/amr_msgs/share/amr_msgs/package.sh'
+[11.987s] INFO:colcon.colcon_core.shell:Creating package script '/home/turtlebot/tb3_ws/install/amr_msgs/share/amr_msgs/package.bash'
+[11.997s] INFO:colcon.colcon_core.shell:Creating package script '/home/turtlebot/tb3_ws/install/amr_msgs/share/amr_msgs/package.zsh'
+[12.007s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/turtlebot/tb3_ws/install/amr_msgs/share/colcon-core/packages/amr_msgs)
+[12.422s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/turtlebot/tb3_ws/src/amr_teleoperation': PYTHONPATH=/home/turtlebot/tb3_ws/build/amr_teleoperation/prefix_override:/home/turtlebot/tb3_ws/install/amr_teleoperation/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../build/amr_teleoperation build --build-base /home/turtlebot/tb3_ws/build/amr_teleoperation/build install --record /home/turtlebot/tb3_ws/build/amr_teleoperation/install.log --single-version-externally-managed
+[12.522s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(amr_msgs)
+[12.606s] Level 1:colcon.colcon_core.environment:checking '/home/turtlebot/tb3_ws/install/amr_msgs' for CMake module files
+[12.611s] Level 1:colcon.colcon_core.environment:checking '/home/turtlebot/tb3_ws/install/amr_msgs' for CMake config files
+[12.617s] Level 1:colcon.colcon_core.shell:create_environment_hook('amr_msgs', 'cmake_prefix_path')
+[12.704s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/turtlebot/tb3_ws/install/amr_msgs/share/amr_msgs/hook/cmake_prefix_path.ps1'
+[12.706s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/turtlebot/tb3_ws/install/amr_msgs/share/amr_msgs/hook/cmake_prefix_path.dsv'
+[12.709s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/turtlebot/tb3_ws/install/amr_msgs/share/amr_msgs/hook/cmake_prefix_path.sh'
+[12.713s] Level 1:colcon.colcon_core.environment:checking '/home/turtlebot/tb3_ws/install/amr_msgs/lib'
+[12.715s] Level 1:colcon.colcon_core.shell:create_environment_hook('amr_msgs', 'ld_library_path_lib')
+[12.799s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/turtlebot/tb3_ws/install/amr_msgs/share/amr_msgs/hook/ld_library_path_lib.ps1'
+[12.801s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/turtlebot/tb3_ws/install/amr_msgs/share/amr_msgs/hook/ld_library_path_lib.dsv'
+[12.803s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/turtlebot/tb3_ws/install/amr_msgs/share/amr_msgs/hook/ld_library_path_lib.sh'
+[12.806s] Level 1:colcon.colcon_core.environment:checking '/home/turtlebot/tb3_ws/install/amr_msgs/bin'
+[12.806s] Level 1:colcon.colcon_core.environment:checking '/home/turtlebot/tb3_ws/install/amr_msgs/lib/pkgconfig/amr_msgs.pc'
+[12.807s] Level 1:colcon.colcon_core.environment:checking '/home/turtlebot/tb3_ws/install/amr_msgs/lib/python3.10/site-packages'
+[12.808s] Level 1:colcon.colcon_core.environment:checking '/home/turtlebot/tb3_ws/install/amr_msgs/bin'
+[12.892s] INFO:colcon.colcon_core.shell:Creating package script '/home/turtlebot/tb3_ws/install/amr_msgs/share/amr_msgs/package.ps1'
+[12.895s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/turtlebot/tb3_ws/install/amr_msgs/share/amr_msgs/package.dsv'
+[12.897s] INFO:colcon.colcon_core.shell:Creating package script '/home/turtlebot/tb3_ws/install/amr_msgs/share/amr_msgs/package.sh'
+[12.900s] INFO:colcon.colcon_core.shell:Creating package script '/home/turtlebot/tb3_ws/install/amr_msgs/share/amr_msgs/package.bash'
+[12.902s] INFO:colcon.colcon_core.shell:Creating package script '/home/turtlebot/tb3_ws/install/amr_msgs/share/amr_msgs/package.zsh'
+[12.904s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/turtlebot/tb3_ws/install/amr_msgs/share/colcon-core/packages/amr_msgs)
+[13.913s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/turtlebot/tb3_ws/src/amr_teleoperation' returned '0': PYTHONPATH=/home/turtlebot/tb3_ws/build/amr_teleoperation/prefix_override:/home/turtlebot/tb3_ws/install/amr_teleoperation/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../build/amr_teleoperation build --build-base /home/turtlebot/tb3_ws/build/amr_teleoperation/build install --record /home/turtlebot/tb3_ws/build/amr_teleoperation/install.log --single-version-externally-managed
+[13.983s] Level 1:colcon.colcon_core.environment:checking '/home/turtlebot/tb3_ws/install/amr_teleoperation' for CMake module files
+[13.985s] Level 1:colcon.colcon_core.environment:checking '/home/turtlebot/tb3_ws/install/amr_teleoperation' for CMake config files
+[13.988s] Level 1:colcon.colcon_core.environment:checking '/home/turtlebot/tb3_ws/install/amr_teleoperation/lib'
+[13.989s] Level 1:colcon.colcon_core.environment:checking '/home/turtlebot/tb3_ws/install/amr_teleoperation/bin'
+[13.989s] Level 1:colcon.colcon_core.environment:checking '/home/turtlebot/tb3_ws/install/amr_teleoperation/lib/pkgconfig/amr_teleoperation.pc'
+[13.990s] Level 1:colcon.colcon_core.environment:checking '/home/turtlebot/tb3_ws/install/amr_teleoperation/lib/python3.10/site-packages'
+[13.991s] Level 1:colcon.colcon_core.shell:create_environment_hook('amr_teleoperation', 'pythonpath')
+[14.057s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/turtlebot/tb3_ws/install/amr_teleoperation/share/amr_teleoperation/hook/pythonpath.ps1'
+[14.059s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/turtlebot/tb3_ws/install/amr_teleoperation/share/amr_teleoperation/hook/pythonpath.dsv'
+[14.061s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/turtlebot/tb3_ws/install/amr_teleoperation/share/amr_teleoperation/hook/pythonpath.sh'
+[14.064s] Level 1:colcon.colcon_core.environment:checking '/home/turtlebot/tb3_ws/install/amr_teleoperation/bin'
+[14.064s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(amr_teleoperation)
+[14.128s] INFO:colcon.colcon_core.shell:Creating package script '/home/turtlebot/tb3_ws/install/amr_teleoperation/share/amr_teleoperation/package.ps1'
+[14.130s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/turtlebot/tb3_ws/install/amr_teleoperation/share/amr_teleoperation/package.dsv'
+[14.133s] INFO:colcon.colcon_core.shell:Creating package script '/home/turtlebot/tb3_ws/install/amr_teleoperation/share/amr_teleoperation/package.sh'
+[14.135s] INFO:colcon.colcon_core.shell:Creating package script '/home/turtlebot/tb3_ws/install/amr_teleoperation/share/amr_teleoperation/package.bash'
+[14.137s] INFO:colcon.colcon_core.shell:Creating package script '/home/turtlebot/tb3_ws/install/amr_teleoperation/share/amr_teleoperation/package.zsh'
+[14.138s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/turtlebot/tb3_ws/install/amr_teleoperation/share/colcon-core/packages/amr_teleoperation)
+[14.140s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:closing loop
+[14.141s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:loop closed
+[14.141s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete finished with '0'
+[14.142s] DEBUG:colcon.colcon_core.event_reactor:joining thread
+[14.248s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.terminal_notifier': Not used on non-Darwin systems
+[14.248s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.win32': Not used on non-Windows systems
+[14.249s] INFO:colcon.colcon_notification.desktop_notification:Sending desktop notification using 'notify2'
+[14.357s] DEBUG:colcon.colcon_core.event_reactor:joined thread
+[14.429s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/turtlebot/tb3_ws/install/local_setup.ps1'
+[14.435s] INFO:colcon.colcon_core.shell:Creating prefix util module '/home/turtlebot/tb3_ws/install/_local_setup_util_ps1.py'
+[14.444s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/turtlebot/tb3_ws/install/setup.ps1'
+[14.545s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/turtlebot/tb3_ws/install/local_setup.sh'
+[14.551s] INFO:colcon.colcon_core.shell:Creating prefix util module '/home/turtlebot/tb3_ws/install/_local_setup_util_sh.py'
+[14.553s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/turtlebot/tb3_ws/install/setup.sh'
+[14.628s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/turtlebot/tb3_ws/install/local_setup.bash'
+[14.634s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/turtlebot/tb3_ws/install/setup.bash'
+[14.710s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/turtlebot/tb3_ws/install/local_setup.zsh'
+[14.716s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/turtlebot/tb3_ws/install/setup.zsh'
