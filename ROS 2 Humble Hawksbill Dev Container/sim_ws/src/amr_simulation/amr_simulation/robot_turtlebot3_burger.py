@@ -102,9 +102,11 @@ class TurtleBot3Burger(Robot):
         )
 
         # TODO: 2.2. Compute the derivatives of the angular positions to obtain velocities [rad/s].
-        
+        left_wheel_velocity = encoders["left"] / self._dt
+        right_wheel_velocity = encoders["right"] / self._dt
+
         # TODO: 2.3. Solve forward differential kinematics (i.e., calculate z_v and z_w).
-        z_v = 0.0
-        z_w = 0.0
+        z_v = self.WHEEL_RADIUS * (left_wheel_velocity + right_wheel_velocity) / 2
+        z_w = self.WHEEL_RADIUS * (right_wheel_velocity - left_wheel_velocity) / (self.TRACK/2)
         
         return z_v, z_w
