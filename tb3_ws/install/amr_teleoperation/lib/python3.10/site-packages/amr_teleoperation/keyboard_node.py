@@ -20,7 +20,7 @@ class KeyPublisher(Node):
         msg = Key()
         msg.key = f"{key}"
         self.publisher_.publish(msg)
-        self.get_logger().info('Publishing: "%s"' % msg.data)    
+        self.get_logger().info('Publishing: "%s"' % msg.key)    
 
 def main(args=None):
     rclpy.init(args=args)

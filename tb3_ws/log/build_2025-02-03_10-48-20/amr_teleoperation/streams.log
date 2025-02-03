@@ -1,0 +1,22 @@
+[5.002s] Invoking command in '/home/turtlebot/tb3_ws/src/amr_teleoperation': PYTHONPATH=/home/turtlebot/tb3_ws/build/amr_teleoperation/prefix_override:/home/turtlebot/tb3_ws/install/amr_teleoperation/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../build/amr_teleoperation build --build-base /home/turtlebot/tb3_ws/build/amr_teleoperation/build install --record /home/turtlebot/tb3_ws/build/amr_teleoperation/install.log --single-version-externally-managed
+[6.177s] running egg_info
+[6.179s] writing ../../build/amr_teleoperation/amr_teleoperation.egg-info/PKG-INFO
+[6.180s] writing dependency_links to ../../build/amr_teleoperation/amr_teleoperation.egg-info/dependency_links.txt
+[6.181s] writing entry points to ../../build/amr_teleoperation/amr_teleoperation.egg-info/entry_points.txt
+[6.183s] writing requirements to ../../build/amr_teleoperation/amr_teleoperation.egg-info/requires.txt
+[6.183s] writing top-level names to ../../build/amr_teleoperation/amr_teleoperation.egg-info/top_level.txt
+[6.191s] reading manifest file '../../build/amr_teleoperation/amr_teleoperation.egg-info/SOURCES.txt'
+[6.195s] writing manifest file '../../build/amr_teleoperation/amr_teleoperation.egg-info/SOURCES.txt'
+[6.196s] running build
+[6.196s] running build_py
+[6.198s] running install
+[6.199s] running install_lib
+[6.205s] running install_data
+[6.208s] running install_egg_info
+[6.216s] removing '/home/turtlebot/tb3_ws/install/amr_teleoperation/lib/python3.10/site-packages/amr_teleoperation-0.0.0-py3.10.egg-info' (and everything under it)
+[6.218s] Copying ../../build/amr_teleoperation/amr_teleoperation.egg-info to /home/turtlebot/tb3_ws/install/amr_teleoperation/lib/python3.10/site-packages/amr_teleoperation-0.0.0-py3.10.egg-info
+[6.223s] running install_scripts
+[6.303s] Installing keyboard_node script to /home/turtlebot/tb3_ws/install/amr_teleoperation/lib/amr_teleoperation
+[6.304s] Installing teleoperation_node script to /home/turtlebot/tb3_ws/install/amr_teleoperation/lib/amr_teleoperation
+[6.306s] writing list of installed files to '/home/turtlebot/tb3_ws/build/amr_teleoperation/install.log'
+[6.434s] Invoked command in '/home/turtlebot/tb3_ws/src/amr_teleoperation' returned '0': PYTHONPATH=/home/turtlebot/tb3_ws/build/amr_teleoperation/prefix_override:/home/turtlebot/tb3_ws/install/amr_teleoperation/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../build/amr_teleoperation build --build-base /home/turtlebot/tb3_ws/build/amr_teleoperation/build install --record /home/turtlebot/tb3_ws/build/amr_teleoperation/install.log --single-version-externally-managed
