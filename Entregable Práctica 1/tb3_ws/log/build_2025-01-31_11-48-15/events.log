@@ -1,4 +1,0 @@
-[0.000000] (-) TimerEvent: {}
-[0.001177] (-) JobUnselected: {'identifier': 'amr_msgs'}
-[0.001455] (-) JobUnselected: {'identifier': 'amr_teleoperation'}
-[0.002145] (-) EventReactorShutdown: {}
