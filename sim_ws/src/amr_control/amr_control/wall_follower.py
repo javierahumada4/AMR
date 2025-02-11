@@ -9,7 +9,14 @@ class WallFollower:
 
         """
         self._dt: float = dt
-        # self.logger_timer = 0
+        self.state = "AVANZAR"
+
+        self.Kp = 1.8
+        self.Kd = 1.0
+        self.prev_error = 0.0
+
+        self.stop_distance = 0.25
+        self.follow_distance = 0.4
 
     def compute_commands(self, z_scan: list[float], z_v: float, z_w: float) -> tuple[float, float]:
         """Wall following exploration algorithm.
@@ -25,31 +32,48 @@ class WallFollower:
 
         """
         # TODO: 2.14. Complete the function body with your code (i.e., compute v and w).
-        v = 0.15
-        w = 0.0
-        front = z_scan[0:20] + z_scan[-20:]
-        back = z_scan[100:140]
+        
+        # Selección de sectores del LiDAR
+        front = z_scan[:20] + z_scan[-20:]
         left = z_scan[20:100]
         right = z_scan[140:220]
 
-        stop_distance = 0.3
+        # # Ignorar valores nan o negativos
+        valid_front = [d for d in front if d > 0]  
+        valid_left = [d for d in left if d > 0]
+        valid_right = [d for d in right if d > 0]
 
-        safe_to_move_forward = all(d > stop_distance for d in front if d > 0)
-        safe_to_move_backward = all(d > stop_distance for d in back if d > 0)
-        safe_to_move_left = all(d > stop_distance for d in left if d > 0)
-        safe_to_move_right = all(d > stop_distance for d in right if d > 0)
+        # Cálculo de distancias mínimas con detección de pared muy cercana
+        d_front = min(valid_front) if valid_front else 0
+        d_left = min(valid_left) if valid_left else 0
+        d_right = min(valid_right) if valid_right else 0
 
-        if not safe_to_move_forward and z_v > 0:
-            v = 0.0
-            if safe_to_move_left:
-                w = 0.15
+        # Estado: AVANZAR
+        if self.state == "AVANZAR":
+            error = self.follow_distance - d_right
+
+            # Control PD
+            P = self.Kp * error
+            D = self.Kd * (error - self.prev_error) / self._dt
+            w = (P + D) * 0.8 + z_w * 0.2  # Suavizamos con la velocidad angular actual
+            self.prev_error = error
+
+            v = min(0.2, z_v + 0.02)  # Aceleramos progresivamente
+
+            # Si la pared desaparece, vuelve a AVANZAR
+            if d_front < self.stop_distance:
+                self.state = "GIRO"
+                v = 0
+                w = 0.5 if d_left > d_right else -0.5
+
+        # Estado: GIRO
+        elif self.state == "GIRO":
+            if d_front > self.stop_distance:
+                self.state = "AVANZAR"
+                v = 0.2
+                w = 0
             else:
-                w = -0.15
-
-        # self.logger_timer += 1
-        # if self.logger_timer % 10 == 0:
-        #     self.get_logger().info(
-        #         f"Safe forward: {safe_to_move_forward}, Safe backward: {safe_to_move_backward}, Safe left: {safe_to_move_left}, Safe right: {safe_to_move_right} \n Published velocities: linear={v}, angular={w}"
-        #     )
+                v = 0
+                w = 0.5 if d_left > d_right else -0.5 # Giramos en la dirección con más espacio
 
         return v, w
