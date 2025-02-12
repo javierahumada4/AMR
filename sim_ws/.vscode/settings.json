@@ -25,5 +25,6 @@
         "**/build": true,
         "**/install": true,
         "**/log": true
-    }
+    },
+    "cmake.ignoreCMakeListsMissing": true
 }

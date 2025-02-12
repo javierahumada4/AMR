@@ -26,6 +26,7 @@ endif()
 
 set(msg_files
   "msg/Key.msg"
+  "msg/PoseStamped.msg"
 )
 rosidl_generate_interfaces(${PROJECT_NAME}
   ${msg_files}
