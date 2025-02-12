@@ -1,3 +1,4 @@
+import math
 class WallFollower:
     """Class to safely explore an environment (without crashing) when the pose is unknown."""
 
@@ -11,16 +12,16 @@ class WallFollower:
         self._dt: float = dt
         self.state = "AVANZAR"
 
-        self.Kp = 5.0
+        self.Kp = 150.0
         self.Kd = 1.0
         self.prev_error = 0.0
 
         self.stop_distance = 0.2
         self.follow_distance = 0.2
         
-        self.v = 0.15
-        self.w_control = 0.15
-        self.w_giro = 0.3
+        self.v = 2.0
+        self.w_control = 0.2
+        self.w_giro = 3.0
         
         self.w_actual = 0.0
 
@@ -41,8 +42,8 @@ class WallFollower:
         
         # Selección de sectores del LiDAR
         front = list(z_scan[0:20]) + list(z_scan[-20:])
-        left = list(z_scan[70:110])
-        right = list(z_scan[-110:-70])
+        left = list(z_scan[40:60])
+        right = list(z_scan[-60:-40])
 
         # # Ignorar valores nan o negativos
         valid_front = [d for d in front if d > 0.0]  
@@ -53,6 +54,7 @@ class WallFollower:
         d_front = min(valid_front) if valid_front else 0.0
         d_left = min(valid_left) if valid_left else 0.0
         d_right = min(valid_right) if valid_right else 0.0
+
 
         # Estado: AVANZAR
         if self.state == "AVANZAR":
@@ -70,19 +72,21 @@ class WallFollower:
 
             # Si la pared desaparece, vuelve a AVANZAR
             if d_front < self.stop_distance:
+                self.angle = 0.0
                 self.state = "GIRO"
-                v = 0.0
+                v = 0.2
                 w = self.w_giro if d_left > d_right else -self.w_giro
                 self.w_actual = w
 
         # Estado: GIRO
         elif self.state == "GIRO":
-            if d_front > self.stop_distance + 0.075:
+            if d_front > self.stop_distance + 0.15:
                 self.state = "AVANZAR"
                 v = self.v
-                w = 0.0
+                w = -self.w_actual*0.5
             else:
-                v = 0.0
+                v = 0.12
                 w = self.w_actual
+            
 
         return v, w
