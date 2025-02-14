@@ -13,7 +13,7 @@ class WallFollower:
         self.state = "AVANZAR"
 
         self.Kp = 150.0
-        self.Kd = 1.0
+        self.Kd = 15.0
         self.prev_error = 0.0
 
         self.stop_distance = 0.2
@@ -72,9 +72,8 @@ class WallFollower:
 
             # Si la pared desaparece, vuelve a AVANZAR
             if d_front < self.stop_distance:
-                self.angle = 0.0
                 self.state = "GIRO"
-                v = 0.2
+                v = 0.0
                 w = self.w_giro if d_left > d_right else -self.w_giro
                 self.w_actual = w
 
@@ -85,7 +84,7 @@ class WallFollower:
                 v = self.v
                 w = -self.w_actual*0.5
             else:
-                v = 0.12
+                v = 0.0
                 w = self.w_actual
             
 
