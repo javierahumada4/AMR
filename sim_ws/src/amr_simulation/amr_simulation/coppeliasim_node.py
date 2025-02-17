@@ -53,10 +53,21 @@ class CoppeliaSimNode(LifecycleNode):
 
             # Subscribers
             # TODO: 2.12. Subscribe to /cmd_vel. Connect it with with _next_step_callback.
-            self.subscriber = self.create_subscription(
-                TwistStamped, "/cmd_vel", callback=self._next_step_callback, qos_profile=10
-            )
+
             # TODO: 3.3. Sync the /pose and /cmd_vel subscribers if enable_localization is True.
+            self._subscribers: list[message_filters.Subscriber] = []
+            self._subscribers.append(
+                message_filters.Subscriber(self, TwistStamped, "/cmd_vel", qos_profile=10)
+            )
+            if enable_localization:
+                self._subscribers.append(
+                    message_filters.Subscriber(self, PoseStamped, "/pose", qos_profile=10)
+                )
+            ts = message_filters.ApproximateTimeSynchronizer(
+                self._subscribers, queue_size=10, slop=9
+            )
+            ts.registerCallback(self._next_step_callback)
+
 
             # Publishers
             # TODO: 2.4. Create the /odometry (Odometry message) and /scan (LaserScan) publishers.

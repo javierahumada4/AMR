@@ -96,6 +96,25 @@ class ParticleFilter:
         self._iteration += 1
 
         # TODO: 3.5. Complete the function body with your code.
+        for i, particle in enumerate(self._particles):
+            x, y, theta = particle
+            x_old, y_old, theta_old = x, y, theta
+            noise_v = random.gauss(v, self._sigma_v)
+            noise_w = random.gauss(w, self._sigma_w)
+
+            x += noise_v * math.cos(theta) * self._dt
+            y += noise_v * math.sin(theta) * self._dt
+            
+            theta += noise_w * self._dt
+            theta %= 2*math.pi
+            
+            self._particles[i] = (x, y, theta)
+
+            intersections, _ = self._map.check_collision([(x_old, y_old), (x, y)])
+            if intersections:
+                self._particles[i] = (intersections[0], intersections[1], theta)
+                
+            
         
     def resample(self, measurements: list[float]) -> None:
         """Samples a new set of particles.
@@ -105,7 +124,16 @@ class ParticleFilter:
 
         """
         # TODO: 3.9. Complete the function body with your code (i.e., replace the pass statement).
+        # probabilities = np.array([self._measurement_probability(measurements, particle) for particle in self._particles])
+        # W = np.sum(probabilities)
+        # N = self._particle_count
+
+        # u_1 = np.random.uniform(0, W / N)
+        # u = u_1 + np.arange(N) * (W / N)
+        # indices = np.searchsorted(np.cumsum(probabilities), u)
+        # self._particles = self._particles[indices]
         pass
+        
         
     def plot(self, axes, orientation: bool = True):
         """Draws particles.
@@ -206,7 +234,32 @@ class ParticleFilter:
         particles = np.empty((particle_count, 3), dtype=object)
 
         # TODO: 3.4. Complete the missing function body with your code.
-        
+        if global_localization:
+            x_min, y_min, x_max, y_max = self._map.bounds()
+            for i in range(particle_count):
+                x : float
+                y : float
+                valid = False
+                while not valid:
+                    x = random.uniform(x_min, x_max)
+                    y = random.uniform(y_min, y_max)
+                    valid = self._map.contains((x, y))
+                theta = random.choice([0, math.pi / 2, math.pi, 3 * math.pi / 2])
+                particles[i] = (x, y, theta)
+        else:
+            x_mean, y_mean, theta_mean = initial_pose
+            x_sigma, y_sigma, theta_sigma = initial_pose_sigma
+            for i in range(particle_count):
+                x : float
+                y : float
+                valid = False
+                while not valid:
+                    x = random.gauss(x_mean, x_sigma)
+                    y = random.gauss(y_mean, y_sigma)
+                    valid = self._map.contains((x, y))
+                theta = random.gauss(theta_mean, theta_sigma)
+                particles[i] = (x, y, theta)
+
         return particles
 
     def _sense(self, particle: tuple[float, float, float]) -> list[float]:
@@ -221,7 +274,14 @@ class ParticleFilter:
         z_hat: list[float] = []
 
         # TODO: 3.6. Complete the missing function body with your code.
-        
+        rays = self._lidar_rays(particle, tuple(range(0,240,15)))
+        for ray in rays:
+            _ , distance = self._map.check_collision(ray, True)
+            if distance <= 1:
+                z_hat.append(distance)
+            else:
+                z_hat.append(float("nan"))
+
         return z_hat
 
     @staticmethod
@@ -238,7 +298,7 @@ class ParticleFilter:
 
         """
         # TODO: 3.7. Complete the function body (i.e., replace the code below).
-        return 0.0
+        return math.exp(-((mu - x)**2)/(2*sigma**2))/((2*math.pi*sigma**2)**0.5)
         
     def _lidar_rays(
         self, pose: tuple[float, float, float], indices: tuple[float], degree_increment: float = 1.5
@@ -292,5 +352,9 @@ class ParticleFilter:
         probability = 1.0
 
         # TODO: 3.8. Complete the missing function body with your code.
-        
+        measurements = [measure if not math.isnan(measure) else self._sensor_range_min for measure in measurements]
+
+        for measurment in measurements:
+            probability *= self._gaussian(measurment, self._sigma_z, particle)
+    
         return probability
