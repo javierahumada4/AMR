@@ -12,16 +12,16 @@ class WallFollower:
         self._dt: float = dt
         self.state = "AVANZAR"
 
-        self.Kp = 150.0
-        self.Kd = 1.0
+        self.Kp = 80.0
+        self.Kd = 40.0
         self.prev_error = 0.0
 
-        self.stop_distance = 0.2
-        self.follow_distance = 0.2
+        self.stop_distance = 0.25
+        self.follow_distance = 0.21
         
-        self.v = 2.0
-        self.w_control = 0.2
-        self.w_giro = 3.0
+        self.v = 0.2
+        self.w_control = -0.2
+        self.w_giro = -0.5
         
         self.w_actual = 0.0
 
@@ -41,7 +41,7 @@ class WallFollower:
         # TODO: 2.14. Complete the function body with your code (i.e., compute v and w).
         
         # Selección de sectores del LiDAR
-        front = list(z_scan[0:20]) + list(z_scan[-20:])
+        front = list(z_scan[0:20]) + list(z_scan[-15:])
         left = list(z_scan[40:60])
         right = list(z_scan[-60:-40])
 
@@ -54,8 +54,7 @@ class WallFollower:
         d_front = min(valid_front) if valid_front else 0.0
         d_left = min(valid_left) if valid_left else 0.0
         d_right = min(valid_right) if valid_right else 0.0
-
-
+        
         # Estado: AVANZAR
         if self.state == "AVANZAR":
             error = self.follow_distance - d_right
@@ -74,18 +73,18 @@ class WallFollower:
             if d_front < self.stop_distance:
                 self.angle = 0.0
                 self.state = "GIRO"
-                v = 0.2
+                v = 0.0
                 w = self.w_giro if d_left > d_right else -self.w_giro
                 self.w_actual = w
 
         # Estado: GIRO
         elif self.state == "GIRO":
-            if d_front > self.stop_distance + 0.15:
+            if d_front > self.stop_distance + 0.05:
                 self.state = "AVANZAR"
                 v = self.v
                 w = -self.w_actual*0.5
             else:
-                v = 0.12
+                v = 0.0
                 w = self.w_actual
             
 

@@ -2,28 +2,35 @@
 
 import rclpy
 from rclpy.node import Node
+from rclpy.lifecycle import LifecycleNode, LifecycleState, TransitionCallbackReturn
+from rclpy.qos import QoSProfile, QoSDurabilityPolicy, QoSHistoryPolicy, QoSReliabilityPolicy
 from nav_msgs.msg import Odometry
-from geometry_msgs.msg import Twist
+from geometry_msgs.msg import Twist, TwistWithCovariance
 from transforms3d.euler import quat2euler
 import math
+import traceback
 
 
-class OdometryNode(Node):
+class OdometryNode(LifecycleNode):
     def __init__(self):
         super().__init__('odometry_node')
-        self.subscription = self.create_subscription(
-            Odometry,
-            '/odom',
-            self.odom_callback, 
-            10
-        )
-        self.publisher = self.create_publisher(Odometry, '/odometry', 10)
+        # self.subscription = self.create_subscription(
+        #     Odometry,
+        #     '/odom',
+        #     self.odom_callback, 
+        #     10
+        # )
+        # self.publisher = self.create_publisher(Odometry, '/odometry', 10)
 
         # Variables para almacenar la última posición y tiempo
         self.last_x = None
         self.last_y = None
         self.last_theta = None
         self.last_time = None
+        
+        # Parameters
+        self.declare_parameter("dt", 0.05)
+        self.declare_parameter("enable_localization", False)
 
     def odom_callback(self, msg):
         # Extraer posición actual del mensaje de odometría
@@ -62,18 +69,61 @@ class OdometryNode(Node):
             angular_velocity = delta_theta / delta_time
 
             # Publicar las velocidades calculadas en el tópico /odometry
-            odometry_msg = Odometry()
-            odometry_msg.twist = Twist()
-            odometry_msg.twist.linear.x = linear_velocity
-            odometry_msg.twist.angular.z = angular_velocity
-
-            self.publisher.publish(odometry_msg)
+            msg.twist.twist.linear.x = linear_velocity
+            msg.twist.twist.angular.z = angular_velocity
+            self.publisher.publish(msg)
 
         # Actualizar los valores previos para la próxima iteración
         self.last_x = current_x
         self.last_y = current_y
         self.last_theta = current_theta
         self.last_time = current_time
+        
+    def on_configure(self, state: LifecycleState) -> TransitionCallbackReturn:
+        """Handles a configuring transition.
+
+        Args:
+            state: Current lifecycle state.
+
+        """
+        self.get_logger().info(f"Transitioning from '{state.label}' to 'inactive' state.")
+
+        try:
+            # Parameters
+            dt = self.get_parameter("dt").get_parameter_value().double_value
+            enable_localization = (
+                self.get_parameter("enable_localization").get_parameter_value().bool_value
+            )
+            
+            self.subscription = self.create_subscription(
+                msg_type=Odometry,
+                topic = "odom",
+                callback = self.odom_callback,
+                qos_profile = 10,    
+            )
+            
+            self.publisher = self.create_publisher(
+                msg_type = Odometry,
+                topic = "/odometry",
+                qos_profile = 10,   
+            )
+
+        except Exception:
+            self.get_logger().error(f"{traceback.format_exc()}")
+            return TransitionCallbackReturn.ERROR
+
+        return super().on_activate(state) 
+           
+    def on_activate(self, state: LifecycleState) -> TransitionCallbackReturn:
+        """Handles an activating transition.
+
+        Args:
+            state: Current lifecycle state.
+
+        """
+        self.get_logger().info(f"Transitioning from '{state.label}' to 'active' state.")
+
+        return super().on_activate(state)
 
 def main(args=None):
     rclpy.init(args=args)

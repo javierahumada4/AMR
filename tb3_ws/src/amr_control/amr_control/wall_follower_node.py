@@ -55,7 +55,7 @@ class WallFollowerNode(LifecycleNode):
                 message_filters.Subscriber(self, LaserScan, "/scan", qos_profile=qos_profile)
             )
             ts = message_filters.ApproximateTimeSynchronizer(
-                self._subscribers, queue_size=10, slop=0.5 #0.1 o 0.2 max 0.5
+                self._subscribers, queue_size=10, slop=0.25 #0.1 o 0.2 max 0.5
             )
             ts.registerCallback(self._compute_commands_callback)
             # TODO: 4.12. Add /pose to the synced subscriptions only if localization is enabled.
@@ -99,8 +99,8 @@ class WallFollowerNode(LifecycleNode):
         """
         if not pose_msg.localized:
             # TODO: 2.8. Parse the odometry from the Odometry message (i.e., read z_v and z_w).
-            z_v: float = odom_msg.twist.linear.x
-            z_w: float = odom_msg.twist.angular.z
+            z_v: float = odom_msg.twist.twist.linear.x
+            z_w: float = odom_msg.twist.twist.angular.z
 
             # TODO: 2.9. Parse LiDAR measurements from the LaserScan message (i.e., read z_scan).
             z_scan: list[float] = scan_msg.ranges

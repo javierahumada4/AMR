@@ -5,8 +5,6 @@ import math
 
 
 def generate_launch_description():
-    start = (1.0, -1.0, 0.5 * math.pi)  # Outer corridor
-    start = (0.6, -0.6, 1.5 * math.pi)  # Inner corridor
 
     wall_follower_node = LifecycleNode(
         package="amr_control",
@@ -16,16 +14,25 @@ def generate_launch_description():
         output="screen",
         arguments=["--ros-args", "--log-level", "WARN"],
     )
-
-    coppeliasim_node = LifecycleNode(
-        package="amr_simulation",
-        executable="coppeliasim",
-        name="coppeliasim",
+    
+    odometry_node = LifecycleNode(
+        package="amr_turtlebot3",
+        executable="odometry_node",
+        name="odometry_node",
         namespace="",
         output="screen",
         arguments=["--ros-args", "--log-level", "WARN"],
-        parameters=[{"start": start}],
     )
+
+    # coppeliasim_node = LifecycleNode(
+    #     package="amr_simulation",
+    #     executable="coppeliasim",
+    #     name="coppeliasim",
+    #     namespace="",
+    #     output="screen",
+    #     arguments=["--ros-args", "--log-level", "WARN"],
+    #     parameters=[{"start": start}],
+    # )
 
     lifecycle_manager_node = Node(
         package="amr_bringup",
@@ -36,7 +43,8 @@ def generate_launch_description():
             {
                 "node_startup_order": (
                     "wall_follower",
-                    "coppeliasim",  # Must be started last
+                    "odometry_node",
+                    # "coppeliasim",  # Must be started last
                 )
             }
         ],
@@ -45,7 +53,8 @@ def generate_launch_description():
     return LaunchDescription(
         [
             wall_follower_node,
-            coppeliasim_node,
+            odometry_node,
+            # coppeliasim_node,
             lifecycle_manager_node,  # Must be launched last
         ]
     )
