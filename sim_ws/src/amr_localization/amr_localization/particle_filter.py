@@ -80,22 +80,38 @@ class ParticleFilter:
 
         """
         # TODO: 3.10. Complete the missing function body with your code.
-        localized: bool = False
-        pose: tuple[float, float, float] = (float("inf"), float("inf"), float("inf"))
+        localized = False
+        pose = (float("inf"), float("inf"), float("inf"))
 
-        # Escobar
-        # clusters = DBSCAN(eps=0.5, min_samples=10).fit(self._particles[:, :2]).labels_
+        # # Apply DBSCAN clustering
+        # clustering = DBSCAN(eps=0.5, min_samples=10).fit(self._particles[:, :2])
+        # clusters = clustering.labels_
+
+        # # Get unique clusters excluding noise (-1)
         # unique_clusters = np.unique(clusters[clusters != -1])
-        # if len(unique_clusters) == 1:
-        #     self._particle_count = 50
-        #     localized = True
-        #     x_mean, y_mean = np.mean(self._particles[:, :2], axis=0)
-        #     theta_mean = np.arctan2(
-        #         np.mean(np.sin(self._particles[:, 2])),
-        #         np.mean(np.cos(self._particles[:, 2])),
-        #     )     
-        #     pose = (x_mean, y_mean, theta_mean)
-        
+
+        # # If there is at least one valid cluster
+        # if len(unique_clusters) > 0:
+        #     # Adjust the number of particles based on the number of clusters
+        #     self._particle_count = max(50, len(unique_clusters) * 20)
+
+        #     # If only one cluster remains, estimate the pose
+        #     if len(unique_clusters) == 1:
+        #         localized = True
+        #         cluster_mask = clusters == unique_clusters[0]
+        #         cluster_particles = self._particles[cluster_mask]
+
+        #         # Compute mean (x, y)
+        #         x_mean, y_mean = np.mean(cluster_particles[:, :2], axis=0)
+
+        #         # Compute mean orientation (theta) using atan2 to handle periodicity
+        #         theta_mean = np.arctan2(
+        #             np.mean(math.sin(cluster_particles[:, 2])),
+        #             np.mean(math.cos(cluster_particles[:, 2])),
+        #         )
+
+        #         pose = (x_mean, y_mean, theta_mean)
+
         return localized, pose
 
     def move(self, v: float, w: float) -> None:
@@ -142,9 +158,10 @@ class ParticleFilter:
             
             self._particles[i] = (x, y, theta)
 
-            intersections, _ = self._map.check_collision([(x_old, y_old), (x, y)])
-            if intersections:
-                self._particles[i] = (intersections[0], intersections[1], theta)
+            intersection, _ = self._map.check_collision([(x_old, y_old), (x, y)])
+            if intersection:
+                x_collision, y_collision = intersection  # Extraer las coordenadas directamente
+                self._particles[i] = (x_collision, y_collision, theta)
         
     def resample(self, measurements: list[float]) -> None:
         """Samples a new set of particles.
@@ -155,14 +172,15 @@ class ParticleFilter:
         """
         # TODO: 3.9. Complete the function body with your code (i.e., replace the pass statement).
         # Calculate measurement probabilities for each particle
-        raw_probabilities = np.array([self._measurement_probability(measurements, particle) for particle in self._particles])
-        log_probabilities = np.log(raw_probabilities)
+        raw_probabilities = np.array([self._measurement_probability(measurements, particle) for particle in self._particles])  
+        
+        log_probabilities = np.log(raw_probabilities + 1e-300)
         max_log_prob = np.max(log_probabilities)
         log_probabilities -= max_log_prob # Avoid underflow by subtracting the maximum log probability
         probabilities = np.exp(log_probabilities)
 
         # Normalize the probabilities to sum to 1
-        probabilities /= np.sum(probabilities)
+        probabilities /= np.clip(np.sum(probabilities), 1e-300, None)
 
         print(f"Raw measurement probs: {raw_probabilities[:10]}")
         print(f"Log probs: {log_probabilities[:10]}")
@@ -179,7 +197,8 @@ class ParticleFilter:
         positions = start + np.arange(N) / N
 
         indexes = np.searchsorted(cumulative_sum, positions)
-        self._particles = self._particles[indexes]
+        indexes = np.clip(indexes, 0, len(self._particles) - 1)
+        self._particles = self._particles[indexes].copy()
         
         
     def plot(self, axes, orientation: bool = True):
