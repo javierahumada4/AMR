@@ -83,34 +83,47 @@ class ParticleFilter:
         localized = False
         pose = (float("inf"), float("inf"), float("inf"))
 
-        # # Apply DBSCAN clustering
-        # clustering = DBSCAN(eps=0.5, min_samples=10).fit(self._particles[:, :2])
-        # clusters = clustering.labels_
+        # Apply DBSCAN clustering
+        clustering = DBSCAN(eps=0.5, min_samples=10).fit(self._particles[:, :2])
+        clusters = clustering.labels_
 
-        # # Get unique clusters excluding noise (-1)
-        # unique_clusters = np.unique(clusters[clusters != -1])
+        # Get unique clusters excluding noise (-1)
+        unique_clusters = np.unique(clusters[clusters != -1])
 
-        # # If there is at least one valid cluster
-        # if len(unique_clusters) > 0:
-        #     # Adjust the number of particles based on the number of clusters
-        #     self._particle_count = max(50, len(unique_clusters) * 20)
+        # If there is at least one valid cluster
+        if len(unique_clusters) > 0:
+            # Adjust the number of particles based on the number of clusters
+            self._particle_count = max(50, len(unique_clusters) * 20)
 
-        #     # If only one cluster remains, estimate the pose
-        #     if len(unique_clusters) == 1:
-        #         localized = True
-        #         cluster_mask = clusters == unique_clusters[0]
-        #         cluster_particles = self._particles[cluster_mask]
+            # If only one cluster remains, estimate the pose
+            if len(unique_clusters) == 1:
+                localized = True
+                cluster_particles = self._particles[clusters == unique_clusters[0]]
 
-        #         # Compute mean (x, y)
-        #         x_mean, y_mean = np.mean(cluster_particles[:, :2], axis=0)
+                # Compute mean (x, y)
+                x_mean, y_mean = np.mean(cluster_particles[:, :2], axis=0)
 
-        #         # Compute mean orientation (theta) using atan2 to handle periodicity
-        #         theta_mean = np.arctan2(
-        #             np.mean(math.sin(cluster_particles[:, 2])),
-        #             np.mean(math.cos(cluster_particles[:, 2])),
-        #         )
+                # Compute mean orientation (theta) using atan2 to handle periodicity
+                theta_mean = np.arctan2(
+                    np.mean(
+                        np.array(
+                            [
+                                math.sin(cluster_particle[2])
+                                for cluster_particle in cluster_particles
+                            ]
+                        )
+                    ),
+                    np.mean(
+                        np.array(
+                            [
+                                math.cos(cluster_particle[2])
+                                for cluster_particle in cluster_particles
+                            ]
+                        )
+                    ),
+                )
 
-        #         pose = (x_mean, y_mean, theta_mean)
+                pose = (x_mean, y_mean, theta_mean)
 
         return localized, pose
 
@@ -125,25 +138,6 @@ class ParticleFilter:
         self._iteration += 1
 
         # TODO: 3.5. Complete the function body with your code.
-            # x, y, theta = particle
-            # x_old, y_old, theta_old = x, y, theta
-
-            # theta += w * self._dt
-            # theta %= 2*math.pi
-            
-            # sen_old = math.sin(theta_old)
-            # cos_old = math.cos(theta_old)
-            # sen_new = math.sin(theta)
-            # cos_new = math.cos(theta)
-
-            # x += (-v/w)*sen_old + (v/w)*sen_new
-            # y += (v/w)*cos_old - (v/w)*cos_new
-
-            # x += random.gauss(0, self._sigma_v)
-            # y += random.gauss(0, self._sigma_v)
-            # theta += random.gauss(0, self._sigma_w)
-            
-            # self._particles[i] = (x, y, theta)
         for i, particle in enumerate(self._particles):
             x, y, theta = particle
             x_old, y_old, theta_old = x, y, theta
@@ -152,17 +146,17 @@ class ParticleFilter:
 
             x += noise_v * math.cos(theta) * self._dt
             y += noise_v * math.sin(theta) * self._dt
-            
+
             theta += noise_w * self._dt
-            theta %= 2*math.pi
-            
+            theta %= 2 * math.pi
+
             self._particles[i] = (x, y, theta)
 
             intersection, _ = self._map.check_collision([(x_old, y_old), (x, y)])
             if intersection:
                 x_collision, y_collision = intersection  # Extraer las coordenadas directamente
                 self._particles[i] = (x_collision, y_collision, theta)
-        
+
     def resample(self, measurements: list[float]) -> None:
         """Samples a new set of particles.
 
@@ -172,20 +166,19 @@ class ParticleFilter:
         """
         # TODO: 3.9. Complete the function body with your code (i.e., replace the pass statement).
         # Calculate measurement probabilities for each particle
-        raw_probabilities = np.array([self._measurement_probability(measurements, particle) for particle in self._particles])  
-        
+        raw_probabilities = np.array(
+            [self._measurement_probability(measurements, particle) for particle in self._particles]
+        )
+
         log_probabilities = np.log(raw_probabilities + 1e-300)
         max_log_prob = np.max(log_probabilities)
-        log_probabilities -= max_log_prob # Avoid underflow by subtracting the maximum log probability
+        log_probabilities -= (
+            max_log_prob  # Avoid underflow by subtracting the maximum log probability
+        )
         probabilities = np.exp(log_probabilities)
 
         # Normalize the probabilities to sum to 1
         probabilities /= np.clip(np.sum(probabilities), 1e-300, None)
-
-        print(f"Raw measurement probs: {raw_probabilities[:10]}")
-        print(f"Log probs: {log_probabilities[:10]}")
-        print(f"Exp log probs: {np.exp(log_probabilities[:10])}")
-        print(f"Final normalized probs: {probabilities[:10]}")
 
         # Compute the cumulative sum of the normalized probabilities
         cumulative_sum = np.cumsum(probabilities)
@@ -199,8 +192,7 @@ class ParticleFilter:
         indexes = np.searchsorted(cumulative_sum, positions)
         indexes = np.clip(indexes, 0, len(self._particles) - 1)
         self._particles = self._particles[indexes].copy()
-        
-        
+
     def plot(self, axes, orientation: bool = True):
         """Draws particles.
 
@@ -303,8 +295,8 @@ class ParticleFilter:
         if global_localization:
             x_min, y_min, x_max, y_max = self._map.bounds()
             for i in range(particle_count):
-                x : float
-                y : float
+                x: float
+                y: float
                 valid = False
                 while not valid:
                     x = random.uniform(x_min, x_max)
@@ -316,8 +308,8 @@ class ParticleFilter:
             x_mean, y_mean, theta_mean = initial_pose
             x_sigma, y_sigma, theta_sigma = initial_pose_sigma
             for i in range(particle_count):
-                x : float
-                y : float
+                x: float
+                y: float
                 valid = False
                 while not valid:
                     x = random.gauss(x_mean, x_sigma)
@@ -340,10 +332,10 @@ class ParticleFilter:
         z_hat: list[float] = []
 
         # TODO: 3.6. Complete the missing function body with your code.
-        rays = self._lidar_rays(particle, tuple(range(0,240,15)))
+        rays = self._lidar_rays(particle, tuple(range(0, 240, 15)))
         for ray in rays:
-            _ , distance = self._map.check_collision(ray, True)
-            if distance <= self._sensor_range_max: # 1 before
+            _, distance = self._map.check_collision(ray, True)
+            if distance <= 1:  # self._sensor_range_max
                 z_hat.append(distance)
             else:
                 z_hat.append(float("nan"))
@@ -364,8 +356,8 @@ class ParticleFilter:
 
         """
         # TODO: 3.7. Complete the function body (i.e., replace the code below).
-        return math.exp(-((mu - x)**2)/(2*sigma**2))/((2*math.pi*sigma**2)**0.5)
-        
+        return math.exp(-((mu - x) ** 2) / (2 * sigma**2)) / ((2 * math.pi * sigma**2) ** 0.5)
+
     def _lidar_rays(
         self, pose: tuple[float, float, float], indices: tuple[float], degree_increment: float = 1.5
     ) -> list[list[tuple[float, float]]]:
@@ -418,12 +410,18 @@ class ParticleFilter:
         probability = 1.0
 
         # TODO: 3.8. Complete the missing function body with your code.
-        measurements = [measure if not math.isnan(measure) else self._sensor_range_min - 0.01 for measure in measurements]
+        measurements = [
+            measure if not math.isnan(measure) else self._sensor_range_min - 0.01
+            for measure in measurements
+        ]
 
         sim_measurements = self._sense(particle)
-        sim_measurements = [measure if not math.isnan(measure) else self._sensor_range_min - 0.01 for measure in sim_measurements]
+        sim_measurements = [
+            measure if not math.isnan(measure) else self._sensor_range_min - 0.01
+            for measure in sim_measurements
+        ]
 
-        for z, z_hat in zip(measurements, sim_measurements):
+        for z, z_hat in zip(measurements[::15], sim_measurements):
             probability *= self._gaussian(z, self._sigma_z, z_hat)
-    
+
         return probability
