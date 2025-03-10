@@ -1,5 +1,5 @@
 import datetime
-import numpy as np
+import math
 import os
 import pytz
 import random
@@ -12,6 +12,10 @@ except ImportError:
     from maps import Map
 
 from matplotlib import pyplot as plt
+
+
+class PathNotFound(Exception):
+    pass
 
 
 class PRM:
@@ -61,7 +65,7 @@ class PRM:
 
     def find_path(
         self, start: tuple[float, float], goal: tuple[float, float]
-    ) -> tuple[list[tuple[float, float]], int]:
+    ) -> list[tuple[float, float]]:
         """Computes the shortest path from a start to a goal location using the A* algorithm.
 
         Args:
@@ -84,8 +88,42 @@ class PRM:
         # TODO: 4.3. Complete the function body (i.e., replace the code below).
         path: list[tuple[float, float]] = []
 
-        return path
-        
+        def calculate_dis(node, pos):
+            return math.sqrt((node[0] - pos[0]) ** 2 + (node[1] - pos[1]) ** 2)
+
+        initial_node = min(self._graph, key=lambda node: calculate_dis(node, start))
+        final_node = min(self._graph, key=lambda node: calculate_dis(node, goal))
+
+        open_list: dict[tuple[float, float], tuple[float, float]] = {}
+        close_list: set[tuple[float, float]] = set()
+
+        open_list[initial_node] = (calculate_dis(initial_node, final_node), 0)
+        node = initial_node
+        while open_list != {} and node != final_node:
+            node = min(open_list, key=lambda k: open_list.get(k)[0])
+            f, g = open_list[node]
+            for neighbour in self._graph[node]:
+                h_new = calculate_dis(neighbour, final_node)
+                g_new = g + calculate_dis(neighbour, node)
+                f_new = h_new + g_new
+                if neighbour not in close_list:
+                    if neighbour not in open_list or open_list[neighbour][1] > g_new:
+                        open_list[neighbour] = (f_new, g_new)
+                        ancestors[neighbour] = node
+
+            close_list.add(node)
+            open_list.pop(node)
+
+        if final_node in close_list:
+            if initial_node != start:
+                ancestors[initial_node] = start
+            if final_node != goal:
+                ancestors[goal] = final_node
+            path = self._reconstruct_path(start, goal, ancestors)
+            return path
+        else:
+            raise PathNotFound("Path not found")
+
     @staticmethod
     def smooth_path(
         path,
@@ -110,7 +148,7 @@ class PRM:
         """
         # TODO: 4.5. Complete the function body (i.e., load smoothed_path).
         smoothed_path: list[tuple[float, float]] = []
-        
+
         return smoothed_path
 
     def plot(
@@ -232,8 +270,22 @@ class PRM:
         Returns: A modified graph with lists of connected nodes as values.
 
         """
+
         # TODO: 4.2. Complete the missing function body with your code.
-        
+        def calculate_dis(pos_1, pos_2):
+            return math.sqrt((pos_1[0] - pos_2[0]) ** 2 + (pos_1[1] - pos_2[1]) ** 2)
+
+        def get_nodes(node_pos):
+            return [
+                target_pos
+                for target_pos in graph.keys()
+                if (node_pos != target_pos)
+                and (calculate_dis(node_pos, target_pos) <= connection_distance)
+                and (not self._map.crosses([target_pos, node_pos]))
+            ]
+
+        graph = {node_pos: get_nodes(node_pos) for node_pos in graph.keys()}
+
         return graph
 
     def _create_graph(
@@ -279,7 +331,30 @@ class PRM:
         graph: dict[tuple[float, float], list[tuple[float, float]]] = {}
 
         # TODO: 4.1. Complete the missing function body with your code.
-        
+        x_min, y_min, x_max, y_max = self._map.bounds()
+        if use_grid:
+            x = x_min
+            while x <= x_max:
+                y = y_min
+                while y <= y_max:
+                    rounded_x = round(x, 3)
+                    rounded_y = round(y, 3)
+                    if self._map.contains((rounded_x, rounded_y)):
+                        graph[(rounded_x, rounded_y)] = []
+                    y += grid_size
+                x += grid_size
+        else:
+            x_min, y_min, x_max, y_max = self._map.bounds()
+            for i in range(node_count):
+                x: float
+                y: float
+                valid = False
+                while not valid:
+                    x = round(random.uniform(x_min, x_max), 3)
+                    y = round(random.uniform(y_min, y_max), 3)
+                    valid = self._map.contains((x, y))
+                graph[(x, y)] = []
+
         return graph
 
     def _reconstruct_path(
@@ -293,7 +368,7 @@ class PRM:
         Args:
             start: Initial location in (x, y) format.
             goal: Goal location in (x, y) format.
-            ancestors: Matrix that contains for every cell, None or the (x, y) ancestor from which
+            ancestors: Dictionary, key: (x, y) that contains for every cell, None or the (x, y) ancestor from which
                        it was opened.
 
         Returns: Path to the goal (start location first) in (x, y) format.
@@ -302,7 +377,13 @@ class PRM:
         path: list[tuple[float, float]] = []
 
         # TODO: 4.4. Complete the missing function body with your code.
-        
+        path = [goal]
+        node = goal
+        while node != start:
+            next_node = ancestors[node]
+            path.insert(0, next_node)
+            node = next_node
+
         return path
 
 
@@ -314,7 +395,7 @@ if __name__ == "__main__":
 
     # Create the roadmap
     start_time = time.perf_counter()
-    prm = PRM(map_path, use_grid=False, node_count=250, grid_size=0.1, connection_distance=0.3)
+    prm = PRM(map_path, use_grid=True, node_count=250, grid_size=0.1, connection_distance=0.15)
     roadmap_creation_time = time.perf_counter() - start_time
 
     print(f"Roadmap creation time: {roadmap_creation_time:1.3f} s")
