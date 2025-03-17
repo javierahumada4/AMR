@@ -88,7 +88,8 @@ class PRMNode(LifecycleNode):
 
             # Publishers
             # TODO: 4.6. Create the /path publisher (Path message).
-            
+            self._path_publisher = self.create_publisher(Path, "path", 10) # Casa
+
             # Subscribers
             self._subscriber_pose = self.create_subscription(
                 AmrPoseStamped, "pose", self._path_callback, 10
@@ -153,8 +154,26 @@ class PRMNode(LifecycleNode):
 
         """
         # TODO: 4.7. Complete the function body with your code (i.e., replace the pass statement).
-        pass
+        # Create the Path message   
+        path_msg = Path()
+        path_msg.header.stamp = self.get_clock().now().to_msg()
+        path_msg.poses = []
+        for point in path:
+            pose_stamped = PoseStamped()
+            pose_stamped.header.stamp = self.get_clock().now().to_msg()
+            pose_stamped.pose.position.x = point[0]
+            pose_stamped.pose.position.y = point[1]
+            
+            # No se si es necesario
+            pose_stamped.pose.position.z = 0.0
+            pose_stamped.pose.orientation.w = 1.0
+
+            path_msg.poses.append(pose_stamped)
+
+        # Publish the Path message
+        self._path_publisher.publish(path_msg)
         
+
 
 def main(args=None):
     rclpy.init(args=args)
