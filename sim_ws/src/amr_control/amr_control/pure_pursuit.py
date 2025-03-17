@@ -1,7 +1,10 @@
+import math
+
+
 class PurePursuit:
     """Class to follow a path using a simple pure pursuit controller."""
 
-    def __init__(self, dt: float, lookahead_distance: float = 0.5):
+    def __init__(self, dt: float, lookahead_distance: float = 0.5, logger=None):
         """Pure pursuit class initializer.
 
         Args:
@@ -12,6 +15,7 @@ class PurePursuit:
         self._dt: float = dt
         self._lookahead_distance: float = lookahead_distance
         self._path: list[tuple[float, float]] = []
+        self._logger = logger
 
     def compute_commands(self, x: float, y: float, theta: float) -> tuple[float, float]:
         """Pure pursuit controller implementation.
@@ -27,15 +31,44 @@ class PurePursuit:
 
         """
         # TODO: 4.11. Complete the function body with your code (i.e., compute v and w).
-        v = 0.0
-        w = 0.0
-        
+        if not self._path:
+            self._logger.info("Path not found")
+            return 0.0, 0.0
+
+        closest_point, closest_point_idx = self._find_closest_point(x, y)
+        destination = self._find_target_point(closest_point, closest_point_idx)
+
+        self._logger.info(f"Current Closest Point: {closest_point}")
+        self._logger.info(f"Current Destination: {destination}")
+
+        if destination:
+            point = (x, y)
+            real_l = self.calculate_dis(point, destination)
+            beta = math.atan((destination[1] - point[1]) / (destination[0] - point[0]))
+            alpha = beta - theta
+            e = real_l * math.sin(alpha)
+
+            if alpha > 0.2:
+                v = 0.0
+                w = -0.2
+            elif alpha < -0.2:
+                v = 0.0
+                w = 0.2
+            else:
+                v = min(2 * e / real_l**2, 0.5)
+                w = min(2 * v * math.sin(alpha) / real_l, 0.5)
+        else:
+            v, w = 0.0, 0.0
+
         return v, w
 
     @property
     def path(self) -> list[tuple[float, float]]:
         """Path getter."""
         return self._path
+
+    def calculate_dis(pos_1, pos_2):
+        return math.sqrt((pos_1[0] - pos_2[0]) ** 2 + (pos_1[1] - pos_2[1]) ** 2)
 
     @path.setter
     def path(self, value: list[tuple[float, float]]) -> None:
@@ -54,12 +87,17 @@ class PurePursuit:
             int: Index of the path point found.
 
         """
+
         # TODO: 4.9. Complete the function body (i.e., find closest_xy and closest_idx).
-        closest_xy = (0.0, 0.0)
-        closest_idx = 0
+
+        closest_idx = min(
+            range(len(self._path)), key=lambda i: self.calculate_dis((x, y), self._path[i])
+        )
+
+        closest_xy = self._path[closest_idx]
 
         return closest_xy, closest_idx
-        
+
     def _find_target_point(
         self, origin_xy: tuple[float, float], origin_idx: int
     ) -> tuple[float, float]:
@@ -74,7 +112,20 @@ class PurePursuit:
 
         """
         # TODO: 4.10. Complete the function body with your code (i.e., determine target_xy).
-        target_xy = (0.0, 0.0)
+        path_cut = self._path[origin_idx:]
+
+        points_outside_radius = [
+            point
+            for point in path_cut
+            if (self.calculate_dis(origin_xy, point) - self._lookahead_distance) >= 0
+        ]
+
+        if points_outside_radius:
+            target_xy: tuple[float, float] = points_outside_radius[0]
+        else:
+            target_xy = self._path[-1]
+
+            if origin_xy == target_xy:
+                return None
 
         return target_xy
-        

@@ -47,7 +47,7 @@ class PurePursuitNode(LifecycleNode):
             self._publisher = self.create_publisher(TwistStamped, "cmd_vel", 10)
 
             # Attribute and object initializations
-            self._pure_pursuit = PurePursuit(dt, lookahead_distance)
+            self._pure_pursuit = PurePursuit(dt, lookahead_distance, self.get_logger())
 
         except Exception:
             self.get_logger().error(f"{traceback.format_exc()}")
@@ -110,9 +110,7 @@ class PurePursuitNode(LifecycleNode):
 
         # Save path
         self._pure_pursuit.path(path)
-        
 
-        
     def _publish_velocity_commands(self, v: float, w: float) -> None:
         """Publishes velocity commands in a geometry_msgs.msg.TwistStamped message.
 
