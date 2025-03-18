@@ -80,11 +80,21 @@ class ParticleFilter:
 
         """
         # TODO: 3.10. Complete the missing function body with your code.
+        if self._particles.shape[0] == 0:
+            return False, (float("inf"), float("inf"), float("inf"))
+
         localized = False
         pose = (float("inf"), float("inf"), float("inf"))
+        
+        particles_4d = np.column_stack((
+            self._particles[:, 0],
+            self._particles[:, 1],
+            np.sin(self._particles[:, 2]),
+            np.cos(self._particles[:, 2])
+        ))
 
         # Apply DBSCAN clustering
-        clustering = DBSCAN(eps=0.5, min_samples=10).fit(self._particles[:, :2])
+        clustering = DBSCAN(eps=0.15, min_samples=20).fit(particles_4d)
         clusters = clustering.labels_
 
         # Get unique clusters excluding noise (-1)
@@ -93,7 +103,7 @@ class ParticleFilter:
         # If there is at least one valid cluster
         if len(unique_clusters) > 0:
             # Adjust the number of particles based on the number of clusters
-            self._particle_count = max(50, len(unique_clusters) * 20)
+            self._particle_count = max(200, len(unique_clusters) * 200)
 
             # If only one cluster remains, estimate the pose
             if len(unique_clusters) == 1:
@@ -148,13 +158,13 @@ class ParticleFilter:
             y += noise_v * math.sin(theta) * self._dt
 
             theta += noise_w * self._dt
-            theta %= 2 * math.pi
+            theta = (theta + math.pi) % (2 * math.pi) - math.pi
 
             self._particles[i] = (x, y, theta)
 
-            intersection, _ = self._map.check_collision([(x_old, y_old), (x, y)])
-            if intersection:
-                x_collision, y_collision = intersection  # Extraer las coordenadas directamente
+            intersection_result = self._map.check_collision([(x_old, y_old), (x, y)])
+            if intersection_result[0]:
+                x_collision, y_collision = intersection_result[0]  # Extraer las coordenadas directamente
                 self._particles[i] = (x_collision, y_collision, theta)
 
     def resample(self, measurements: list[float]) -> None:
@@ -178,7 +188,11 @@ class ParticleFilter:
         probabilities = np.exp(log_probabilities)
 
         # Normalize the probabilities to sum to 1
-        probabilities /= np.clip(np.sum(probabilities), 1e-300, None)
+        total_prob = np.sum(probabilities)
+        if total_prob == 0:
+            probabilities = np.ones_like(probabilities) / len(probabilities)
+        else:
+            probabilities /= total_prob
 
         # Compute the cumulative sum of the normalized probabilities
         cumulative_sum = np.cumsum(probabilities)
@@ -192,6 +206,7 @@ class ParticleFilter:
         indexes = np.searchsorted(cumulative_sum, positions)
         indexes = np.clip(indexes, 0, len(self._particles) - 1)
         self._particles = self._particles[indexes].copy()
+        self._particles += np.random.normal(0, 0.01, self._particles.shape)
 
     def plot(self, axes, orientation: bool = True):
         """Draws particles.
@@ -289,7 +304,7 @@ class ParticleFilter:
         Returns: A NumPy array of tuples (x, y, theta) [m, m, rad].
 
         """
-        particles = np.empty((particle_count, 3), dtype=object)
+        particles = np.empty((particle_count, 3), dtype=np.float64)
 
         # TODO: 3.4. Complete the missing function body with your code.
         if global_localization:
@@ -335,7 +350,7 @@ class ParticleFilter:
         rays = self._lidar_rays(particle, tuple(range(0, 240, 15)))
         for ray in rays:
             _, distance = self._map.check_collision(ray, True)
-            if distance <= 1:  # self._sensor_range_max
+            if distance <= self._sensor_range_max:
                 z_hat.append(distance)
             else:
                 z_hat.append(float("nan"))
