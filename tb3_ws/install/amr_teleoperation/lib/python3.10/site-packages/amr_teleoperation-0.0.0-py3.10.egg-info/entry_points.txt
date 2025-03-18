@@ -1,4 +1,0 @@
-[console_scripts]
-keyboard_node = amr_teleoperation.keyboard_node:main
-teleoperation_node = amr_teleoperation.teleoperation_node:main
-

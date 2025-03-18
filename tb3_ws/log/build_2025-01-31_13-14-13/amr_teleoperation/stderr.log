@@ -1,5 +1,0 @@
-  File "/home/turtlebot/tb3_ws/install/amr_teleoperation/lib/python3.10/site-packages/amr_teleoperation/teleoperation_node.py", line 86
-    stop_twist.linear.x *= 
-                           ^
-SyntaxError: invalid syntax
-

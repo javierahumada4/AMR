@@ -1,6 +1,0 @@
-{
-  "package_name": "amr_msgs",
-  "non_idl_tuples": [
-    "/home/turtlebot/tb3_ws/src/amr_msgs:msg/Key.msg"
-  ]
-}

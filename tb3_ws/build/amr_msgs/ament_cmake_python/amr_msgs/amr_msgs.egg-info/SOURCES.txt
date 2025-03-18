@@ -1,8 +1,0 @@
-setup.py
-amr_msgs/__init__.py
-amr_msgs.egg-info/PKG-INFO
-amr_msgs.egg-info/SOURCES.txt
-amr_msgs.egg-info/dependency_links.txt
-amr_msgs.egg-info/top_level.txt
-amr_msgs/msg/__init__.py
-amr_msgs/msg/_key.py
