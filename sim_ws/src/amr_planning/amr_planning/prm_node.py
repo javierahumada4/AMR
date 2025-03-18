@@ -88,11 +88,11 @@ class PRMNode(LifecycleNode):
 
             # Publishers
             # TODO: 4.6. Create the /path publisher (Path message).
-            self._path_publisher = self.create_publisher(Path, "path", 10)
+            self._path_publisher = self.create_publisher(Path, "/path", 10)
 
             # Subscribers
             self._subscriber_pose = self.create_subscription(
-                AmrPoseStamped, "pose", self._path_callback, 10
+                AmrPoseStamped, "/pose", self._path_callback, 10
             )
 
         except Exception:
@@ -130,10 +130,11 @@ class PRMNode(LifecycleNode):
 
             start_time = time.perf_counter()
             smoothed_path = PRM.smooth_path(
-                path,
+                path=path,
                 data_weight=self._smoothing_data_weight,
                 smooth_weight=self._smoothing_smooth_weight,
                 additional_smoothing_points=self._smoothing_additional_points,
+                logger=self.get_logger(),
             )
             smoothing_time = time.perf_counter() - start_time
 

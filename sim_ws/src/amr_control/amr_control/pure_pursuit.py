@@ -32,7 +32,7 @@ class PurePursuit:
         """
         # TODO: 4.11. Complete the function body with your code (i.e., compute v and w).
         if not self._path:
-            self._logger.info("Path not found")
+            self._logger.info(f"Path not found: {self._path}")
             return 0.0, 0.0
 
         closest_point, closest_point_idx = self._find_closest_point(x, y)
@@ -44,19 +44,29 @@ class PurePursuit:
         if destination:
             point = (x, y)
             real_l = self.calculate_dis(point, destination)
-            beta = math.atan((destination[1] - point[1]) / (destination[0] - point[0]))
+            if real_l == 0:
+                real_l += 1e-6
+            dx = destination[0] - x
+            dy = destination[1] - y
+            beta = math.atan2(dy, dx)
             alpha = beta - theta
+            alpha = (alpha + math.pi) % (2 * math.pi) - math.pi
             e = real_l * math.sin(alpha)
 
-            if alpha > 0.2:
-                v = 0.0
-                w = -0.2
-            elif alpha < -0.2:
-                v = 0.0
-                w = 0.2
-            else:
-                v = min(2 * e / real_l**2, 0.5)
-                w = min(2 * v * math.sin(alpha) / real_l, 0.5)
+            self._logger.info(f"Alpha: {alpha}")
+
+            # if alpha > math.pi / 4:
+            #     v = 0.0
+            #     w = -0.2
+            # elif alpha < 2 * math.pi - math.pi / 4:
+            #     v = 0.0
+            #     w = 0.2
+            # else:
+            #     v = min(2 * e / real_l**2, 0.5)
+            #     w = min(2 * v * math.sin(alpha) / real_l, 0.5)
+
+            v = min(2 * e / real_l**2, 0.5)
+            w = min(2 * v * math.sin(alpha) / real_l, 0.5)
         else:
             v, w = 0.0, 0.0
 
@@ -67,7 +77,7 @@ class PurePursuit:
         """Path getter."""
         return self._path
 
-    def calculate_dis(pos_1, pos_2):
+    def calculate_dis(self, pos_1, pos_2):
         return math.sqrt((pos_1[0] - pos_2[0]) ** 2 + (pos_1[1] - pos_2[1]) ** 2)
 
     @path.setter
@@ -89,9 +99,9 @@ class PurePursuit:
         """
 
         # TODO: 4.9. Complete the function body (i.e., find closest_xy and closest_idx).
-
+        point = (x, y)
         closest_idx = min(
-            range(len(self._path)), key=lambda i: self.calculate_dis((x, y), self._path[i])
+            range(len(self._path)), key=lambda i: self.calculate_dis(point, self._path[i])
         )
 
         closest_xy = self._path[closest_idx]

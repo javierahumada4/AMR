@@ -131,6 +131,7 @@ class PRM:
         smooth_weight: float = 0.3,
         additional_smoothing_points: int = 0,
         tolerance: float = 1e-6,
+        logger=None,
     ) -> list[tuple[float, float]]:
         """Computes a smooth path from a piecewise linear path.
 
@@ -146,7 +147,58 @@ class PRM:
         Returns: Smoothed path (initial location first) in (x, y) format.
 
         """
-        # TODO: 4.5. Complete the function body (i.e., load smoothed_path). 
+
+        # logger.info(f"Path: {path}")
+
+        # # TODO: 4.5. Complete the function body (i.e., load smoothed_path).
+        # extended_path: list[tuple[float, float]] = path.copy()
+
+        # if additional_smoothing_points > 0:
+        #     for i, point in enumerate(path[:-1]):
+        #         x_start, y_start = point
+        #         x_end, y_end = path[i + 1]
+        #         x_diff = (x_end - x_start) / (additional_smoothing_points + 1)
+        #         y_diff = (y_end - y_start) / (additional_smoothing_points + 1)
+        #         for j in range(1, additional_smoothing_points + 1):
+        #             extended_path.insert(
+        #                 i * (additional_smoothing_points + 1) + j,
+        #                 (x_start + j * x_diff, y_start + j * y_diff),
+        #             )
+
+        # logger.info(f"Extended Path: {extended_path}")
+
+        # smoothed_path: list[tuple[float, float]] = extended_path.copy()
+        # change = 1.0
+        # while change >= tolerance:
+        #     change = 0.0
+        #     for i in range(1, len(smoothed_path) - 1):
+        #         x = smoothed_path[i][0]
+        #         x += data_weight * (extended_path[i][0] - smoothed_path[i][0])
+        #         x += smooth_weight * (
+        #             smoothed_path[i - 1][0] + smoothed_path[i + 1][0] - 2 * smoothed_path[i][0]
+        #         )
+
+        #         y = smoothed_path[i][1]
+        #         y += data_weight * (extended_path[i][1] - smoothed_path[i][1])
+        #         y += smooth_weight * (
+        #             smoothed_path[i - 1][1] + smoothed_path[i + 1][1] - 2 * smoothed_path[i][1]
+        #         )
+
+        #         smoothed_path[i] = (x, y)
+
+        #         change += abs(smoothed_path[i][0] - extended_path[i][0]) + abs(
+        #             smoothed_path[i][1] - extended_path[i][1]
+        #         )
+
+        # # Add the first and last points back to the smoothed path
+        # smoothed_path.insert(0, path[0])
+        # smoothed_path.append(path[-1])
+
+        # logger.info(f"Smoothed Path: {smoothed_path}")
+
+        # return smoothed_path
+        logger.info(f"Path: {path}")
+
         extended_path: list[tuple[float, float]] = path.copy()
 
         if additional_smoothing_points > 0:
@@ -161,30 +213,37 @@ class PRM:
                         (x_start + j * x_diff, y_start + j * y_diff),
                     )
 
-        smoothed_path: list[tuple[float, float]] = extended_path.copy()
+        logger.info(f"Extended Path: {extended_path}")
 
-        change = 1.0
+        smoothed_path: list[tuple[float, float]] = extended_path.copy()
+        change = float("inf")
+
         while change >= tolerance:
             change = 0.0
+            new_smoothed_path = smoothed_path.copy()
+
             for i in range(1, len(smoothed_path) - 1):
-                smoothed_path[i] = (
-                    smoothed_path[i][0]
-                    + data_weight * (extended_path[i][0] - smoothed_path[i][0])
-                    + smooth_weight
-                    * (smoothed_path[i - 1][0] + smoothed_path[i + 1][0] - 2 * smoothed_path[i][0]),
-                    smoothed_path[i][1]
-                    + data_weight * (extended_path[i][1] - smoothed_path[i][1])
-                    + smooth_weight
-                    * (smoothed_path[i - 1][1] + smoothed_path[i + 1][1] - 2 * smoothed_path[i][1]),
+                x = smoothed_path[i][0]
+                x += data_weight * (extended_path[i][0] - smoothed_path[i][0])
+                x += smooth_weight * (
+                    smoothed_path[i - 1][0] + smoothed_path[i + 1][0] - 2 * smoothed_path[i][0]
                 )
 
-                change += abs(smoothed_path[i][0] - extended_path[i][0]) + abs(
-                    smoothed_path[i][1] - extended_path[i][1]
+                y = smoothed_path[i][1]
+                y += data_weight * (extended_path[i][1] - smoothed_path[i][1])
+                y += smooth_weight * (
+                    smoothed_path[i - 1][1] + smoothed_path[i + 1][1] - 2 * smoothed_path[i][1]
                 )
 
-        # Add the first and last points back to the smoothed path
-        smoothed_path.insert(0, path[0])
-        smoothed_path.append(path[-1])
+                new_smoothed_path[i] = (x, y)
+
+                change += abs(new_smoothed_path[i][0] - smoothed_path[i][0]) + abs(
+                    new_smoothed_path[i][1] - smoothed_path[i][1]
+                )
+
+            smoothed_path = new_smoothed_path
+
+        logger.info(f"Smoothed Path: {smoothed_path}")
 
         return smoothed_path
 

@@ -39,12 +39,12 @@ class PurePursuitNode(LifecycleNode):
 
             # Subscribers
             self._subscriber_pose = self.create_subscription(
-                PoseStamped, "pose", self._compute_commands_callback, 10
+                PoseStamped, "/pose", self._compute_commands_callback, 10
             )
-            self._subscriber_path = self.create_subscription(Path, "path", self._path_callback, 10)
+            self._subscriber_path = self.create_subscription(Path, "/path", self._path_callback, 10)
 
             # Publishers
-            self._publisher = self.create_publisher(TwistStamped, "cmd_vel", 10)
+            self._publisher = self.create_publisher(TwistStamped, "/cmd_vel", 10)
 
             # Attribute and object initializations
             self._pure_pursuit = PurePursuit(dt, lookahead_distance, self.get_logger())
@@ -109,7 +109,7 @@ class PurePursuitNode(LifecycleNode):
             path.append((x, y))
 
         # Save path
-        self._pure_pursuit.path(path)
+        self._pure_pursuit.path = path
 
     def _publish_velocity_commands(self, v: float, w: float) -> None:
         """Publishes velocity commands in a geometry_msgs.msg.TwistStamped message.
