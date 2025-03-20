@@ -8,6 +8,7 @@ from nav_msgs.msg import Path
 import os
 import time
 import traceback
+import math
 
 from amr_planning.prm import PRM
 
@@ -23,7 +24,7 @@ class PRMNode(LifecycleNode):
         self.declare_parameter("goal", (0.0, 0.0))
         self.declare_parameter("grid_size", 0.05)
         self.declare_parameter("node_count", 250)
-        self.declare_parameter("obstacle_safety_distance", 0.08)
+        self.declare_parameter("obstacle_safety_distance", 0.12)
         self.declare_parameter("smoothing_additional_points", 3)
         self.declare_parameter("smoothing_data_weight", 0.1)
         self.declare_parameter("smoothing_smooth_weight", 0.3)

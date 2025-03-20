@@ -77,20 +77,19 @@ class ParticleFilter:
         Returns:
             localized: True if the pose estimate is valid.
             pose: Robot pose estimate (x, y, theta) [m, m, rad].
-
         """
-        # TODO: 3.10. Complete the missing function body with your code.
         if self._particles.shape[0] == 0:
             return False, (float("inf"), float("inf"), float("inf"))
 
         localized = False
         pose = (float("inf"), float("inf"), float("inf"))
-        
+
+        # Create a 4D representation (x, y, sin(theta), cos(theta))
         particles_4d = np.column_stack((
-            self._particles[:, 0],
-            self._particles[:, 1],
-            np.sin(self._particles[:, 2]),
-            np.cos(self._particles[:, 2])
+            self._particles[:, 0],  # x
+            self._particles[:, 1],  # y
+            np.sin(self._particles[:, 2]),  # sin(theta)
+            np.cos(self._particles[:, 2])   # cos(theta)
         ))
 
         # Apply DBSCAN clustering
@@ -98,44 +97,31 @@ class ParticleFilter:
         clusters = clustering.labels_
 
         # Get unique clusters excluding noise (-1)
-        unique_clusters = np.unique(clusters[clusters != -1])
+        unique_clusters , counts = np.unique(clusters[clusters != -1], return_counts=True)
 
-        # If there is at least one valid cluster
         if len(unique_clusters) > 0:
-            # Adjust the number of particles based on the number of clusters
+            # Adjust the number of particles dynamically
             self._particle_count = max(200, len(unique_clusters) * 200)
 
-            # If only one cluster remains, estimate the pose
             if len(unique_clusters) == 1:
                 localized = True
-                cluster_particles = self._particles[clusters == unique_clusters[0]]
+                main_cluster = unique_clusters[np.argmax(counts)]
+                cluster_mask = (clusters == main_cluster)
+                cluster_particles = self._particles[cluster_mask]
 
-                # Compute mean (x, y)
-                x_mean, y_mean = np.mean(cluster_particles[:, :2], axis=0)
+                # Compute mean position (x, y)
+                x_mean, y_mean = np.mean(particles_4d[cluster_mask, :2], axis=0)
 
-                # Compute mean orientation (theta) using atan2 to handle periodicity
-                theta_mean = np.arctan2(
-                    np.mean(
-                        np.array(
-                            [
-                                math.sin(cluster_particle[2])
-                                for cluster_particle in cluster_particles
-                            ]
-                        )
-                    ),
-                    np.mean(
-                        np.array(
-                            [
-                                math.cos(cluster_particle[2])
-                                for cluster_particle in cluster_particles
-                            ]
-                        )
-                    ),
-                )
+                # Compute mean orientation (theta) directly from 4D representation
+                sin_mean = np.mean(particles_4d[cluster_mask, 2])  # Mean sin(theta)
+                cos_mean = np.mean(particles_4d[cluster_mask, 3])  # Mean cos(theta)                
+
+                theta_mean = math.atan2(sin_mean, cos_mean)  # atan2 handles periodicity
 
                 pose = (x_mean, y_mean, theta_mean)
 
         return localized, pose
+
 
     def move(self, v: float, w: float) -> None:
         """Performs a motion update on the particles.

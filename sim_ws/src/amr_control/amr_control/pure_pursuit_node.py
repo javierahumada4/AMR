@@ -19,7 +19,7 @@ class PurePursuitNode(LifecycleNode):
 
         # Parameters
         self.declare_parameter("dt", 0.05)
-        self.declare_parameter("lookahead_distance", 0.2)
+        self.declare_parameter("lookahead_distance", 0.3)
 
     def on_configure(self, state: LifecycleState) -> TransitionCallbackReturn:
         """Handles a configuring transition.

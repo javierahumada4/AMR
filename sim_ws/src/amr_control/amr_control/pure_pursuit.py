@@ -50,23 +50,18 @@ class PurePursuit:
             dy = destination[1] - y
             beta = math.atan2(dy, dx)
             alpha = beta - theta
-            alpha = (alpha + math.pi) % (2 * math.pi) - math.pi
-            e = real_l * math.sin(alpha)
 
             self._logger.info(f"Alpha: {alpha}")
 
-            # if alpha > math.pi / 4:
-            #     v = 0.0
-            #     w = -0.2
-            # elif alpha < 2 * math.pi - math.pi / 4:
-            #     v = 0.0
-            #     w = 0.2
-            # else:
-            #     v = min(2 * e / real_l**2, 0.5)
-            #     w = min(2 * v * math.sin(alpha) / real_l, 0.5)
-
-            v = min(2 * e / real_l**2, 0.5)
-            w = min(2 * v * math.sin(alpha) / real_l, 0.5)
+            if alpha > math.pi / 4:
+                v = 0.0
+                w = -0.5
+            elif alpha < - math.pi / 4:
+                v = 0.0
+                w = 0.5
+            else:
+                v = 0.15
+                w = 2 * v * math.sin(alpha) / real_l
         else:
             v, w = 0.0, 0.0
 

@@ -78,7 +78,7 @@ def generate_launch_description():
         name="coppeliasim",
         namespace="",
         output="screen",
-        arguments=["--ros-args", "--log-level", "WARN"],
+        arguments=["--ros-args", "--log-level", "INFO"],
         parameters=[
             {
                 "enable_localization": True,
