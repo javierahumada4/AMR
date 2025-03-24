@@ -72,21 +72,13 @@ def generate_launch_description():
         parameters=[{"lookahead_distance": 0.3}],
     )
 
-    coppeliasim_node = LifecycleNode(
-        package="amr_simulation",
-        executable="coppeliasim",
-        name="coppeliasim",
+    odometry_node = LifecycleNode(
+        package="amr_turtlebot3",
+        executable="odometry_node",
+        name="odometry_node",
         namespace="",
         output="screen",
         arguments=["--ros-args", "--log-level", "WARN"],
-        parameters=[
-            {
-                "enable_localization": True,
-                "goal": goal,
-                "goal_tolerance": 0.1,
-                "start": start,
-            }
-        ],
     )
 
     lifecycle_manager_node = Node(
@@ -98,9 +90,9 @@ def generate_launch_description():
             {
                 "node_startup_order": (
                     "particle_filter",
+                    "odometry_node",
                     "probabilistic_roadmap",
-                    "pure_pursuit",
-                    "coppeliasim",  # Must be started last
+                    "pure_pursuit"
                 )
             }
         ],
@@ -109,9 +101,9 @@ def generate_launch_description():
     return LaunchDescription(
         [
             particle_filter_node,
+            odometry_node,
             probabilistic_roadmap_node,
             pure_pursuit_node,
-            coppeliasim_node,
             lifecycle_manager_node,  # Must be launched last
         ]
     )
