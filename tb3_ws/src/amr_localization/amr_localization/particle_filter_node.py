@@ -2,7 +2,6 @@ import rclpy
 from rclpy.lifecycle import LifecycleNode, LifecycleState, TransitionCallbackReturn
 from rclpy.qos import QoSProfile, QoSDurabilityPolicy, QoSHistoryPolicy, QoSReliabilityPolicy
 
-import message_filters
 from amr_msgs.msg import PoseStamped, WallFollowerActive
 from nav_msgs.msg import Odometry
 from sensor_msgs.msg import LaserScan
@@ -62,14 +61,14 @@ class ParticleFilterNode(LifecycleNode):
             sigma_v = self.get_parameter("sigma_v").get_parameter_value().double_value
             sigma_w = self.get_parameter("sigma_w").get_parameter_value().double_value
             sigma_z = self.get_parameter("sigma_z").get_parameter_value().double_value
-            self._steps_btw_sense_updates = (
-                self.get_parameter("steps_btw_sense_updates").get_parameter_value().integer_value
-            )
             world = self.get_parameter("world").get_parameter_value().string_value
 
             # Attribute and object initializations
             self._localized = False
-            self._steps = 0
+            self._sense_countdown = 2
+            self._active = False
+            self._movements = []
+            self._last_lidar = None
             map_path = os.path.realpath(
                 os.path.join(os.path.dirname(__file__), "..", "maps", world + ".json")
             )
@@ -101,18 +100,9 @@ class ParticleFilterNode(LifecycleNode):
                 durability=QoSDurabilityPolicy.VOLATILE,
             )
 
-            self._movements = []
-            self.odometry_suscriber = self.create_subscription(Odometry, topic="/odometry", callback=self._odometry_callback, qos_profile=10)
-            
-            self._subscribers: list[message_filters.Subscriber] = []
-            self._subscribers.append(
-                message_filters.Subscriber(self, LaserScan, "scan", qos_profile=scan_qos_profile)
-            )
+            self.encoder_suscriber = self.create_subscription(Odometry, "/odometry", callback=self._encoder_callback, qos_profile=10)
+            self.lidar_subscriber = self.create_subscription(LaserScan, "/scan", callback=self._lidar_callback, qos_profile=scan_qos_profile)
 
-            ts = message_filters.ApproximateTimeSynchronizer(
-                self._subscribers, queue_size=10, slop=0.25
-            )
-            ts.registerCallback(self._compute_pose_callback)
 
         except Exception:
             self.get_logger().error(f"{traceback.format_exc()}")
@@ -128,45 +118,53 @@ class ParticleFilterNode(LifecycleNode):
 
         """
         self.get_logger().info(f"Transitioning from '{state.label}' to 'active' state.")
-
+        msg = WallFollowerActive()
+        msg.active = self._active
+        self._wall_follower_publisher.publish(msg)
+        self.sense_timer = self.create_timer(self._sense_countdown, self._timer_callback)
         return super().on_activate(state)
     
-    def _odometry_callback(self, odom_msg: Odometry):
-        z_v: float = odom_msg.twist.twist.linear.x
-        z_w: float = odom_msg.twist.twist.angular.z
+    def _encoder_callback(self, odom_msg: Odometry):
+        if self._active:
+            z_v: float = odom_msg.twist.twist.linear.x
+            z_w: float = odom_msg.twist.twist.angular.z
 
-        if abs(z_v) > 0.005 or abs(z_w) > 0.005:
-            self._movements.append((z_v, z_w))
+            if abs(z_v) > 0.005 or abs(z_w) > 0.005:
+                self._movements.append((z_v, z_w))
+                self.get_logger().info(f"Movements Length: {len(self._movements)}")
 
-    def _compute_pose_callback(self, scan_msg: LaserScan):
-        """Subscriber callback. Executes a particle filter and publishes (x, y, theta) estimates.
+    def _lidar_callback(self, msg: LaserScan):
+        self._last_lidar = msg
+    
+    def _timer_callback(self):
+        # Cancel and reset are needed because _timer_callback > _sense_countdown
+        # Without cancel and reset, the timer callback would be triggered without delay
+        self.sense_timer.cancel()
 
-        Args:
-            odom_msg: Message containing odometry measurements.
-            scan_msg: Message containing LiDAR sensor readings.
-
-        """
-
-        z_scan: list[float] = scan_msg.ranges
+        if self._last_lidar is None:
+            self.get_logger().info("No LiDAR measure received.")
+            return
         
+        self._active = False
         msg = WallFollowerActive()
-        self.get_logger().info(f"Stored Movements: {len(self._movements)}")
-        if len(self._movements) >= 10:
-            msg.active = False
-            self._wall_follower_publisher.publish(msg)
-            for movement in self._movements:
-                self._execute_motion_step(movement[0], movement[1])
-            self._movements = []
-            x_h, y_h, theta_h = self._execute_measurement_step(z_scan)
-            self._publish_pose_estimate(x_h, y_h, theta_h)
-        elif not self._localized:
-            msg.active = True
-            self._wall_follower_publisher.publish(msg)
-        else:
-            msg.active = False
-            self._wall_follower_publisher.publish(msg)
-            self.get_logger().info("The robot is LOCALIZED")
+        msg.active = self._active
+        self._wall_follower_publisher.publish(msg)
 
+        for z_v, z_w in self._movements:
+            self._execute_motion_step(z_v, z_w)
+        self._movements = []
+        z_us = self._last_lidar.ranges
+        x_h, y_h, theta_h = self._execute_measurement_step(z_us)
+ 
+        self._publish_pose_estimate(x_h, y_h, theta_h)
+
+        if not self._localized:
+            self._active = True
+            msg.active = self._active
+            self._wall_follower_publisher.publish(msg)
+            self.sense_timer.reset()
+        else:
+            self.get_logger().info(f"The robot is LOCALIZED")
 
     def _execute_measurement_step(self, z_us: list[float]) -> tuple[float, float, float]:
         """Executes and monitors the measurement step (sense) of the particle filter.
@@ -179,22 +177,21 @@ class ParticleFilterNode(LifecycleNode):
         """
         pose = (float("inf"), float("inf"), float("inf"))
 
-        if self._localized or not self._steps % self._steps_btw_sense_updates:
-            start_time = time.perf_counter()
-            self._particle_filter.resample(z_us)
-            sense_time = time.perf_counter() - start_time
+        start_time = time.perf_counter()
+        self._particle_filter.resample(z_us)
+        sense_time = time.perf_counter() - start_time
 
-            self.get_logger().info(f"Sense step time: {sense_time:6.3f} s")
+        self.get_logger().info(f"Sense step time: {sense_time:6.3f} s")
 
-            if self._enable_plot:
-                self._particle_filter.show("Sense", save_figure=True)
+        if self._enable_plot:
+            self._particle_filter.show("Sense", save_figure=True)
 
-            start_time = time.perf_counter()
-            self._localized, pose = self._particle_filter.compute_pose()
-            clustering_time = time.perf_counter() - start_time
+        start_time = time.perf_counter()
+        self._localized, pose = self._particle_filter.compute_pose()
+        clustering_time = time.perf_counter() - start_time
 
-            self.get_logger().info(f"Clustering time: {clustering_time:6.3f} s")
-
+        self.get_logger().info(f"Clustering time: {clustering_time:6.3f} s")
+ 
         return pose
 
     def _execute_motion_step(self, z_v: float, z_w: float):
@@ -230,10 +227,10 @@ class ParticleFilterNode(LifecycleNode):
             pose_msg.pose.position.y = y_h
             
             q = euler2quat(0.0, 0.0, theta_h)
-            pose_msg.pose.orientation.x = q[0]
-            pose_msg.pose.orientation.y = q[1]
-            pose_msg.pose.orientation.z = q[2]
-            pose_msg.pose.orientation.w = q[3]
+            pose_msg.pose.orientation.x = q[1]
+            pose_msg.pose.orientation.y = q[2]
+            pose_msg.pose.orientation.z = q[3]
+            pose_msg.pose.orientation.w = q[0]
         pose_msg.localized = self._localized
 
         self._pose_publisher.publish(pose_msg)
