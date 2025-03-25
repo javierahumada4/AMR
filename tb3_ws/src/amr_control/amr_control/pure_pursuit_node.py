@@ -1,8 +1,8 @@
 import rclpy
 from rclpy.lifecycle import LifecycleNode, LifecycleState, TransitionCallbackReturn
 
-from amr_msgs.msg import PoseStamped
-from geometry_msgs.msg import TwistStamped
+from amr_msgs.msg import PoseStamped as AmrPoseStamped
+from geometry_msgs.msg import TwistStamped, Twist
 from nav_msgs.msg import Path
 
 import math
@@ -37,14 +37,15 @@ class PurePursuitNode(LifecycleNode):
                 self.get_parameter("lookahead_distance").get_parameter_value().double_value
             )
 
-            # Subscribers
-            self._subscriber_pose = self.create_subscription(
-                PoseStamped, "/pose", self._compute_commands_callback, 10
-            )
-            self._subscriber_path = self.create_subscription(Path, "/path", self._path_callback, 10)
-
             # Publishers
-            self._publisher = self.create_publisher(TwistStamped, "/cmd_vel", 10)
+            # self._publisher = self.create_publisher(TwistStamped, "/cmd_vel", 10)
+            self._publisher = self.create_publisher(Twist, "/cmd_vel", 10)
+
+            # Subscribers
+            self._subscriber_path = self.create_subscription(Path, "/path", self._path_callback, 10)
+            self._subscriber_pose = self.create_subscription(
+                AmrPoseStamped, "/pose", self._compute_commands_callback, 10
+            )
 
             # Attribute and object initializations
             self._pure_pursuit = PurePursuit(dt, lookahead_distance, self.get_logger())
@@ -66,7 +67,7 @@ class PurePursuitNode(LifecycleNode):
 
         return super().on_activate(state)
 
-    def _compute_commands_callback(self, pose_msg: PoseStamped):
+    def _compute_commands_callback(self, pose_msg: AmrPoseStamped):
         """Subscriber callback. Executes a pure pursuit controller and publishes v and w commands.
 
         Starts to operate once the robot is localized.
@@ -76,6 +77,7 @@ class PurePursuitNode(LifecycleNode):
 
         """
         if pose_msg.localized:
+            self.get_logger().info(f"Localized!")
             # Parse pose
             x = pose_msg.pose.position.x
             y = pose_msg.pose.position.y
@@ -101,15 +103,15 @@ class PurePursuitNode(LifecycleNode):
 
         """
         # TODO: 4.8. Complete the function body with your code (i.e., replace the pass statement).
-        # Parse path
         path = []
         for pose in path_msg.poses:
+
             x = pose.pose.position.x
             y = pose.pose.position.y
             path.append((x, y))
 
-        # Save path
         self._pure_pursuit.path = path
+        self.get_logger().info(f"Smoothed Path Defined. Number of nodes:{len(path)}")
 
     def _publish_velocity_commands(self, v: float, w: float) -> None:
         """Publishes velocity commands in a geometry_msgs.msg.TwistStamped message.
@@ -119,10 +121,10 @@ class PurePursuitNode(LifecycleNode):
             w: Angular velocity command [rad/s].
 
         """
-        msg = TwistStamped()
-        msg.header.stamp = self.get_clock().now().to_msg()
-        msg.twist.linear.x = v
-        msg.twist.angular.z = w
+        msg = Twist()
+        # msg.header.stamp = self.get_clock().now().to_msg()
+        msg.linear.x = float(v)
+        msg.angular.z = - float(w)
         self._publisher.publish(msg)
 
 

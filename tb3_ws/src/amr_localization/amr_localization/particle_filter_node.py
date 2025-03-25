@@ -64,11 +64,13 @@ class ParticleFilterNode(LifecycleNode):
             world = self.get_parameter("world").get_parameter_value().string_value
 
             # Attribute and object initializations
+            self._dt = dt
             self._localized = False
             self._sense_countdown = 2
             self._active = False
             self._movements = []
             self._last_lidar = None
+            self._last_pose = None
             map_path = os.path.realpath(
                 os.path.join(os.path.dirname(__file__), "..", "maps", world + ".json")
             )
@@ -103,7 +105,6 @@ class ParticleFilterNode(LifecycleNode):
             self.encoder_suscriber = self.create_subscription(Odometry, "/odometry", callback=self._encoder_callback, qos_profile=10)
             self.lidar_subscriber = self.create_subscription(LaserScan, "/scan", callback=self._lidar_callback, qos_profile=scan_qos_profile)
 
-
         except Exception:
             self.get_logger().error(f"{traceback.format_exc()}")
             return TransitionCallbackReturn.ERROR
@@ -125,11 +126,23 @@ class ParticleFilterNode(LifecycleNode):
         return super().on_activate(state)
     
     def _encoder_callback(self, odom_msg: Odometry):
-        if self._active:
-            z_v: float = odom_msg.twist.twist.linear.x
-            z_w: float = odom_msg.twist.twist.angular.z
+        z_v: float = odom_msg.twist.twist.linear.x
+        z_w: float = odom_msg.twist.twist.angular.z
+        if self._last_pose and self._localized:
+            x_old = self._last_pose[0]
+            y_old = self._last_pose[1]
+            theta_old = self._last_pose[2] 
 
-            if abs(z_v) > 0.005 or abs(z_w) > 0.005:
+            theta = theta_old + z_w * self._dt
+            theta_mean = (theta + theta_old) / 2
+            x = x_old + z_v * math.cos(theta_mean) * self._dt
+            y = y_old + z_v * math.sin(theta_mean) * self._dt
+
+            self._last_pose = (x, y, theta)
+            self._publish_pose_estimate(x, y, theta)
+            self.get_logger().info(f"Published pose: {(x,y,theta)}")
+
+            if abs(z_v) > 0.005 or abs(z_w) > 0.005 and self._active:
                 self._movements.append((z_v, z_w))
                 self.get_logger().info(f"Movements Length: {len(self._movements)}")
 
@@ -157,6 +170,7 @@ class ParticleFilterNode(LifecycleNode):
         x_h, y_h, theta_h = self._execute_measurement_step(z_us)
  
         self._publish_pose_estimate(x_h, y_h, theta_h)
+        self._last_pose = (x_h,y_h,theta_h)
 
         if not self._localized:
             self._active = True

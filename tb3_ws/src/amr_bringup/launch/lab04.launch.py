@@ -6,7 +6,7 @@ import math
 
 def generate_launch_description():
     world = "project"
-    start = (-1.0, -1.0, math.radians(90))
+    start = (1.0, -1.0, math.radians(90))
     goal = (-0.6, 1.0)
 
     particles = 100
@@ -22,7 +22,7 @@ def generate_launch_description():
         name="particle_filter",
         namespace="",
         output="screen",
-        arguments=["--ros-args", "--log-level", "WARN"],
+        arguments=["--ros-args", "--log-level", "INFO"],
         parameters=[
             {
                 "enable_plot": False,
@@ -44,7 +44,7 @@ def generate_launch_description():
         name="probabilistic_roadmap",
         namespace="",
         output="screen",
-        arguments=["--ros-args", "--log-level", "INFO"],
+        arguments=["--ros-args", "--log-level", "WARN"],
         parameters=[
             {
                 "connection_distance": 0.15,  # 0.3,
@@ -68,7 +68,7 @@ def generate_launch_description():
         name="pure_pursuit",
         namespace="",
         output="screen",
-        arguments=["--ros-args", "--log-level", "WARN"],
+        arguments=["--ros-args", "--log-level", "INFO"],
         parameters=[{"lookahead_distance": 0.3}],
     )
 

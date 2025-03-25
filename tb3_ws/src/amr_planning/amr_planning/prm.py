@@ -151,7 +151,7 @@ class PRM:
         # logger.info(f"Path: {path}")
 
         # # TODO: 4.5. Complete the function body (i.e., load smoothed_path).
-        logger.info(f"Path: {path}")
+        # logger.info(f"Path: {path}")
 
         extended_path: list[tuple[float, float]] = path.copy()
 
@@ -167,7 +167,7 @@ class PRM:
                         (x_start + j * x_diff, y_start + j * y_diff),
                     )
 
-        logger.info(f"Extended Path: {extended_path}")
+        # logger.info(f"Extended Path: {extended_path}")
 
         smoothed_path: list[tuple[float, float]] = extended_path.copy()
         change = float("inf")
@@ -197,7 +197,7 @@ class PRM:
 
             smoothed_path = new_smoothed_path
 
-        logger.info(f"Smoothed Path: {smoothed_path}")
+        # logger.info(f"Smoothed Path: {smoothed_path}")
 
         return smoothed_path
 

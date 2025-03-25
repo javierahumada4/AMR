@@ -63,8 +63,8 @@ class WallFollowerNode(LifecycleNode):
             self.wall_follower_active_suscriber = self.create_subscription(WallFollowerActive, "/activateFollower", callback=self._wall_follower_active_callback, qos_profile=10)
                         
             # TODO: 4.12. Add /pose to the synced subscriptions only if localization is enabled.
-            if enable_localization:
-                self.pose_subscriber = self.create_subscription(PoseStamped, "/pose", qos_profile=10)
+            # if enable_localization:
+            #     self.pose_subscriber = self.create_subscription(PoseStamped, "/pose", qos_profile=10)
                 
             # Publishers
             # TODO: 2.10. Create the /cmd_vel velocity commands publisher (Twist message).
