@@ -120,6 +120,10 @@ class PRM:
             if final_node != goal:
                 ancestors[goal] = final_node
             path = self._reconstruct_path(start, goal, ancestors)
+            if len(path) > 1 and calculate_dis(start, path[1]) < 0.05:
+                path.pop(
+                    1
+                )  # Remove the first node of the path so that the robot goes straight for the second one
             return path
         else:
             raise PathNotFound("Path not found")

@@ -85,43 +85,44 @@ class ParticleFilter:
         pose = (float("inf"), float("inf"), float("inf"))
 
         # Create a 4D representation (x, y, sin(theta), cos(theta))
-        particles_4d = np.column_stack((
-            self._particles[:, 0],  # x
-            self._particles[:, 1],  # y
-            np.sin(self._particles[:, 2]),  # sin(theta)
-            np.cos(self._particles[:, 2])   # cos(theta)
-        ))
+        particles_4d = np.column_stack(
+            (
+                self._particles[:, 0],  # x
+                self._particles[:, 1],  # y
+                np.sin(self._particles[:, 2]),  # sin(theta)
+                np.cos(self._particles[:, 2]),  # cos(theta)
+            )
+        )
 
         # Apply DBSCAN clustering
         clustering = DBSCAN(eps=0.15, min_samples=20).fit(particles_4d)
         clusters = clustering.labels_
 
         # Get unique clusters excluding noise (-1)
-        unique_clusters , counts = np.unique(clusters[clusters != -1], return_counts=True)
+        unique_clusters, counts = np.unique(clusters[clusters != -1], return_counts=True)
 
-        if len(unique_clusters) > 0:
+        if len(unique_clusters) > 1:
             # Adjust the number of particles dynamically
             self._particle_count = max(200, len(unique_clusters) * 200)
+        elif len(unique_clusters) == 1:
+            localized = True
+            self._particle_count = 50
+            main_cluster = unique_clusters[np.argmax(counts)]
+            cluster_mask = clusters == main_cluster
+            # cluster_particles = self._particles[cluster_mask]
 
-            if len(unique_clusters) == 1:
-                localized = True
-                main_cluster = unique_clusters[np.argmax(counts)]
-                cluster_mask = (clusters == main_cluster)
-                cluster_particles = self._particles[cluster_mask]
+            # Compute mean position (x, y)
+            x_mean, y_mean = np.mean(particles_4d[cluster_mask, :2], axis=0)
 
-                # Compute mean position (x, y)
-                x_mean, y_mean = np.mean(particles_4d[cluster_mask, :2], axis=0)
+            # Compute mean orientation (theta) directly from 4D representation
+            sin_mean = np.mean(particles_4d[cluster_mask, 2])  # Mean sin(theta)
+            cos_mean = np.mean(particles_4d[cluster_mask, 3])  # Mean cos(theta)
 
-                # Compute mean orientation (theta) directly from 4D representation
-                sin_mean = np.mean(particles_4d[cluster_mask, 2])  # Mean sin(theta)
-                cos_mean = np.mean(particles_4d[cluster_mask, 3])  # Mean cos(theta)                
+            theta_mean = math.atan2(sin_mean, cos_mean)  # atan2 handles periodicity
 
-                theta_mean = math.atan2(sin_mean, cos_mean)  # atan2 handles periodicity
-
-                pose = (x_mean, y_mean, theta_mean)
+            pose = (x_mean, y_mean, theta_mean)
 
         return localized, pose
-
 
     def move(self, v: float, w: float) -> None:
         """Performs a motion update on the particles.
@@ -150,7 +151,9 @@ class ParticleFilter:
 
             intersection_result = self._map.check_collision([(x_old, y_old), (x, y)])
             if intersection_result[0]:
-                x_collision, y_collision = intersection_result[0]  # Extraer las coordenadas directamente
+                x_collision, y_collision = intersection_result[
+                    0
+                ]  # Extraer las coordenadas directamente
                 self._particles[i] = (x_collision, y_collision, theta)
 
     def resample(self, measurements: list[float]) -> None:
@@ -192,7 +195,7 @@ class ParticleFilter:
         indexes = np.searchsorted(cumulative_sum, positions)
         indexes = np.clip(indexes, 0, len(self._particles) - 1)
         self._particles = self._particles[indexes].copy()
-        self._particles += np.random.normal(0, 0.01, self._particles.shape)
+        self._particles += np.random.normal(0, 0.02, self._particles.shape)
 
     def plot(self, axes, orientation: bool = True):
         """Draws particles.

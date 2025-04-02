@@ -38,8 +38,8 @@ class PurePursuit:
         closest_point, closest_point_idx = self._find_closest_point(x, y)
         destination = self._find_target_point(closest_point, closest_point_idx)
 
-        self._logger.info(f"Current Closest Point: {closest_point}")
-        self._logger.info(f"Current Destination: {destination}")
+        # self._logger.info(f"Current Closest Point: {closest_point}")
+        # self._logger.info(f"Current Destination: {destination}")
 
         if destination:
             point = (x, y)
@@ -51,16 +51,15 @@ class PurePursuit:
             beta = math.atan2(dy, dx)
             alpha = beta - theta
 
-            self._logger.info(f"Alpha: {alpha}")
+            alpha = (alpha + math.pi) % (2 * math.pi) - math.pi
+            # self._logger.info(f"Alpha: {alpha}")
 
-            if alpha > math.pi / 4:
+            k_alpha = 1.5  # Gain for angular velocity control
+            if abs(alpha) > math.pi / 4:  # Sharp turn handling
                 v = 0.0
-                w = -0.5
-            elif alpha < - math.pi / 4:
-                v = 0.0
-                w = 0.5
+                w = k_alpha * alpha
             else:
-                v = 0.15
+                v = min(2.0, real_l / self._lookahead_distance)
                 w = 2 * v * math.sin(alpha) / real_l
         else:
             v, w = 0.0, 0.0
