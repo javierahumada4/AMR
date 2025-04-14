@@ -8,40 +8,68 @@ from nav_msgs.msg import Path
 import os
 import time
 import traceback
-import math
+from typing import List, Tuple
 
 from amr_planning.prm import PRM
 
 
 class PRMNode(LifecycleNode):
-    def __init__(self):
-        """Probabilistic roadmap (PRM) node initializer."""
+    """
+    A ROS2 lifecycle node implementing a Probabilistic Roadmap (PRM) for robot path planning.
+
+    This node handles roadmap creation, pathfinding, and path smoothing using PRM. It transitions
+    through lifecycle states and interacts with publishers and subscribers to provide planned paths.
+    """
+
+    def __init__(self) -> None:
+        """
+        Initializes the PRMNode with configurable parameters.
+
+        The node declares parameters for roadmap creation, path smoothing, and visualization,
+        and sets up the lifecycle node.
+        """
         super().__init__("probabilistic_roadmap")
 
-        # Parameters
-        self.declare_parameter("connection_distance", 0.3)
-        self.declare_parameter("enable_plot", False)
-        self.declare_parameter("goal", (0.0, 0.0))
-        self.declare_parameter("grid_size", 0.05)
-        self.declare_parameter("node_count", 250)
-        self.declare_parameter("obstacle_safety_distance", 0.12)
-        self.declare_parameter("smoothing_additional_points", 3)
-        self.declare_parameter("smoothing_data_weight", 0.1)
-        self.declare_parameter("smoothing_smooth_weight", 0.3)
-        self.declare_parameter("use_grid", False)
-        self.declare_parameter("world", "project")
+        # Declare parameters for roadmap creation and path smoothing
+        self.declare_parameter(
+            "connection_distance", 0.3
+        )  # Max distance to connect nodes in the roadmap
+        self.declare_parameter("enable_plot", False)  # Enable visualization of paths and roadmap
+        self.declare_parameter("goal", (0.0, 0.0))  # Goal position for pathfinding (x, y)
+        self.declare_parameter("grid_size", 0.05)  # Grid resolution for roadmap generation
+        self.declare_parameter("node_count", 250)  # Number of nodes in the roadmap
+        self.declare_parameter(
+            "obstacle_safety_distance", 0.12
+        )  # Safety distance from obstacles [m]
+        self.declare_parameter(
+            "smoothing_additional_points", 3
+        )  # Extra points added during smoothing
+        self.declare_parameter(
+            "smoothing_data_weight", 0.1
+        )  # Weight for data fidelity during smoothing
+        self.declare_parameter(
+            "smoothing_smooth_weight", 0.3
+        )  # Weight for smoothness during smoothing
+        self.declare_parameter("use_grid", False)  # Use grid-based roadmap generation if True
+        self.declare_parameter("world", "project")  # Name of the map file to load
 
     def on_configure(self, state: LifecycleState) -> TransitionCallbackReturn:
-        """Handles a configuring transition.
+        """
+        Handles the transition to the 'inactive' state.
+
+        This method initializes the PRM object, loads map data, sets up publishers and subscribers,
+        and logs relevant information about roadmap creation.
 
         Args:
-            state: Current lifecycle state.
+            state (LifecycleState): Current lifecycle state.
 
+        Returns:
+            TransitionCallbackReturn: Result of the transition (SUCCESS or ERROR).
         """
         self.get_logger().info(f"Transitioning from '{state.label}' to 'inactive' state.")
 
         try:
-            # Parameters
+            # Retrieve parameters from the node's parameter server
             connection_distance = (
                 self.get_parameter("connection_distance").get_parameter_value().double_value
             )
@@ -68,7 +96,7 @@ class PRMNode(LifecycleNode):
             use_grid = self.get_parameter("use_grid").get_parameter_value().bool_value
             world = self.get_parameter("world").get_parameter_value().string_value
 
-            # Attribute and object initializations
+            # Initialize PRM object with map data and parameters
             map_path = os.path.realpath(
                 os.path.join(os.path.dirname(__file__), "..", "maps", world + ".json")
             )
@@ -85,50 +113,57 @@ class PRMNode(LifecycleNode):
             )
             roadmap_creation_time = time.perf_counter() - start_time
 
+            # Log roadmap creation time for debugging purposes
             self.get_logger().info(f"Roadmap creation time: {roadmap_creation_time:1.3f} s")
 
-            # Publishers
-            # TODO: 4.6. Create the /path publisher (Path message).
+            # Set up publishers and subscribers for pathfinding and localization updates
             self._path_publisher = self.create_publisher(Path, "/path", 10)
-
-            # Subscribers
             self._subscriber_pose = self.create_subscription(
                 AmrPoseStamped, "/pose", self._path_callback, 10
             )
 
         except Exception:
+            # Log errors during configuration and return ERROR transition result
             self.get_logger().error(f"{traceback.format_exc()}")
             return TransitionCallbackReturn.ERROR
 
         return super().on_configure(state)
 
     def on_activate(self, state: LifecycleState) -> TransitionCallbackReturn:
-        """Handles an activating transition.
+        """
+        Handles the transition to the 'active' state.
 
         Args:
-            state: Current lifecycle state.
+            state (LifecycleState): Current lifecycle state.
 
+        Returns:
+            TransitionCallbackReturn: Result of the transition (SUCCESS).
         """
         self.get_logger().info(f"Transitioning from '{state.label}' to 'active' state.")
-
         return super().on_activate(state)
 
-    def _path_callback(self, pose_msg: AmrPoseStamped):
-        """Subscriber callback. Finds a path using A* and publishes the smoothed path to the goal.
+    def _path_callback(self, pose_msg: AmrPoseStamped) -> None:
+        """
+        Subscriber callback to compute and publish a smoothed path to the goal.
+
+        This method uses A* search to find a path from the robot's current position to the goal.
+        The path is then smoothed using a weighted algorithm before being published.
 
         Args:
-            pose_msg: Message containing the robot pose estimate.
-
+            pose_msg (AmrPoseStamped): Message containing the robot's current pose estimate.
         """
         if pose_msg.localized and not self._localized:
             start = (pose_msg.pose.position.x, pose_msg.pose.position.y)
 
+            # Perform pathfinding using A* search in the PRM roadmap
             start_time = time.perf_counter()
             path = self._planning.find_path(start, self._goal)
             pathfinding_time = time.perf_counter() - start_time
 
+            # Log pathfinding time for debugging purposes
             self.get_logger().info(f"Pathfinding time: {pathfinding_time:1.3f} s")
 
+            # Smooth the computed path using a weighted algorithm
             start_time = time.perf_counter()
             smoothed_path = PRM.smooth_path(
                 path=path,
@@ -139,41 +174,45 @@ class PRMNode(LifecycleNode):
             )
             smoothing_time = time.perf_counter() - start_time
 
+            # Log smoothing time for debugging purposes
             self.get_logger().info(f"Smoothing time: {smoothing_time:1.3f} s")
 
             if self._enable_plot:
+                # Visualize paths if plotting is enabled in parameters
                 self._planning.show(path=path, smoothed_path=smoothed_path, save_figure=True)
 
+            # Publish the smoothed path as a Path message
             self._publish_path(smoothed_path)
 
+        # Update localization status based on pose message data
         self._localized = pose_msg.localized
 
-    def _publish_path(self, path: list[tuple[float, float]]) -> None:
-        """Publishes the robot's path to the goal in a nav_msgs.msg.Path message.
+    def _publish_path(self, path: List[Tuple[float, float]]) -> None:
+        """
+        Publishes a smoothed path as a nav_msgs.msg.Path message.
 
         Args:
-            path: Smoothed path (initial location first) in (x, y) format.
-
+            path (List[Tuple[float, float]]): Smoothed path represented as a list of (x, y) coordinates.
+                                              The first point corresponds to the robot's initial location.
         """
-        # TODO: 4.7. Complete the function body with your code (i.e., replace the pass statement).
-        # Create the Path message
+        # Create Path message with header timestamp and poses list populated with waypoints from the smoothed path
         path_msg = Path()
         path_msg.header.stamp = self.get_clock().now().to_msg()
         path_msg.poses = []
         for point in path:
-            pose_stamped = PoseStamped()
+            pose_stamped: PoseStamped = PoseStamped()
             pose_stamped.pose.position.x = point[0]
             pose_stamped.pose.position.y = point[1]
 
-            path_msg.poses.append(pose_stamped)
+            path_msg.poses.append(pose_stamped)  # Add the pose to the Path message
 
         # Publish the Path message
         self._path_publisher.publish(path_msg)
 
 
-def main(args=None):
+def main(args: List[str] | None = None) -> None:
     rclpy.init(args=args)
-    prm_node = PRMNode()
+    prm_node: PRMNode = PRMNode()
 
     try:
         rclpy.spin(prm_node)

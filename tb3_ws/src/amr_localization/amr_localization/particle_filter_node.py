@@ -71,6 +71,7 @@ class ParticleFilterNode(LifecycleNode):
             self._movements = []
             self._last_lidar = None
             self._last_pose = None
+            self._steps = 0
             map_path = os.path.realpath(
                 os.path.join(os.path.dirname(__file__), "..", "maps", world + ".json")
             )
@@ -165,6 +166,7 @@ class ParticleFilterNode(LifecycleNode):
 
         for z_v, z_w in self._movements:
             self._execute_motion_step(z_v, z_w)
+            self._steps += 1
         self._movements = []
         z_us = self._last_lidar.ranges
         x_h, y_h, theta_h = self._execute_measurement_step(z_us)
