@@ -66,7 +66,7 @@ class WallFollowerNode(LifecycleNode):
             # Attribute and object initializations
             self._wall_follower: WallFollower = WallFollower(dt)
 
-            # Create a publisher for velocity commands (Twist messages)
+            # Create a publisher for velocity commands (TwistStamped messages)
             self.publisher = self.create_publisher(Twist, "/cmd_vel", 10)
 
             # Set up QoS profile for subscriptions from the LiDAR

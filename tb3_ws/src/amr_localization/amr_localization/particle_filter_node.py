@@ -191,28 +191,34 @@ class ParticleFilterNode(LifecycleNode):
         # Parse odometry data
         z_v: float = odom_msg.twist.twist.linear.x  # Linear velocity
         z_w: float = odom_msg.twist.twist.angular.z  # Angular velocity
-        if (
-            self._last_pose and self._localized
-        ):  # Check if the last pose is available and the robot is localized
+        
+        if self._last_pose and self._localized:  # Check if the robot is localized and the last pose is available
             x_old, y_old, theta_old = self._last_pose  # Unpack the last pose
 
-            theta: float = theta_old + z_w * self._dt  # Update the orientation
-            theta_mean: float = (
-                theta + theta_old
-            ) / 2  # Calculate the mean orientation
-            x: float = (
-                x_old + z_v * math.cos(theta_mean) * self._dt
-            )  # Update the x position
-            y: float = (
-                y_old + z_v * math.sin(theta_mean) * self._dt
-            )  # Update the y position
+            if abs(z_w) > 1e-6:  # If there is angular movement (not moving in a straight line)
+                # Calculate the radius of curvature
+                R = z_v / z_w
+                delta_theta = z_w * self._dt  # Change in orientation
+
+                # Calculate the new position using the differential motion model
+                x = x_old - R * math.sin(theta_old) + R * math.sin(theta_old + delta_theta)
+                y = y_old + R * math.cos(theta_old) - R * math.cos(theta_old + delta_theta)
+                theta = theta_old + delta_theta  # New orientation
+            else:
+                # Straight-line motion (no rotation)
+                x = x_old + z_v * math.cos(theta_old) * self._dt
+                y = y_old + z_v * math.sin(theta_old) * self._dt
+                theta = theta_old  # No change in orientation
+
+            # Normalize theta to the range [-pi, pi]
+            theta = (theta + math.pi) % (2 * math.pi) - math.pi
 
             # Update the last pose and publish the pose estimate
             self._last_pose = (x, y, theta)
             self._publish_pose_estimate(x, y, theta)
 
-        # Check if the robot is localized and the movements are significant
-        if abs(z_v) > 0.005 or abs(z_w) > 0.005 and self._active:
+        # Check if the robot is moving and the velocities are significant
+        if (abs(z_v) > 0.005 or abs(z_w) > 0.005) and self._active:
             # Store the movements
             self._movements.append((z_v, z_w))
 

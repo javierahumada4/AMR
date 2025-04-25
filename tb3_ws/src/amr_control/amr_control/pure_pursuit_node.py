@@ -101,7 +101,7 @@ class PurePursuitNode(LifecycleNode):
         Callback function for the pose subscriber.
 
         Computes velocity commands using the pure pursuit algorithm based on the robot's current pose,
-        and publishes them as Twist messages.
+        and publishes them as TwistStamped messages.
 
         Args:
             pose_msg: Message containing the estimated robot pose.

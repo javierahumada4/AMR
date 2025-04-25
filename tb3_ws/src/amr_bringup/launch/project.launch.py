@@ -4,7 +4,7 @@ from launch_ros.actions import LifecycleNode, Node
 
 def generate_launch_description():
     world = "project"
-    goal = (-0.6, 1.0)
+    goal = (1.0, -1.0)
 
     particle_filter_node = LifecycleNode(
         package="amr_localization",
@@ -17,7 +17,7 @@ def generate_launch_description():
             {
                 "enable_plot": False,
                 "global_localization": True,
-                "particles": 4000,
+                "particles": 5000,
                 "sigma_v": 0.05,
                 "sigma_w": 0.1,
                 "sigma_z": 0.2,
@@ -36,7 +36,7 @@ def generate_launch_description():
         parameters=[
             {
                 "connection_distance": 0.15,
-                "enable_plot": False,
+                "enable_plot": True,
                 "goal": goal,
                 "grid_size": 0.1,
                 "node_count": 250,
