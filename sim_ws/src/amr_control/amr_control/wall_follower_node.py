@@ -1,17 +1,22 @@
 import rclpy
 from rclpy.lifecycle import LifecycleNode, LifecycleState, TransitionCallbackReturn
-from rclpy.qos import QoSProfile, QoSDurabilityPolicy, QoSHistoryPolicy, QoSReliabilityPolicy
+from rclpy.qos import (
+    QoSProfile,
+    QoSDurabilityPolicy,
+    QoSHistoryPolicy,
+    QoSReliabilityPolicy,
+)
 
-import message_filters  # For synchronizing multiple topics
+import message_filters
 from amr_msgs.msg import PoseStamped  # Custom message type for pose
-from geometry_msgs.msg import TwistStamped  # Standard message for velocity commands
-from nav_msgs.msg import Odometry  # Message type for odometry data
-from sensor_msgs.msg import LaserScan  # Message type for LiDAR scan data
+from geometry_msgs.msg import TwistStamped
+from nav_msgs.msg import Odometry
+from sensor_msgs.msg import LaserScan
 
-import traceback  # For error handling and debugging
+import traceback
+from typing import List, Optional
 
 from amr_control.wall_follower import WallFollower  # Custom wall-following controller
-from typing import List, Optional
 
 
 class WallFollowerNode(LifecycleNode):
@@ -25,11 +30,13 @@ class WallFollowerNode(LifecycleNode):
 
     def __init__(self) -> None:
         """Wall follower node initializer."""
-        super().__init__("wall_follower")  # Initialize the node with the name "wall_follower"
+        super().__init__("wall_follower")
 
         # Declare parameters with default values
         self.declare_parameter("dt", 0.05)  # Sampling period for the controller
-        self.declare_parameter("enable_localization", False)  # Whether to use localization data
+        self.declare_parameter(
+            "enable_localization", False
+        )  # Whether to use localization data
 
     def on_configure(self, state: LifecycleState) -> TransitionCallbackReturn:
         """
@@ -44,16 +51,19 @@ class WallFollowerNode(LifecycleNode):
         Returns:
             TransitionCallbackReturn: Result of the transition.
         """
-        self.get_logger().info(f"Transitioning from '{state.label}' to 'inactive' state.")
+        self.get_logger().info(
+            f"Transitioning from '{state.label}' to 'inactive' state."
+        )
 
         try:
-            # Retrieve parameters from the parameter server
             dt: float = self.get_parameter("dt").get_parameter_value().double_value
             enable_localization: bool = (
-                self.get_parameter("enable_localization").get_parameter_value().bool_value
+                self.get_parameter("enable_localization")
+                .get_parameter_value()
+                .bool_value
             )
 
-            # Set up QoS profile for subscriptions
+            # Set up QoS profile for subscriptions from the LiDAR
             qos_profile: QoSProfile = QoSProfile(
                 reliability=QoSReliabilityPolicy.BEST_EFFORT,
                 durability=QoSDurabilityPolicy.VOLATILE,
@@ -67,20 +77,22 @@ class WallFollowerNode(LifecycleNode):
                 message_filters.Subscriber(self, Odometry, "/odometry", qos_profile=10)
             )
             self._subscribers.append(
-                message_filters.Subscriber(self, LaserScan, "/scan", qos_profile=qos_profile)
+                message_filters.Subscriber(
+                    self, LaserScan, "/scan", qos_profile=qos_profile
+                )
             )
 
             # Add pose subscription if localization is enabled
             if enable_localization:
                 self._subscribers.append(
-                    message_filters.Subscriber(self, PoseStamped, "/pose", qos_profile=10)
+                    message_filters.Subscriber(
+                        self, PoseStamped, "/pose", qos_profile=10
+                    )
                 )
 
             # Synchronize messages from subscribed topics using an approximate time synchronizer
-            ts: message_filters.ApproximateTimeSynchronizer = (
-                message_filters.ApproximateTimeSynchronizer(
-                    self._subscribers, queue_size=10, slop=9
-                )
+            ts = message_filters.ApproximateTimeSynchronizer(
+                self._subscribers, queue_size=10, slop=9
             )
             ts.registerCallback(self._compute_commands_callback)
 
@@ -91,7 +103,6 @@ class WallFollowerNode(LifecycleNode):
             self._wall_follower: WallFollower = WallFollower(dt)
 
         except Exception:
-            # Log any errors that occur during configuration and return an error state
             self.get_logger().error(f"{traceback.format_exc()}")
             return TransitionCallbackReturn.ERROR
 
@@ -111,7 +122,10 @@ class WallFollowerNode(LifecycleNode):
         return super().on_activate(state)
 
     def _compute_commands_callback(
-        self, odom_msg: Odometry, scan_msg: LaserScan, pose_msg: Optional[PoseStamped] = None
+        self,
+        odom_msg: Odometry,
+        scan_msg: LaserScan,
+        pose_msg: Optional[PoseStamped] = None,
     ) -> None:
         """
         Callback function for synchronized subscribers.
@@ -137,9 +151,6 @@ class WallFollowerNode(LifecycleNode):
             # Compute linear (v) and angular (w) velocity commands using wall follower logic
             v, w = self._wall_follower.compute_commands(z_scan, z_v, z_w)
 
-            # Log computed commands for debugging purposes
-            self.get_logger().info(f"Commands: v = {v:.3f} m/s, w = {w:+.3f} rad/s")
-
             # Publish computed velocity commands to the /cmd_vel topic
             self._publish_velocity_commands(v, w)
 
@@ -153,11 +164,11 @@ class WallFollowerNode(LifecycleNode):
         """
         msg: TwistStamped = TwistStamped()  # Create a new TwistStamped message instance
 
-        # Populate the twist field with linear and angular velocities
+        # Set the linear and angular velocities in the message
         msg.twist.linear.x = v
         msg.twist.angular.z = w
 
-        # Set timestamp in header to current time from ROS clock
+        # Set timestamp in header to current time
         msg.header.stamp = self.get_clock().now().to_msg()
 
         # Publish the message to the /cmd_vel topic
@@ -177,7 +188,9 @@ def main(args: Optional[List[str]] = None) -> None:
     )  # Create an instance of WallFollowerNode
 
     try:
-        rclpy.spin(wall_follower_node)  # Keep spinning until shutdown or interruption occurs
+        rclpy.spin(
+            wall_follower_node
+        )  # Keep spinning until shutdown or interruption occurs
     except KeyboardInterrupt:
         pass
 

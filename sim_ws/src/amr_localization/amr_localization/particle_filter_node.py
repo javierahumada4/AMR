@@ -1,19 +1,25 @@
 import rclpy
 from rclpy.lifecycle import LifecycleNode, LifecycleState, TransitionCallbackReturn
-from rclpy.qos import QoSProfile, QoSDurabilityPolicy, QoSHistoryPolicy, QoSReliabilityPolicy
+from rclpy.qos import (
+    QoSProfile,
+    QoSDurabilityPolicy,
+    QoSHistoryPolicy,
+    QoSReliabilityPolicy,
+)
 
-import message_filters  # For synchronizing multiple topics
+import message_filters
 from amr_msgs.msg import PoseStamped  # Custom message type for pose
-from nav_msgs.msg import Odometry  # Message type for odometry data
-from sensor_msgs.msg import LaserScan  # Message type for LiDAR scan data
+from nav_msgs.msg import Odometry
+from sensor_msgs.msg import LaserScan
 
 import math
 import os
-import time
 import traceback
 from transforms3d.euler import euler2quat  # For converting Euler angles to quaternions
 
-from amr_localization.particle_filter import ParticleFilter  # Custom particle filter implementation
+from amr_localization.particle_filter import (
+    ParticleFilter,
+)  # Custom particle filter implementation
 
 
 class ParticleFilterNode(LifecycleNode):
@@ -26,14 +32,16 @@ class ParticleFilterNode(LifecycleNode):
 
     def __init__(self) -> None:
         """Particle filter node initializer."""
-        super().__init__("particle_filter")  # Initialize the node with the name "particle_filter"
+        super().__init__("particle_filter")
 
         # Declare parameters with default values
         self.declare_parameter("dt", 0.05)  # Sampling period for the particle filter
         self.declare_parameter(
             "enable_plot", False
         )  # Whether to enable visualization of the particle filter
-        self.declare_parameter("global_localization", True)  # Whether to use global localization
+        self.declare_parameter(
+            "global_localization", True
+        )  # Whether to use global localization
         self.declare_parameter(
             "initial_pose", (0.0, 0.0, math.radians(0))
         )  # Initial pose (x, y, theta)
@@ -41,10 +49,18 @@ class ParticleFilterNode(LifecycleNode):
             "initial_pose_sigma", (0.05, 0.05, math.radians(5))
         )  # Uncertainty in initial pose
         self.declare_parameter("particles", 1000)  # Number of particles in the filter
-        self.declare_parameter("sigma_v", 0.1)  # Noise standard deviation for linear velocity
-        self.declare_parameter("sigma_w", 0.1)  # Noise standard deviation for angular velocity
-        self.declare_parameter("sigma_z", 0.1)  # Noise standard deviation for sensor measurements
-        self.declare_parameter("steps_btw_sense_updates", 10)  # Steps between sensor updates
+        self.declare_parameter(
+            "sigma_v", 0.1
+        )  # Noise standard deviation for linear velocity
+        self.declare_parameter(
+            "sigma_w", 0.1
+        )  # Noise standard deviation for angular velocity
+        self.declare_parameter(
+            "sigma_z", 0.1
+        )  # Noise standard deviation for sensor measurements
+        self.declare_parameter(
+            "steps_btw_sense_updates", 10
+        )  # Steps between sensor updates
         self.declare_parameter("world", "lab03")  # Name of the world/map file
 
     def on_configure(self, state: LifecycleState) -> TransitionCallbackReturn:
@@ -60,31 +76,47 @@ class ParticleFilterNode(LifecycleNode):
         Returns:
             TransitionCallbackReturn: Result of the transition.
         """
-        self.get_logger().info(f"Transitioning from '{state.label}' to 'inactive' state.")
+        self.get_logger().info(
+            f"Transitioning from '{state.label}' to 'inactive' state."
+        )
 
         try:
-            # Retrieve parameters from the parameter server
+            # Retrieve parameters
             dt: float = self.get_parameter("dt").get_parameter_value().double_value
             self._enable_plot: bool = (
                 self.get_parameter("enable_plot").get_parameter_value().bool_value
             )
             global_localization: bool = (
-                self.get_parameter("global_localization").get_parameter_value().bool_value
+                self.get_parameter("global_localization")
+                .get_parameter_value()
+                .bool_value
             )
             initial_pose: tuple[float, float, float] = tuple(
-                self.get_parameter("initial_pose").get_parameter_value().double_array_value.tolist()
+                self.get_parameter("initial_pose")
+                .get_parameter_value()
+                .double_array_value.tolist()
             )
             initial_pose_sigma: tuple[float, float, float] = tuple(
                 self.get_parameter("initial_pose_sigma")
                 .get_parameter_value()
                 .double_array_value.tolist()
             )
-            particles: int = self.get_parameter("particles").get_parameter_value().integer_value
-            sigma_v: float = self.get_parameter("sigma_v").get_parameter_value().double_value
-            sigma_w: float = self.get_parameter("sigma_w").get_parameter_value().double_value
-            sigma_z: float = self.get_parameter("sigma_z").get_parameter_value().double_value
+            particles: int = (
+                self.get_parameter("particles").get_parameter_value().integer_value
+            )
+            sigma_v: float = (
+                self.get_parameter("sigma_v").get_parameter_value().double_value
+            )
+            sigma_w: float = (
+                self.get_parameter("sigma_w").get_parameter_value().double_value
+            )
+            sigma_z: float = (
+                self.get_parameter("sigma_z").get_parameter_value().double_value
+            )
             self._steps_btw_sense_updates: int = (
-                self.get_parameter("steps_btw_sense_updates").get_parameter_value().integer_value
+                self.get_parameter("steps_btw_sense_updates")
+                .get_parameter_value()
+                .integer_value
             )
             world: str = self.get_parameter("world").get_parameter_value().string_value
 
@@ -106,7 +138,7 @@ class ParticleFilterNode(LifecycleNode):
                 global_localization=global_localization,
                 initial_pose=initial_pose,
                 initial_pose_sigma=initial_pose_sigma,
-            )
+            )  # Particle filter object
 
             if self._enable_plot:
                 self._particle_filter.show("Initialization", save_figure=True)
@@ -114,7 +146,7 @@ class ParticleFilterNode(LifecycleNode):
             # Create a publisher for pose estimates (PoseStamped messages)
             self._pose_publisher = self.create_publisher(PoseStamped, "/pose", 10)
 
-            # Set up synchronized subscribers for odometry and LiDAR scan data
+            # Set up QoS profile for LiDAR scan data
             scan_qos_profile: QoSProfile = QoSProfile(
                 history=QoSHistoryPolicy.KEEP_LAST,
                 depth=10,
@@ -122,12 +154,18 @@ class ParticleFilterNode(LifecycleNode):
                 durability=QoSDurabilityPolicy.VOLATILE,
             )
 
+            # Create a list of subscribers for odometry and LiDAR scan data
             self._subscribers: list[message_filters.Subscriber] = []
-            self._subscribers.append(message_filters.Subscriber(self, Odometry, "odometry"))
             self._subscribers.append(
-                message_filters.Subscriber(self, LaserScan, "scan", qos_profile=scan_qos_profile)
+                message_filters.Subscriber(self, Odometry, "odometry")
+            )
+            self._subscribers.append(
+                message_filters.Subscriber(
+                    self, LaserScan, "scan", qos_profile=scan_qos_profile
+                )
             )
 
+            # Create an approximate time synchronizer to synchronize the subscribers
             ts: message_filters.ApproximateTimeSynchronizer = (
                 message_filters.ApproximateTimeSynchronizer(
                     self._subscribers, queue_size=10, slop=9
@@ -136,7 +174,6 @@ class ParticleFilterNode(LifecycleNode):
             ts.registerCallback(self._compute_pose_callback)
 
         except Exception:
-            # Log any errors that occur during configuration and return an error state
             self.get_logger().error(f"{traceback.format_exc()}")
             return TransitionCallbackReturn.ERROR
 
@@ -167,9 +204,15 @@ class ParticleFilterNode(LifecycleNode):
             scan_msg: Message containing LiDAR sensor readings.
         """
         # Parse measurements from odometry and LiDAR messages
-        z_v: float = odom_msg.twist.twist.linear.x  # Linear velocity from odometry [m/s]
-        z_w: float = odom_msg.twist.twist.angular.z  # Angular velocity from odometry [rad/s]
-        z_scan: list[float] = scan_msg.ranges  # LiDAR scan ranges (distances to obstacles) [m]
+        z_v: float = (
+            odom_msg.twist.twist.linear.x
+        )  # Linear velocity from odometry [m/s]
+        z_w: float = (
+            odom_msg.twist.twist.angular.z
+        )  # Angular velocity from odometry [rad/s]
+        z_scan: list[float] = (
+            scan_msg.ranges
+        )  # LiDAR scan ranges (distances to obstacles) [m]
 
         # Execute the motion step of the particle filter
         self._execute_motion_step(z_v, z_w)
@@ -183,7 +226,9 @@ class ParticleFilterNode(LifecycleNode):
         # Publish the estimated pose
         self._publish_pose_estimate(x_h, y_h, theta_h)
 
-    def _execute_measurement_step(self, z_us: list[float]) -> tuple[float, float, float]:
+    def _execute_measurement_step(
+        self, z_us: list[float]
+    ) -> tuple[float, float, float]:
         """
         Executes and monitors the measurement step (sense) of the particle filter.
 
@@ -202,29 +247,15 @@ class ParticleFilterNode(LifecycleNode):
 
         # Perform sense step if localized or if enough steps have passed since last update
         if self._localized or not self._steps % self._steps_btw_sense_updates:
-            start_time: float = time.perf_counter()  # Start timer for performance monitoring
-
             # Update particle weights based on sensor measurements
             self._particle_filter.resample(z_us)
-            sense_time: float = time.perf_counter() - start_time  # Time taken for sense step
-
-            self.get_logger().info(
-                f"Sense step time: {sense_time:6.3f} s"
-            )  # Log sense step duration
 
             # Visualize sense step if enabled
             if self._enable_plot:
                 self._particle_filter.show("Sense", save_figure=True)
 
-            start_time = time.perf_counter()  # Start timer for clustering performance monitoring
-
             # Compute robot's estimated pose using particle clustering
             self._localized, pose = self._particle_filter.compute_pose()
-            clustering_time: float = time.perf_counter() - start_time  # Time taken for clustering
-
-            self.get_logger().info(
-                f"Clustering time: {clustering_time:6.3f} s"
-            )  # Log clustering duration
 
         return pose
 
@@ -239,14 +270,8 @@ class ParticleFilterNode(LifecycleNode):
             z_v: Odometric estimate of the linear velocity of the robot center [m/s].
             z_w: Odometric estimate of the angular velocity of the robot center [rad/s].
         """
-        start_time: float = time.perf_counter()  # Start timer for performance monitoring
-
         # Move particles based on odometry data
         self._particle_filter.move(z_v, z_w)
-
-        move_time: float = time.perf_counter() - start_time  # Time taken for motion step
-
-        self.get_logger().info(f"Move step time: {move_time:7.3f} s")  # Log move step duration
 
         # Visualize move step if enabled
         if self._enable_plot:
@@ -254,7 +279,7 @@ class ParticleFilterNode(LifecycleNode):
 
     def _publish_pose_estimate(self, x_h: float, y_h: float, theta_h: float) -> None:
         """
-        Publishes the robot's pose estimate in a custom `amr_msgs.msg.PoseStamped` message.
+        Publishes the robot's pose estimate in a custom 'amr_msgs.msg.PoseStamped' message.
 
         Converts estimated position and orientation into a ROS message format and publishes it.
 
@@ -265,7 +290,7 @@ class ParticleFilterNode(LifecycleNode):
         """
         pose_msg: PoseStamped = PoseStamped()  # Create a PoseStamped message instance
 
-        # Set timestamp in header to current time from ROS clock
+        # Set timestamp in header to current time
         pose_msg.header.stamp = self.get_clock().now().to_msg()
 
         if self._localized:
@@ -280,14 +305,14 @@ class ParticleFilterNode(LifecycleNode):
             pose_msg.pose.orientation.z = q[3]
             pose_msg.pose.orientation.w = q[0]
 
-        # Indicate whether localization was successful in `localized` field
+        # Indicate whether localization was successful in 'localized' field
         pose_msg.localized = self._localized
 
-        # Publish the PoseStamped message to the `/pose` topic
+        # Publish the PoseStamped message to the '/pose' topic
         self._pose_publisher.publish(pose_msg)
 
 
-def main(args: list[str] | None = None) -> None:
+def main(args=None) -> None:
     rclpy.init(args=args)
     particle_filter_node: ParticleFilterNode = ParticleFilterNode()
 

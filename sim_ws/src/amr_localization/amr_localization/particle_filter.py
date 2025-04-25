@@ -5,9 +5,9 @@ import os
 import pytz
 import random
 
-from amr_localization.maps import Map
+from amr_localization.maps import Map # Importing the Map for the particle filter
 from matplotlib import pyplot as plt
-from sklearn.cluster import DBSCAN
+from sklearn.cluster import DBSCAN # Importing DBSCAN for clustering particles
 
 
 class ParticleFilter:
@@ -29,8 +29,16 @@ class ParticleFilter:
         sensor_range_max: float = 8.0,
         sensor_range_min: float = 0.16,
         global_localization: bool = True,
-        initial_pose: tuple[float, float, float] = (float("nan"), float("nan"), float("nan")),
-        initial_pose_sigma: tuple[float, float, float] = (float("nan"), float("nan"), float("nan")),
+        initial_pose: tuple[float, float, float] = (
+            float("nan"),
+            float("nan"),
+            float("nan"),
+        ),
+        initial_pose_sigma: tuple[float, float, float] = (
+            float("nan"),
+            float("nan"),
+            float("nan"),
+        ),
     ):
         """
         Initializes the particle filter with the given parameters.
@@ -77,9 +85,9 @@ class ParticleFilter:
         self._figure, self._axes = plt.subplots(1, 1, figsize=(7, 7))
 
         # Timestamp for saving figures or logs with unique identifiers
-        self._timestamp = datetime.datetime.now(pytz.timezone("Europe/Madrid")).strftime(
-            "%Y-%m-%d_%H-%M-%S"
-        )
+        self._timestamp = datetime.datetime.now(
+            pytz.timezone("Europe/Madrid")
+        ).strftime("%Y-%m-%d_%H-%M-%S")
 
     def compute_pose(self) -> tuple[bool, tuple[float, float, float]]:
         """
@@ -120,7 +128,9 @@ class ParticleFilter:
         clusters = clustering.labels_  # Cluster labels for each particle
 
         # Extract unique cluster labels and their counts (excluding noise labeled as -1)
-        unique_clusters, counts = np.unique(clusters[clusters != -1], return_counts=True)
+        unique_clusters, counts = np.unique(
+            clusters[clusters != -1], return_counts=True
+        )
 
         if len(unique_clusters) > 1:
             # If multiple clusters are detected, increase particle count dynamically for better accuracy
@@ -165,7 +175,11 @@ class ParticleFilter:
         # Loop through each particle to apply the motion update
         for i, particle in enumerate(self._particles):
             x, y, theta = particle  # Extract current particle position and orientation
-            x_old, y_old, _ = x, y, theta  # Store previous position for collision checks
+            x_old, y_old, _ = (
+                x,
+                y,
+                theta,
+            )  # Store previous position for collision checks
 
             # Add Gaussian noise to linear and angular velocities
             noise_v = random.gauss(v, self._sigma_v)
@@ -186,7 +200,9 @@ class ParticleFilter:
             intersection_result = self._map.check_collision([(x_old, y_old), (x, y)])
 
             if intersection_result[0]:  # If a collision occurred
-                x_collision, y_collision = intersection_result[0]  # Extract collision coordinates
+                x_collision, y_collision = intersection_result[
+                    0
+                ]  # Extract collision coordinates
                 self._particles[i] = (
                     x_collision,
                     y_collision,
@@ -206,7 +222,10 @@ class ParticleFilter:
         """
         # Compute raw probabilities for each particle based on sensor measurements
         raw_probabilities = np.array(
-            [self._measurement_probability(measurements, particle) for particle in self._particles]
+            [
+                self._measurement_probability(measurements, particle)
+                for particle in self._particles
+            ]
         )
 
         # Convert probabilities to log scale to avoid numerical underflow issues
@@ -430,8 +449,8 @@ class ParticleFilter:
         """
         Computes the probability density of a Gaussian distribution.
 
-        This function calculates the likelihood of a value `x` given a Gaussian distribution
-        with mean `mu` and standard deviation `sigma`.
+        This function calculates the likelihood of a value 'x' given a Gaussian distribution
+        with mean 'mu' and standard deviation 'sigma'.
 
         Args:
             mu (float): Mean of the Gaussian distribution.
@@ -439,12 +458,17 @@ class ParticleFilter:
             x (float): Value for which to compute the probability density.
 
         Returns:
-            float: Probability density at `x`.
+            float: Probability density at 'x'.
         """
-        return math.exp(-((mu - x) ** 2) / (2 * sigma**2)) / ((2 * math.pi * sigma**2) ** 0.5)
+        return math.exp(-((mu - x) ** 2) / (2 * sigma**2)) / (
+            (2 * math.pi * sigma**2) ** 0.5
+        )
 
     def _lidar_rays(
-        self, pose: tuple[float, float, float], indices: tuple[float], degree_increment: float = 1.5
+        self,
+        pose: tuple[float, float, float],
+        indices: tuple[float],
+        degree_increment: float = 1.5,
     ) -> list[list[tuple[float, float]]]:
         """
         Generates simulated LiDAR ray segments for a given robot pose.

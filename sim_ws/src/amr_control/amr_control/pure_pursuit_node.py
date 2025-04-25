@@ -1,24 +1,24 @@
 # Importing necessary ROS 2 libraries
-import rclpy  # ROS 2 Python client library
+import rclpy
 from rclpy.lifecycle import (
     LifecycleNode,
     LifecycleState,
     TransitionCallbackReturn,
-)  # Lifecycle management for nodes
+)
 
 # Importing message types
 from amr_msgs.msg import PoseStamped  # Custom message type for pose
-from geometry_msgs.msg import TwistStamped  # Standard geometry_msgs for velocity commands
-from nav_msgs.msg import Path  # Message type for representing paths
+from geometry_msgs.msg import TwistStamped
+from nav_msgs.msg import Path
 
 # Importing additional libraries
 import math  # For mathematical operations
 import traceback  # For error handling and debugging
 from transforms3d.euler import quat2euler  # For quaternion to Euler angle conversion
+from typing import List, Tuple
 
-# Importing the PurePursuit controller and type hints
-from amr_control.pure_pursuit import PurePursuit  # Custom pure pursuit implementation
-from typing import List, Tuple  # Type hints for lists and tuples
+# Importing custom pure pursuit implementation
+from amr_control.pure_pursuit import PurePursuit
 
 
 class PurePursuitNode(LifecycleNode):
@@ -31,11 +31,13 @@ class PurePursuitNode(LifecycleNode):
 
     def __init__(self) -> None:
         """Pure pursuit node initializer."""
-        super().__init__("pure_pursuit")  # Initialize the node with the name "pure_pursuit"
+        super().__init__("pure_pursuit")
 
         # Declare parameters with default values
         self.declare_parameter("dt", 0.05)  # Time step for the controller
-        self.declare_parameter("lookahead_distance", 0.3)  # Lookahead distance for pure pursuit
+        self.declare_parameter(
+            "lookahead_distance", 0.3
+        )  # Lookahead distance for pure pursuit
 
     def on_configure(self, state: LifecycleState) -> TransitionCallbackReturn:
         """
@@ -49,29 +51,33 @@ class PurePursuitNode(LifecycleNode):
         Returns:
             TransitionCallbackReturn: Result of the transition.
         """
-        self.get_logger().info(f"Transitioning from '{state.label}' to 'inactive' state.")
+        self.get_logger().info(
+            f"Transitioning from '{state.label}' to 'inactive' state."
+        )
 
         try:
-            # Retrieve parameters from the parameter server
             dt: float = self.get_parameter("dt").get_parameter_value().double_value
             lookahead_distance: float = (
-                self.get_parameter("lookahead_distance").get_parameter_value().double_value
+                self.get_parameter("lookahead_distance")
+                .get_parameter_value()
+                .double_value
             )
 
             # Create subscriptions for pose and path topics
             self._subscriber_pose = self.create_subscription(
                 PoseStamped, "/pose", self._compute_commands_callback, 10
             )
-            self._subscriber_path = self.create_subscription(Path, "/path", self._path_callback, 10)
+            self._subscriber_path = self.create_subscription(
+                Path, "/path", self._path_callback, 10
+            )
 
-            # Create a publisher for velocity commands (TwistStamped messages)
+            # Create a publisher for velocity commands
             self._publisher = self.create_publisher(TwistStamped, "/cmd_vel", 10)
 
-            # Initialize the pure pursuit controller object with parameters
-            self._pure_pursuit: PurePursuit = PurePursuit(dt, lookahead_distance, self.get_logger())
+            # Initialize the pure pursuit controller
+            self._pure_pursuit: PurePursuit = PurePursuit(dt, lookahead_distance)
 
         except Exception:
-            # Log any errors that occur during configuration and return an error state
             self.get_logger().error(f"{traceback.format_exc()}")
             return TransitionCallbackReturn.ERROR
 
@@ -100,7 +106,7 @@ class PurePursuitNode(LifecycleNode):
         Args:
             pose_msg: Message containing the estimated robot pose.
         """
-        if pose_msg.localized:  # Ensure localization is available before proceeding
+        if pose_msg.localized:  # Ensure the robot is localized before proceeding
             # Extract position (x, y) and orientation (quaternion) from the pose message
             x: float = pose_msg.pose.position.x
             y: float = pose_msg.pose.position.y
@@ -109,15 +115,12 @@ class PurePursuitNode(LifecycleNode):
             quat_y: float = pose_msg.pose.orientation.y
             quat_z: float = pose_msg.pose.orientation.z
 
-            # Convert quaternion to Euler angles (yaw angle is theta)
+            # Convert quaternion to Euler angles
             _, _, theta = quat2euler((quat_w, quat_x, quat_y, quat_z))
             theta %= 2 * math.pi  # Normalize theta to [0, 2pi]
 
             # Compute linear (v) and angular (w) velocity commands using pure pursuit
             v, w = self._pure_pursuit.compute_commands(x, y, theta)
-
-            # Log computed commands for debugging purposes
-            self.get_logger().info(f"Commands: v = {v:.3f} m/s, w = {w:+.3f} rad/s")
 
             # Publish velocity commands to the /cmd_vel topic
             self._publish_velocity_commands(v, w)
@@ -131,7 +134,9 @@ class PurePursuitNode(LifecycleNode):
         Args:
             path_msg: Message containing the (smoothed) path as a sequence of poses.
         """
-        path: List[Tuple[float, float]] = []  # Initialize an empty list to store path points
+        path: List[Tuple[float, float]] = (
+            []
+        )  # Initialize an empty list to store path points
 
         for pose in path_msg.poses:
             x: float = pose.pose.position.x
@@ -149,12 +154,12 @@ class PurePursuitNode(LifecycleNode):
             v: Linear velocity command [m/s].
             w: Angular velocity command [rad/s].
         """
-        msg = TwistStamped()  # Create a new TwistStamped message instance
+        msg = TwistStamped() # Create a new TwistStamped message instance
 
-        # Set timestamp in header to current time from ROS clock
+        # Set timestamp in header to current time
         msg.header.stamp = self.get_clock().now().to_msg()
 
-        # Set linear and angular velocities in the twist field of the message
+        # Set linear and angular velocities
         msg.twist.linear.x = v
         msg.twist.angular.z = w
 
@@ -173,7 +178,9 @@ def main(args=None) -> None:
     pure_pursuit_node = PurePursuitNode()  # Create an instance of PurePursuitNode
 
     try:
-        rclpy.spin(pure_pursuit_node)  # Keep spinning until shutdown or interruption occurs
+        rclpy.spin(
+            pure_pursuit_node
+        )  # Keep spinning until shutdown or interruption occurs
     except KeyboardInterrupt:
         pass
 

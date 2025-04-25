@@ -1,7 +1,7 @@
 import rclpy
 from rclpy.lifecycle import LifecycleNode, LifecycleState, TransitionCallbackReturn
 
-from amr_msgs.msg import PoseStamped as AmrPoseStamped
+from amr_msgs.msg import PoseStamped as AmrPoseStamped  # Custom message for robot pose
 from geometry_msgs.msg import PoseStamped
 from nav_msgs.msg import Path
 
@@ -10,7 +10,7 @@ import time
 import traceback
 from typing import List, Tuple
 
-from amr_planning.prm import PRM
+from amr_planning.prm import PRM  # Custom PRM class for path planning
 
 
 class PRMNode(LifecycleNode):
@@ -34,9 +34,15 @@ class PRMNode(LifecycleNode):
         self.declare_parameter(
             "connection_distance", 0.3
         )  # Max distance to connect nodes in the roadmap
-        self.declare_parameter("enable_plot", False)  # Enable visualization of paths and roadmap
-        self.declare_parameter("goal", (0.0, 0.0))  # Goal position for pathfinding (x, y)
-        self.declare_parameter("grid_size", 0.05)  # Grid resolution for roadmap generation
+        self.declare_parameter(
+            "enable_plot", False
+        )  # Enable visualization of paths and roadmap
+        self.declare_parameter(
+            "goal", (0.0, 0.0)
+        )  # Goal position for pathfinding (x, y)
+        self.declare_parameter(
+            "grid_size", 0.05
+        )  # Grid resolution for roadmap generation
         self.declare_parameter("node_count", 250)  # Number of nodes in the roadmap
         self.declare_parameter(
             "obstacle_safety_distance", 0.12
@@ -50,7 +56,9 @@ class PRMNode(LifecycleNode):
         self.declare_parameter(
             "smoothing_smooth_weight", 0.3
         )  # Weight for smoothness during smoothing
-        self.declare_parameter("use_grid", False)  # Use grid-based roadmap generation if True
+        self.declare_parameter(
+            "use_grid", False
+        )  # Use grid-based roadmap generation if True
         self.declare_parameter("world", "project")  # Name of the map file to load
 
     def on_configure(self, state: LifecycleState) -> TransitionCallbackReturn:
@@ -66,21 +74,35 @@ class PRMNode(LifecycleNode):
         Returns:
             TransitionCallbackReturn: Result of the transition (SUCCESS or ERROR).
         """
-        self.get_logger().info(f"Transitioning from '{state.label}' to 'inactive' state.")
+        self.get_logger().info(
+            f"Transitioning from '{state.label}' to 'inactive' state."
+        )
 
         try:
-            # Retrieve parameters from the node's parameter server
+            # Parameters
             connection_distance = (
-                self.get_parameter("connection_distance").get_parameter_value().double_value
+                self.get_parameter("connection_distance")
+                .get_parameter_value()
+                .double_value
             )
-            self._enable_plot = self.get_parameter("enable_plot").get_parameter_value().bool_value
+            self._enable_plot = (
+                self.get_parameter("enable_plot").get_parameter_value().bool_value
+            )
             self._goal = tuple(
-                self.get_parameter("goal").get_parameter_value().double_array_value.tolist()
+                self.get_parameter("goal")
+                .get_parameter_value()
+                .double_array_value.tolist()
             )
-            grid_size = self.get_parameter("grid_size").get_parameter_value().double_value
-            node_count = self.get_parameter("node_count").get_parameter_value().integer_value
+            grid_size = (
+                self.get_parameter("grid_size").get_parameter_value().double_value
+            )
+            node_count = (
+                self.get_parameter("node_count").get_parameter_value().integer_value
+            )
             obstacle_safety_distance = (
-                self.get_parameter("obstacle_safety_distance").get_parameter_value().double_value
+                self.get_parameter("obstacle_safety_distance")
+                .get_parameter_value()
+                .double_value
             )
             self._smoothing_additional_points = (
                 self.get_parameter("smoothing_additional_points")
@@ -88,10 +110,14 @@ class PRMNode(LifecycleNode):
                 .integer_value
             )
             self._smoothing_data_weight = (
-                self.get_parameter("smoothing_data_weight").get_parameter_value().double_value
+                self.get_parameter("smoothing_data_weight")
+                .get_parameter_value()
+                .double_value
             )
             self._smoothing_smooth_weight = (
-                self.get_parameter("smoothing_smooth_weight").get_parameter_value().double_value
+                self.get_parameter("smoothing_smooth_weight")
+                .get_parameter_value()
+                .double_value
             )
             use_grid = self.get_parameter("use_grid").get_parameter_value().bool_value
             world = self.get_parameter("world").get_parameter_value().string_value
@@ -114,16 +140,19 @@ class PRMNode(LifecycleNode):
             roadmap_creation_time = time.perf_counter() - start_time
 
             # Log roadmap creation time for debugging purposes
-            self.get_logger().info(f"Roadmap creation time: {roadmap_creation_time:1.3f} s")
+            self.get_logger().info(
+                f"Roadmap creation time: {roadmap_creation_time:1.3f} s"
+            )
 
-            # Set up publishers and subscribers for pathfinding and localization updates
+            # Create a publisher for the path
             self._path_publisher = self.create_publisher(Path, "/path", 10)
+
+            # Create a subscription to the robot's pose
             self._subscriber_pose = self.create_subscription(
                 AmrPoseStamped, "/pose", self._path_callback, 10
             )
 
         except Exception:
-            # Log errors during configuration and return ERROR transition result
             self.get_logger().error(f"{traceback.format_exc()}")
             return TransitionCallbackReturn.ERROR
 
@@ -156,30 +185,21 @@ class PRMNode(LifecycleNode):
             start = (pose_msg.pose.position.x, pose_msg.pose.position.y)
 
             # Perform pathfinding using A* search in the PRM roadmap
-            start_time = time.perf_counter()
             path = self._planning.find_path(start, self._goal)
-            pathfinding_time = time.perf_counter() - start_time
-
-            # Log pathfinding time for debugging purposes
-            self.get_logger().info(f"Pathfinding time: {pathfinding_time:1.3f} s")
 
             # Smooth the computed path using a weighted algorithm
-            start_time = time.perf_counter()
             smoothed_path = PRM.smooth_path(
                 path=path,
                 data_weight=self._smoothing_data_weight,
                 smooth_weight=self._smoothing_smooth_weight,
                 additional_smoothing_points=self._smoothing_additional_points,
-                logger=self.get_logger(),
             )
-            smoothing_time = time.perf_counter() - start_time
-
-            # Log smoothing time for debugging purposes
-            self.get_logger().info(f"Smoothing time: {smoothing_time:1.3f} s")
 
             if self._enable_plot:
                 # Visualize paths if plotting is enabled in parameters
-                self._planning.show(path=path, smoothed_path=smoothed_path, save_figure=True)
+                self._planning.show(
+                    path=path, smoothed_path=smoothed_path, save_figure=True
+                )
 
             # Publish the smoothed path as a Path message
             self._publish_path(smoothed_path)
@@ -210,7 +230,7 @@ class PRMNode(LifecycleNode):
         self._path_publisher.publish(path_msg)
 
 
-def main(args: List[str] | None = None) -> None:
+def main(args=None) -> None:
     rclpy.init(args=args)
     prm_node: PRMNode = PRMNode()
 

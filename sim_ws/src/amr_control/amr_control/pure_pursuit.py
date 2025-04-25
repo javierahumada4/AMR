@@ -4,21 +4,21 @@ import math
 class PurePursuit:
     """Class to follow a path using a simple pure pursuit controller."""
 
-    def __init__(self, dt: float, lookahead_distance: float = 0.5, logger=None):
+    def __init__(self, dt: float, lookahead_distance: float = 0.5):
         """
         Initializes the PurePursuit controller.
 
         Args:
             dt: Sampling period [s], used for time-based control.
             lookahead_distance: Distance to the next target point [m].
-            logger: Optional logger for debugging and information messages.
         """
         self._dt: float = dt  # Sampling period
         self._lookahead_distance: float = (
             lookahead_distance  # Lookahead distance for target point selection
         )
-        self._path: list[tuple[float, float]] = []  # List of (x, y) waypoints representing the path
-        self._logger = logger  # Logger for debugging
+        self._path: list[tuple[float, float]] = (
+            []
+        )  # List of (x, y) waypoints representing the path
 
     def compute_commands(self, x: float, y: float, theta: float) -> tuple[float, float]:
         """
@@ -35,8 +35,6 @@ class PurePursuit:
         """
         # Check if a path has been provided
         if not self._path:
-            if self._logger:
-                self._logger.info(f"Path not found: {self._path}")
             return 0.0, 0.0  # Stop the robot if no path is available
 
         # Find the closest point on the path to the robot's current position
@@ -54,7 +52,9 @@ class PurePursuit:
 
             dx = destination[0] - x
             dy = destination[1] - y
-            beta = math.atan2(dy, dx)  # Angle to the target point relative to global frame
+            beta = math.atan2(
+                dy, dx
+            )  # Angle to the target point relative to global frame
             alpha = beta - theta  # Angle to the target point relative to robot's frame
 
             # Normalize alpha to the range [-pi, pi]
@@ -62,15 +62,17 @@ class PurePursuit:
 
             k_alpha = 1.5  # Gain for angular velocity control
 
-            # Handle sharp turns by reducing linear velocity and focusing on angular control
+            # Handle sharp turns by zeroing linear velocity and focusing on turning
             if abs(alpha) > math.pi / 4:
                 v = 0.0
                 w = k_alpha * alpha
             else:
                 v = min(
                     2.0, real_l / self._lookahead_distance
-                )  # Linear velocity is proportional to distance
-                w = 2 * v * math.sin(alpha) / real_l  # Angular velocity based on curvature
+                )  # Linear velocity is proportional to distance and capped at 2.0 m/s
+                w = (
+                    2 * v * math.sin(alpha) / real_l
+                )  # Angular velocity based on curvature
         else:
             v, w = 0.0, 0.0  # Stop if no valid target point is found
 
@@ -96,7 +98,9 @@ class PurePursuit:
         """
         self._path = value
 
-    def calculate_dis(self, pos_1: tuple[float, float], pos_2: tuple[float, float]) -> float:
+    def calculate_dis(
+        self, pos_1: tuple[float, float], pos_2: tuple[float, float]
+    ) -> float:
         """
         Calculates the Euclidean distance between two points.
 
@@ -109,7 +113,9 @@ class PurePursuit:
         """
         return math.sqrt((pos_1[0] - pos_2[0]) ** 2 + (pos_1[1] - pos_2[1]) ** 2)
 
-    def _find_closest_point(self, x: float, y: float) -> tuple[tuple[float, float], int]:
+    def _find_closest_point(
+        self, x: float, y: float
+    ) -> tuple[tuple[float, float], int]:
         """
         Finds the closest point on the path to the robot's current position.
 
@@ -126,7 +132,8 @@ class PurePursuit:
 
         # Find index of the closest point by minimizing Euclidean distance
         closest_idx = min(
-            range(len(self._path)), key=lambda i: self.calculate_dis(point, self._path[i])
+            range(len(self._path)),
+            key=lambda i: self.calculate_dis(point, self._path[i]),
         )
 
         closest_xy = self._path[closest_idx]  # Coordinates of the closest point
@@ -158,9 +165,13 @@ class PurePursuit:
         ]
 
         if points_outside_radius:
-            target_xy: tuple[float, float] = points_outside_radius[0]  # First valid target point
+            target_xy: tuple[float, float] = points_outside_radius[
+                0
+            ]  # First valid target point
         else:
-            target_xy = self._path[-1]  # Default to last point in path if no valid targets exist
+            target_xy = self._path[
+                -1
+            ]  # Default to last point in path if no valid targets exist
 
             if origin_xy == target_xy:  # If already at last waypoint
                 return None

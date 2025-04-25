@@ -6,8 +6,8 @@ import math
 
 def generate_launch_description():
     world = "project"
-    start = (-0.6, 1.0, math.radians(90))
-    goal = (0.2, -0.6)
+    start = (1.0, 1.0, math.radians(90))
+    goal = (-1.0, 0.6)
 
     particle_filter_node = LifecycleNode(
         package="amr_localization",
@@ -15,12 +15,12 @@ def generate_launch_description():
         name="particle_filter",
         namespace="",
         output="screen",
-        arguments=["--ros-args", "--log-level", "WARN"],
+        arguments=["--ros-args", "--log-level", "INFO"],
         parameters=[
             {
                 "enable_plot": False,
                 "global_localization": True,
-                "particles": 3000,
+                "particles": 1200,
                 "sigma_v": 0.05,
                 "sigma_w": 0.1,
                 "sigma_z": 0.2,

@@ -46,8 +46,8 @@ class PRM:
             map_path (str): Path to the map of the environment.
             obstacle_safety_distance (float): Distance to grow obstacles by [m].
             use_grid (bool): If True, generates nodes in a grid layout; otherwise, uses random sampling.
-            node_count (int): Number of random nodes to generate (used only if `use_grid` is False).
-            grid_size (float): Distance between consecutive nodes in x and y directions (used only if `use_grid` is True).
+            node_count (int): Number of random nodes to generate (used only if 'use_grid' is False).
+            grid_size (float): Distance between consecutive nodes in x and y directions (used only if 'use_grid' is True).
             connection_distance (float): Maximum distance to connect two nodes with an edge [m].
             sensor_range_max (float): Maximum range of sensor measurements [m].
         """
@@ -61,17 +61,17 @@ class PRM:
         )
 
         # Create the roadmap graph based on the selected sampling method
-        self._graph: dict[tuple[float, float], list[tuple[float, float]]] = self._create_graph(
-            use_grid, node_count, grid_size, connection_distance
+        self._graph: dict[tuple[float, float], list[tuple[float, float]]] = (
+            self._create_graph(use_grid, node_count, grid_size, connection_distance)
         )
 
         # Initialize visualization components for debugging or monitoring purposes
         self._figure, self._axes = plt.subplots(1, 1, figsize=(7, 7))
 
         # Timestamp for saving figures or logs with unique identifiers
-        self._timestamp = datetime.datetime.now(pytz.timezone("Europe/Madrid")).strftime(
-            "%Y-%m-%d_%H-%M-%S"
-        )
+        self._timestamp = datetime.datetime.now(
+            pytz.timezone("Europe/Madrid")
+        ).strftime("%Y-%m-%d_%H-%M-%S")
 
     def find_path(
         self, start: tuple[float, float], goal: tuple[float, float]
@@ -126,7 +126,9 @@ class PRM:
             raise ValueError("Goal location is outside the environment.")
 
         # Initialize data structures for A* algorithm
-        ancestors: dict[tuple[float, float], tuple[float, float]] = {}  # Tracks path reconstruction
+        ancestors: dict[tuple[float, float], tuple[float, float]] = (
+            {}
+        )  # Tracks path reconstruction
         path: list[tuple[float, float]] = []  # Stores final path
 
         initial_node = min(
@@ -136,9 +138,9 @@ class PRM:
             self._graph, key=lambda node: calculate_dis(node, goal)
         )  # Closest graph node to goal
 
-        open_list: dict[
-            tuple[float, float], tuple[float, float]
-        ] = {}  # Nodes to explore with their f and g values
+        open_list: dict[tuple[float, float], tuple[float, float]] = (
+            {}
+        )  # Nodes to explore with their f and g values
         close_list: set[tuple[float, float]] = set()  # Explored nodes
 
         open_list[initial_node] = (
@@ -163,18 +165,27 @@ class PRM:
 
                 if neighbour not in close_list:
                     if neighbour not in open_list or open_list[neighbour][1] > g_new:
-                        open_list[neighbour] = (f_new, g_new)  # Update cost values for neighbor
-                        ancestors[neighbour] = node  # Track ancestor for path reconstruction
+                        open_list[neighbour] = (
+                            f_new,
+                            g_new,
+                        )  # Update cost values for neighbor
+                        ancestors[neighbour] = (
+                            node  # Track ancestor for path reconstruction
+                        )
 
             close_list.add(node)  # Mark current node as explored
             open_list.pop(node)  # Remove current node from open list
 
         if final_node in close_list:
             if initial_node != start:
-                ancestors[initial_node] = start  # Add direct link from adjusted start position
+                ancestors[initial_node] = (
+                    start  # Add direct link from adjusted start position
+                )
 
             if final_node != goal:
-                ancestors[goal] = final_node  # Add direct link to adjusted goal position
+                ancestors[goal] = (
+                    final_node  # Add direct link to adjusted goal position
+                )
 
             path = self._reconstruct_path(
                 start, goal, ancestors
@@ -186,7 +197,9 @@ class PRM:
             return path  # Return reconstructed path
 
         else:
-            raise PathNotFound("Path not found")  # Raise exception if no valid path exists
+            raise PathNotFound(
+                "Path not found"
+            )  # Raise exception if no valid path exists
 
     @staticmethod
     def smooth_path(
@@ -195,7 +208,6 @@ class PRM:
         smooth_weight: float = 0.3,
         additional_smoothing_points: int = 0,
         tolerance: float = 1e-6,
-        logger=None,
     ) -> list[tuple[float, float]]:
         """
         Smooths a piecewise linear path using an iterative optimization algorithm.
@@ -210,13 +222,10 @@ class PRM:
             smooth_weight (float): Weight for achieving smoothness in the output path. Larger values result in smoother paths.
             additional_smoothing_points (int): Number of intermediate points to add between consecutive nodes of the original path.
             tolerance (float): Threshold for stopping the smoothing process. Iterations stop when changes fall below this value.
-            logger: Logger object for debugging and logging information.
 
         Returns:
             list[tuple[float, float]]: Smoothed path with the same start and end locations as the original path.
         """
-        logger.info(f"Path: {path}")
-
         # Initialize the extended path by adding intermediate points if specified
         extended_path: list[tuple[float, float]] = path.copy()
 
@@ -232,8 +241,6 @@ class PRM:
                         (x_start + j * x_diff, y_start + j * y_diff),
                     )
 
-        logger.info(f"Extended Path: {extended_path}")
-
         # Initialize smoothed path and change tracker
         smoothed_path: list[tuple[float, float]] = extended_path.copy()
         change = float("inf")
@@ -248,13 +255,17 @@ class PRM:
                 x = smoothed_path[i][0]
                 x += data_weight * (extended_path[i][0] - smoothed_path[i][0])
                 x += smooth_weight * (
-                    smoothed_path[i - 1][0] + smoothed_path[i + 1][0] - 2 * smoothed_path[i][0]
+                    smoothed_path[i - 1][0]
+                    + smoothed_path[i + 1][0]
+                    - 2 * smoothed_path[i][0]
                 )
 
                 y = smoothed_path[i][1]
                 y += data_weight * (extended_path[i][1] - smoothed_path[i][1])
                 y += smooth_weight * (
-                    smoothed_path[i - 1][1] + smoothed_path[i + 1][1] - 2 * smoothed_path[i][1]
+                    smoothed_path[i - 1][1]
+                    + smoothed_path[i + 1][1]
+                    - 2 * smoothed_path[i][1]
                 )
 
                 new_smoothed_path[i] = (x, y)
@@ -266,8 +277,6 @@ class PRM:
 
             # Update the smoothed path for the next iteration
             smoothed_path = new_smoothed_path
-
-        logger.info(f"Smoothed Path: {smoothed_path}")
 
         return smoothed_path
 
@@ -293,33 +302,30 @@ class PRM:
         """
         # Plot nodes of the roadmap graph
         x, y = zip(*self._graph.keys())
-        axes.plot(list(x), list(y), "co", markersize=1)  # Nodes as cyan dots
+        axes.plot(list(x), list(y), "co", markersize=1)
 
-        # Plot edges of the roadmap graph
         for node, neighbors in self._graph.items():
             x_start, y_start = node
 
             if neighbors:
                 for x_end, y_end in neighbors:
-                    axes.plot(
-                        [x_start, x_end], [y_start, y_end], "c-", linewidth=0.25
-                    )  # Edges as cyan lines
+                    axes.plot([x_start, x_end], [y_start, y_end], "c-", linewidth=0.25)
 
         # Plot original piecewise linear path
         if path:
             x_val = [x[0] for x in path]
             y_val = [x[1] for x in path]
 
-            axes.plot(x_val, y_val)  # Path as a line
-            axes.plot(x_val[1:-1], y_val[1:-1], "bo", markersize=4)  # Nodes as blue circles
+            axes.plot(x_val, y_val)
+            axes.plot(x_val[1:-1], y_val[1:-1], "bo", markersize=4)
 
         # Plot smoothed path
         if smoothed_path:
             x_val = [x[0] for x in smoothed_path]
             y_val = [x[1] for x in smoothed_path]
 
-            axes.plot(x_val, y_val, "y")  # Smoothed path as a yellow line
-            axes.plot(x_val[1:-1], y_val[1:-1], "yo", markersize=2)  # Nodes as yellow circles
+            axes.plot(x_val, y_val, "y")
+            axes.plot(x_val[1:-1], y_val[1:-1], "yo", markersize=2)
 
         if path or smoothed_path:
             # Mark start location with a red square and goal location with a green star
@@ -352,7 +358,7 @@ class PRM:
                             Note: This can be time-consuming and may not work inside containers without screen forwarding.
             block (bool): If True, blocks program execution until the figure window is closed.
             save_figure (bool): If True, saves the plot as a .png file.
-            save_dir (str): Directory where the image will be saved if `save_figure` is True.
+            save_dir (str): Directory where the image will be saved if 'save_figure' is True.
         """
         figure = self._figure  # Get the figure object
         axes = self._axes  # Get the axes object
@@ -364,15 +370,13 @@ class PRM:
 
         # Set plot title and adjust layout
         axes.set_title(title)
-        figure.tight_layout()  # Reduce white margins around the plot
+        figure.tight_layout()
 
         if display:
-            # Display the plot in a window
             plt.show(block=block)
-            plt.pause(0.001)  # Pause briefly to ensure the plot is displayed
+            plt.pause(0.001)
 
         if save_figure:
-            # Save the figure to a file
             save_path = os.path.join(os.path.dirname(__file__), "..", save_dir)
 
             if not os.path.isdir(save_path):
@@ -415,7 +419,7 @@ class PRM:
                 node_pos (tuple[float, float]): Position of the current node.
 
             Returns:
-                list[tuple[float, float]]: List of neighboring nodes that are within `connection_distance`
+                list[tuple[float, float]]: List of neighboring nodes that are within 'connection_distance'
                                         and do not have obstacles blocking their connection.
             """
             return [
@@ -443,13 +447,13 @@ class PRM:
         """
         Creates a roadmap as a graph by generating nodes and connecting them based on proximity.
 
-        This method generates nodes either randomly or in a grid layout depending on `use_grid`.
+        This method generates nodes either randomly or in a grid layout depending on 'use_grid'.
         It then connects nodes that are within a specified distance and have obstacle-free paths.
 
         Args:
             use_grid (bool): If False, generates nodes randomly; if True, generates nodes in a grid layout.
-            node_count (int): Number of random nodes to generate. Used only if `use_grid` is False.
-            grid_size (float): Distance between consecutive nodes in x and y directions. Used only if `use_grid` is True.
+            node_count (int): Number of random nodes to generate. Used only if 'use_grid' is False.
+            grid_size (float): Distance between consecutive nodes in x and y directions. Used only if 'use_grid' is True.
             connection_distance (float): Maximum distance to consider adding an edge between two nodes [m].
 
         Returns:
@@ -472,13 +476,13 @@ class PRM:
         """
         Generates a set of valid nodes for building a roadmap.
 
-        This method creates nodes either randomly or in a grid layout based on the `use_grid` parameter.
+        This method creates nodes either randomly or in a grid layout based on the 'use_grid' parameter.
         Nodes are only added if they fall within the valid bounds of the map.
 
         Args:
             use_grid (bool): If False, generates nodes randomly; if True, generates nodes in a grid layout.
-            node_count (int): Number of random nodes to generate (used only if `use_grid` is False).
-            grid_size (float): Distance between consecutive nodes in x and y directions (used only if `use_grid` is True).
+            node_count (int): Number of random nodes to generate (used only if 'use_grid' is False).
+            grid_size (float): Distance between consecutive nodes in x and y directions (used only if 'use_grid' is True).
 
         Returns:
             dict[tuple[float, float], list[tuple[float, float]]]: A dictionary where keys are valid node positions
@@ -511,7 +515,9 @@ class PRM:
                     # Generate random (x, y) within bounds and round to three decimal places
                     x = round(random.uniform(x_min, x_max), 3)
                     y = round(random.uniform(y_min, y_max), 3)
-                    valid = self._map.contains((x, y))  # Check if the node is within map bounds
+                    valid = self._map.contains(
+                        (x, y)
+                    )  # Check if the node is within map bounds
                 graph[(x, y)] = []
 
         return graph
@@ -525,7 +531,7 @@ class PRM:
         """
         Reconstructs the path from the start to the goal using ancestor information.
 
-        This method traces back from the goal to the start using the `ancestors` dictionary created
+        This method traces back from the goal to the start using the 'ancestors' dictionary created
         during pathfinding. The reconstructed path includes all intermediate nodes.
 
         Args:
@@ -561,7 +567,9 @@ if __name__ == "__main__":
 
     # Create the roadmap using PRM
     start_time = time.perf_counter()
-    prm = PRM(map_path, use_grid=True, node_count=250, grid_size=0.1, connection_distance=0.15)
+    prm = PRM(
+        map_path, use_grid=True, node_count=250, grid_size=0.1, connection_distance=0.15
+    )
     roadmap_creation_time = time.perf_counter() - start_time
 
     print(f"Roadmap creation time: {roadmap_creation_time:1.3f} s")
